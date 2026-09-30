@@ -533,8 +533,8 @@ const adCtx = adVisit
 
 // Optional: report leads straight to Google Ads as conversions (see adsConversion in js/site-config.js)
 const ADS = SITE.adsConversion || {};
+// (The AW- tag itself is configured in <head> of index.html, so Google Ads can detect it.)
 const adsOn = window.gtag && /^AW-\d+$/.test(ADS.id || '');
-if (adsOn) window.gtag('config', ADS.id);
 
 function track(name, params = {}) {
   if (!window.gtag) return;

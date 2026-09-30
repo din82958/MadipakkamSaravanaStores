@@ -11,13 +11,13 @@ window.SITE = {
 
   /* ---------- 1b. Google Ads conversions (optional) ----------
      Easiest way: link Google Ads to GA4 and import the key events (see README),
-     then leave this empty. Only fill it in if you create conversion actions
-     directly in Google Ads (Goals → Conversions → Website → "Set up manually").
-     - id:     your Google Ads tag ID, looks like "AW-123456789"
+     then leave the labels empty. Only fill in labels if you create conversion
+     actions directly in Google Ads (Goals → Conversions → Website → "Set up manually").
+     - id:     your Google Ads tag ID. It is also in <head> of index.html; keep both the same.
      - labels: the conversion label Google Ads shows for each lead type
      Don't do both, or each lead is counted twice. */
   adsConversion: {
-    id: '',
+    id: 'AW-18484151582',
     labels: { call: '', whatsapp: '', directions: '' },
   },
 
