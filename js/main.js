@@ -472,9 +472,20 @@ function renderReviews() {
 renderReviews();
 langHooks.push(renderReviews);
 
-// ===== Google Analytics (GA4) – turns on when analyticsId is set in js/site-config.js =====
-function track(name, params) { if (window.gtag) window.gtag('event', name, params); }
-if (/^G-[A-Z0-9]+$/i.test(SITE.analyticsId || '')) {
+// ===== Google Analytics (GA4) =====
+// The gtag snippet sits in <head> of index.html. If it's ever removed, setting analyticsId
+// in js/site-config.js loads it from here instead. Events sent (see README for GA4 setup):
+//   view_category    a category card scrolled into view        category
+//   select_category  a category shortcut tapped (menu, quick)  category, link_location
+//   select_product   a product line tapped in a category card  category, product
+//   select_occasion  an occasion / festival "Ask" tapped       occasion
+//   select_location  a store looked at (visit link, photo tab, map)  store, action
+//   open_store_picker  the "which store?" sheet opened         contact_method, + context
+//   picker_dismissed   sheet closed without choosing a store   contact_method, + context
+//   click_call / click_whatsapp / click_directions  the lead   store, contact_method, + context
+// "context" = link_location plus the last category / product / occasion tapped, so a lead
+// can be traced back to what the visitor was interested in.
+if (!window.gtag && /^G-[A-Z0-9]+$/i.test(SITE.analyticsId || '')) {
   const tag = document.createElement('script');
   tag.async = true;
   tag.src = `https://www.googletagmanager.com/gtag/js?id=${SITE.analyticsId}`;
@@ -483,16 +494,90 @@ if (/^G-[A-Z0-9]+$/i.test(SITE.analyticsId || '')) {
   window.gtag = function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
   window.gtag('config', SITE.analyticsId);
-  // Count the actions that matter: calls, WhatsApp chats, directions
+}
+// Add ?ga_debug to the URL to see events live in GA4 → Admin → DebugView
+const GA_DEBUG = /[?&]ga_debug\b/.test(location.search);
+function track(name, params = {}) {
+  if (!window.gtag) return;
+  window.gtag('event', name, { ...params, ...(GA_DEBUG && { debug_mode: true }), transport_type: 'beacon' });
+}
+if (window.gtag) {
+  const CATEGORY = { 'cat-steel': 'steel_brass', 'cat-cookware': 'cookware_appliances', 'cat-plastics': 'plastics_household', 'cat-pooja': 'pooja_occasions' };
+  const storeOf = (s) => /madipakkam|9698471616|Lc5Mn1nZLhLbLNLt5|12\.97/i.test(s) ? 'madipakkam'
+    : /medavakkam|9444577336|SWVrHgRHAYiuGCfy9|12\.92/i.test(s) ? 'medavakkam' : 'not_chosen';
+  const placeOf = (el) => {
+    const zones = [['.action-bar', 'action_bar'], ['.nav-extra', 'menu'], ['#header', 'header'], ['.hero', 'hero'],
+      ['.quick-item', 'quick_links'], ['.season-card', 'festival_banner'], ['footer', 'footer']];
+    for (const [sel, name] of zones) if (el.closest(sel)) return name;
+    const sec = el.closest('section[id]');
+    return sec ? sec.id : 'page';
+  };
+  // What the visitor last showed interest in – carried onto their call / WhatsApp / directions tap
+  const interest = { category: '(none)', product: '(none)', occasion: '(none)' };
+  let pickerCtx = null;   // set while the "which store?" sheet is open
+  let pickerChosen = false;
+
+  // Funnel step 1: which categories people actually look at
+  if ('IntersectionObserver' in window) {
+    const seen = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      track('view_category', { category: CATEGORY[en.target.id] });
+      seen.unobserve(en.target);
+    }), { threshold: 0.5 });
+    $$('.cat-card[id]').forEach(c => seen.observe(c));
+  }
+
+  // Capture phase so we see the tap before other handlers change the link or close the sheet
   document.addEventListener('click', e => {
-    const a = e.target.closest('a[href]');
-    if (!a) return;
-    const href = a.getAttribute('href');
-    const store = /9698471616|Lc5Mn1nZLhLbLNLt5/.test(href) ? 'madipakkam' : /9444577336|SWVrHgRHAYiuGCfy9/.test(href) ? 'medavakkam' : 'unknown';
-    if (href.startsWith('tel:')) track('click_call', { store });
-    else if (href.includes('wa.me/')) track('click_whatsapp', { store });
-    else if (href.includes('maps.app.goo.gl')) track('click_directions', { store });
+    const el = e.target.closest('a, button');
+    if (!el) return;
+    const href = el.getAttribute('href') || '';
+    const link_location = placeOf(el);
+
+    // Category shortcuts (#cat-steel etc.)
+    if (CATEGORY[href.slice(1)]) {
+      interest.category = CATEGORY[href.slice(1)];
+      track('select_category', { category: interest.category, link_location });
+    }
+    // Store look-ups: "Visit Medavakkam", gallery tabs
+    if (href === '#madipakkam' || href === '#medavakkam') track('select_location', { store: href.slice(1), action: 'visit_link', link_location });
+    if (el.matches('.tab[data-tab]')) track('select_location', { store: el.dataset.tab, action: 'photo_tab', link_location });
+
+    // Opening the "which store?" sheet
+    if (el.dataset.picker) {
+      const card = el.closest('.cat-card[id]');
+      if (card) {
+        interest.category = CATEGORY[card.id];
+        interest.product = el.dataset.occasion || '(none)';
+        track('select_product', { category: interest.category, product: interest.product });
+      } else if (el.dataset.occasion) {
+        interest.occasion = el.dataset.occasion;
+        track('select_occasion', { occasion: interest.occasion, link_location });
+      }
+      pickerCtx = { contact_method: el.dataset.picker, link_location, ...interest };
+      pickerChosen = false;
+      track('open_store_picker', pickerCtx);
+      return;
+    }
+
+    // The lead itself: call, WhatsApp or directions (direct links, or a store chosen in the sheet)
+    const method = href.startsWith('tel:') ? 'call' : href.includes('wa.me/') ? 'whatsapp' : href.includes('maps.app.goo.gl') ? 'directions' : null;
+    if (!method) return;
+    const inSheet = el.closest('#picker');
+    if (inSheet) pickerChosen = true;
+    const ctx = inSheet && pickerCtx ? pickerCtx : { link_location, ...interest };
+    track(`click_${method}`, { ...ctx, contact_method: method, store: storeOf(href), via_picker: inSheet ? 'yes' : 'no' });
   }, true);
+
+  // Drop-off: sheet opened but no store chosen
+  $('#picker').addEventListener('close', () => {
+    if (pickerCtx && !pickerChosen) track('picker_dismissed', pickerCtx);
+    pickerCtx = null;
+  });
+  // Map opened on a store card
+  $$('.map-toggle').forEach(d => d.addEventListener('toggle', () => {
+    if (d.open) track('select_location', { store: storeOf($('.map', d).dataset.map), action: 'map_open', link_location: 'stores' });
+  }));
 }
 
 // ===== Init =====

@@ -32,7 +32,27 @@ This is a simple static website. You don't need any software to run it: double-c
 ## Site settings: `js/site-config.js`
 All the things you'll update regularly are in one file:
 
-1. **Google Analytics.** Create a free GA4 property at analytics.google.com, copy the Measurement ID (`G-XXXXXXX`) and paste it as `analyticsId`. The site then also counts taps on Call, WhatsApp and Directions for each shop, as events named `click_call`, `click_whatsapp` and `click_directions`.
+1. **Google Analytics.** The GA4 tag (`G-E55J9Y15PK`) is in the `<head>` of `index.html`, and the same ID is set as `analyticsId`. The site sends these events:
+
+   | Event | When | Details sent |
+   |---|---|---|
+   | `view_category` | a category card is scrolled into view | `category` |
+   | `select_category` | a category shortcut is tapped (menu, quick links) | `category`, `link_location` |
+   | `select_product` | a product line in a category card is tapped | `category`, `product` |
+   | `select_occasion` | an occasion or festival "Ask on WhatsApp" is tapped | `occasion` |
+   | `select_location` | a store is looked at (Visit link, photo tab, map opened) | `store`, `action` |
+   | `open_store_picker` | the "Which store?" sheet opens | `contact_method` + context |
+   | `picker_dismissed` | the sheet is closed without choosing a store | `contact_method` + context |
+   | `click_call` / `click_whatsapp` / `click_directions` | the customer calls, WhatsApps or asks for directions | `store`, `contact_method`, `via_picker` + context |
+
+   *Context* means `link_location` (which part of the page was tapped) plus the last `category`, `product` and `occasion` the visitor tapped, so each lead shows what they were interested in. `store` is `madipakkam` or `medavakkam`.
+
+   **One-time setup in GA4** (analytics.google.com):
+   - *Admin → Custom definitions → Create custom dimension* (scope **Event**), one for each of: `category`, `product`, `occasion`, `store`, `contact_method`, `link_location`, `action`, `via_picker`. Until these exist, the reports can't show the details.
+   - *Admin → Events*: mark `click_call`, `click_whatsapp` and `click_directions` as **key events** (leads).
+   - *Explore → Funnel exploration*, steps: 1 `page_view` → 2 `view_category` → 3 `select_product` → 4 `open_store_picker` → 5 `click_whatsapp` or `click_call`. Add a breakdown by `category` or `store`.
+   - *Explore → Free form*: rows `store`, columns `contact_method`, value *Event count*, filtered to the three `click_*` events. This shows Madipakkam vs Medavakkam by call, WhatsApp and directions.
+   - To test, open the site with `?ga_debug` at the end of the address and watch *Admin → DebugView*.
 2. **Google ratings and customer quotes.** Open each shop on Google Maps and copy:
    - the star rating and number of reviews, into `rating` and `count`
    - 2–3 real reviews, word for word, with the reviewer's first name, into `quotes`

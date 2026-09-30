@@ -7,7 +7,7 @@ window.SITE = {
   /* ---------- 1. Google Analytics ----------
      Paste your GA4 Measurement ID (looks like "G-AB12CD34EF").
      Leave empty ("") to turn analytics off. */
-  analyticsId: '',
+  analyticsId: 'G-E55J9Y15PK',
 
   /* ---------- 2. Google ratings & customer quotes ----------
      Copy these from each shop's Google Maps listing.
