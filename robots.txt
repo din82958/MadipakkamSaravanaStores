@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# After publishing, replace YOUR-DOMAIN with the real web address and remove the #:
+# Sitemap: https://YOUR-DOMAIN/sitemap.xml
