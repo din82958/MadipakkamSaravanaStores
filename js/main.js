@@ -497,10 +497,53 @@ if (!window.gtag && /^G-[A-Z0-9]+$/i.test(SITE.analyticsId || '')) {
 }
 // Add ?ga_debug to the URL to see events live in GA4 → Admin → DebugView
 const GA_DEBUG = /[?&]ga_debug\b/.test(location.search);
+
+// ----- Ad attribution -----
+// Visitors from an ad arrive with gclid / gbraid / wbraid (Google Ads auto-tagging), fbclid (Meta),
+// utm_* tags, and sl=<name> on sitelinks (e.g. ?sl=seer#occ-seer). This is remembered for 30 days
+// in the visitor's browser, so a lead on a later visit still counts for the ad that brought them.
+// Every event then carries ad_source, ad_campaign, ad_sitelink and ad_click (yes/no).
+const AD_KEY = 'ad_visit';
+const AD_DAYS = 30;
+const clean = (v, fallback) => (v || '').replace(/[^\w\- .]/g, '').slice(0, 60) || fallback;
+const adVisit = (function () {
+  const q = new URLSearchParams(location.search);
+  const clickId = q.get('gclid') || q.get('gbraid') || q.get('wbraid');
+  const fromAd = clickId || q.get('fbclid') || q.get('utm_source') || q.get('sl');
+  if (fromAd) {
+    const visit = {
+      ad_source: clean(q.get('utm_source'), clickId ? 'google' : q.get('fbclid') ? 'facebook' : '(unknown)'),
+      ad_campaign: clean(q.get('utm_campaign'), clickId ? 'google_ads' : '(not set)'),
+      ad_sitelink: clean(q.get('sl'), '(none)'),
+      ad_click: 'yes',
+      landed: Date.now(),
+    };
+    try { localStorage.setItem(AD_KEY, JSON.stringify(visit)); } catch (e) {}
+    return { ...visit, is_new: true };
+  }
+  try {
+    const saved = JSON.parse(localStorage.getItem(AD_KEY));
+    if (saved && Date.now() - saved.landed < AD_DAYS * 864e5) return saved;
+  } catch (e) {}
+  return null;
+})();
+const adCtx = adVisit
+  ? { ad_source: adVisit.ad_source, ad_campaign: adVisit.ad_campaign, ad_sitelink: adVisit.ad_sitelink, ad_click: 'yes' }
+  : { ad_click: 'no' };
+
+// Optional: report leads straight to Google Ads as conversions (see adsConversion in js/site-config.js)
+const ADS = SITE.adsConversion || {};
+const adsOn = window.gtag && /^AW-\d+$/.test(ADS.id || '');
+if (adsOn) window.gtag('config', ADS.id);
+
 function track(name, params = {}) {
   if (!window.gtag) return;
-  window.gtag('event', name, { ...params, ...(GA_DEBUG && { debug_mode: true }), transport_type: 'beacon' });
+  window.gtag('event', name, { ...adCtx, ...params, ...(GA_DEBUG && { debug_mode: true }), transport_type: 'beacon' });
+  const label = adsOn && (ADS.labels || {})[name.replace('click_', '')];
+  if (label && name.startsWith('click_')) window.gtag('event', 'conversion', { send_to: `${ADS.id}/${label}`, transport_type: 'beacon' });
 }
+// The visit that came from an ad: which ad, which sitelink, which section it opened on
+if (adVisit && adVisit.is_new) track('ad_landing', { landing_section: clean(location.hash.slice(1), 'top') });
 if (window.gtag) {
   const CATEGORY = { 'cat-steel': 'steel_brass', 'cat-cookware': 'cookware_appliances', 'cat-plastics': 'plastics_household', 'cat-pooja': 'pooja_occasions' };
   const storeOf = (s) => /madipakkam|9698471616|Lc5Mn1nZLhLbLNLt5|12\.97/i.test(s) ? 'madipakkam'

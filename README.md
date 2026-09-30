@@ -53,6 +53,27 @@ All the things you'll update regularly are in one file:
    - *Explore → Funnel exploration*, steps: 1 `page_view` → 2 `view_category` → 3 `select_product` → 4 `open_store_picker` → 5 `click_whatsapp` or `click_call`. Add a breakdown by `category` or `store`.
    - *Explore → Free form*: rows `store`, columns `contact_method`, value *Event count*, filtered to the three `click_*` events. This shows Madipakkam vs Medavakkam by call, WhatsApp and directions.
    - To test, open the site with `?ga_debug` at the end of the address and watch *Admin → DebugView*.
+
+   **Ads: which leads came from an advertisement**
+
+   When someone arrives from an ad, the site remembers it for 30 days, and every event above also carries:
+
+   | Detail | What it holds |
+   |---|---|
+   | `ad_click` | `yes` if the visitor came from an ad (now or in the last 30 days), otherwise `no` |
+   | `ad_source` | `google` (Google Ads), `facebook` (Meta), or the `utm_source` you set |
+   | `ad_campaign` | the `utm_campaign` you set, or `google_ads` |
+   | `ad_sitelink` | which sitelink was tapped (from `?sl=…`), or `(none)` |
+
+   There is also an `ad_landing` event when the visitor arrives from an ad, with `landing_section` (for example `occ-seer`).
+
+   One-time setup:
+   - GA4 *Admin → Custom definitions*: add event-scope dimensions `ad_click`, `ad_source`, `ad_campaign`, `ad_sitelink`, `landing_section`.
+   - **Count leads as Google Ads conversions:** in Google Ads, *Tools → Data manager → Google Analytics (GA4)*, then link this GA4 property. Make sure **auto-tagging** is on (*Admin → Account settings*). Then *Goals → Conversions → Import → Google Analytics (GA4) → Web* and pick `click_call`, `click_whatsapp` and `click_directions`. Google Ads then shows which ad, keyword and sitelink produced each call or WhatsApp.
+   - Only if you create conversions directly in Google Ads instead of importing them: put the `AW-…` ID and labels in `adsConversion` in `js/site-config.js`. Don't import the same events as well, or each lead is counted twice.
+   - **Sitelink addresses:** give each sitelink its own address with `?sl=` before the `#`, for example `https://your-domain.com/?sl=steel#cat-steel`, `?sl=seer#occ-seer`, `?sl=delivery#delivery`, `?sl=repair#services`, `?sl=stores#stores`.
+   - **Facebook / Instagram ads:** add tags to the ad's website link, for example `?utm_source=facebook&utm_campaign=diwali_2026`.
+   - Report: *Explore → Free form*, rows `ad_click` (or `ad_sitelink`), columns `contact_method`, value *Event count*, filtered to the `click_*` events. This shows the leads from ads against the rest.
 2. **Google ratings and customer quotes.** Open each shop on Google Maps and copy:
    - the star rating and number of reviews, into `rating` and `count`
    - 2–3 real reviews, word for word, with the reviewer's first name, into `quotes`

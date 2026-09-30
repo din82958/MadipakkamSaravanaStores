@@ -9,6 +9,18 @@ window.SITE = {
      Leave empty ("") to turn analytics off. */
   analyticsId: 'G-E55J9Y15PK',
 
+  /* ---------- 1b. Google Ads conversions (optional) ----------
+     Easiest way: link Google Ads to GA4 and import the key events (see README),
+     then leave this empty. Only fill it in if you create conversion actions
+     directly in Google Ads (Goals → Conversions → Website → "Set up manually").
+     - id:     your Google Ads tag ID, looks like "AW-123456789"
+     - labels: the conversion label Google Ads shows for each lead type
+     Don't do both, or each lead is counted twice. */
+  adsConversion: {
+    id: '',
+    labels: { call: '', whatsapp: '', directions: '' },
+  },
+
   /* ---------- 2. Google ratings & customer quotes ----------
      Copy these from each shop's Google Maps listing.
      - rating: the star rating shown on Google, e.g. 4.6
