@@ -1,0 +1,130 @@
+/* =========================================================
+   Version 3 – premium theme polish for shop promotion.
+   Loaded after style.css and v2.css. Purely visual refinements:
+   richer red + gold palette, elevated cards, cleaner rhythm,
+   promotional shine on buttons and offers. Nothing structural.
+   ========================================================= */
+
+:root {
+  --gold: #c39a4e;
+  --gold-soft: #f6ecd4;
+  --gold-line: rgba(195, 154, 78, .45);
+  --red-glow: rgba(200, 20, 27, .28);
+  --page: #fcfbf9;                 /* warm off-white for a boutique feel */
+  --shadow-gold: 0 18px 44px -20px rgba(155, 116, 40, .45);
+  --shadow-lift: 0 2px 6px rgba(16,18,20,.05), 0 24px 50px -18px rgba(16,18,20,.22);
+}
+
+/* Warm the page background so white cards feel crisp and premium */
+body { background: var(--page); }
+.quick, .cats, #gallery, #stores, #faq { background: var(--page); }
+
+/* ---------- Refined buttons: subtle depth + promotional shine ---------- */
+.btn { position: relative; overflow: hidden; font-weight: 600; letter-spacing: .04em; }
+.btn-primary {
+  background: linear-gradient(180deg, #d61c23 0%, var(--red) 55%, var(--red-deep) 100%);
+  box-shadow: 0 10px 24px -10px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn-primary:hover { background: linear-gradient(180deg, var(--red) 0%, var(--red-deep) 100%); box-shadow: 0 14px 30px -10px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.18); }
+.btn-whatsapp { background: linear-gradient(180deg, #21a256 0%, var(--green) 60%, #147a40 100%); box-shadow: 0 10px 24px -12px rgba(20,122,64,.6), inset 0 1px 0 rgba(255,255,255,.2); }
+.btn-light { background: linear-gradient(180deg, #ffffff 0%, #fbf3e2 100%); }
+
+/* Shine sweep on the main call-to-action buttons */
+.btn-primary::after, .btn-light::after, .btn-whatsapp::after {
+  content: ""; position: absolute; top: 0; left: -140%; width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.45), transparent);
+  transform: skewX(-18deg); transition: left .7s var(--ease); pointer-events: none;
+}
+.btn-primary:hover::after, .btn-light:hover::after, .btn-whatsapp:hover::after { left: 140%; }
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary::after, .btn-light::after, .btn-whatsapp::after { display: none; }
+}
+
+/* ---------- Top bar: deeper gradient, subtle gold hairline ---------- */
+.topbar { background: linear-gradient(90deg, var(--red-deep), var(--red) 50%, var(--red-deep)); box-shadow: inset 0 -1px 0 rgba(255,255,255,.12); }
+.topbar .ico { color: var(--gold-soft); }
+
+/* ---------- Kicker: gold-tipped rule for a boutique signature ---------- */
+.kicker::before { background: linear-gradient(90deg, var(--gold), var(--red)); height: 2px; width: 28px; border-radius: 2px; }
+
+/* Center section heads a touch more airy on desktop */
+@media (min-width: 861px) {
+  .section-head { max-width: 680px; }
+}
+
+/* ---------- Category cards: premium hover + gold accent ---------- */
+.cat-card { transition: box-shadow .35s var(--ease), transform .35s var(--ease), border-color .35s; }
+.cat-card:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); border-color: var(--gold-line); }
+.cat-num { background: linear-gradient(135deg, var(--red), var(--red-deep)); box-shadow: 0 8px 18px -8px var(--red-glow); }
+.cat-media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(180deg, transparent 60%, rgba(16,18,20,.08));
+}
+.chips a:hover, .chips a:focus-visible {
+  background: linear-gradient(180deg, #d61c23, var(--red-deep)); border-color: var(--red-deep);
+  box-shadow: 0 6px 14px -8px var(--red-glow);
+}
+
+/* ---------- Occasion cards: lift + gold edge ---------- */
+.occasion { transition: box-shadow .35s var(--ease), transform .35s var(--ease), border-color .35s; }
+.occasion:hover { box-shadow: var(--shadow-lift); transform: translateY(-4px); border-color: var(--gold-line); }
+.occ-tag { box-shadow: 0 6px 16px -8px rgba(0,0,0,.4); }
+
+/* ---------- Delivery / bulk terms: crisper promotional cards ---------- */
+.term { border: 1px solid rgba(255,255,255,.5); }
+.term:hover { transform: translateY(-3px); transition: transform .3s var(--ease); }
+.term-stamp {
+  background: var(--gold-soft); border-color: var(--red);
+  box-shadow: 0 8px 20px -10px rgba(155,116,40,.6);
+}
+
+/* ---------- Quote band: warmer glow ---------- */
+.quote-band::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(195,154,78,.35), transparent 60%),
+    linear-gradient(180deg, rgba(120,8,14,.92) 0%, rgba(155,13,19,.9) 50%, rgba(22,24,27,.96) 100%);
+}
+.quote-tags li { transition: background .2s, border-color .2s, color .2s; }
+.quote-tags li:hover { background: rgba(195,154,78,.18); border-color: var(--gold); }
+
+/* ---------- Store cards: premium framing ---------- */
+.store { transition: box-shadow .35s var(--ease), transform .35s var(--ease); }
+.store:hover { box-shadow: var(--shadow-lift); transform: translateY(-3px); }
+.badge { box-shadow: 0 6px 16px -8px rgba(0,0,0,.35); backdrop-filter: blur(4px); }
+
+/* ---------- Legacy stats & timeline: gold warmth ---------- */
+.legacy-stats strong { background: linear-gradient(180deg, var(--red), var(--red-deep)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+.since-seal { background: linear-gradient(145deg, #d61c23, var(--red-deep)); }
+
+/* ---------- Promise / service icon rings: soft gradient ---------- */
+.icon-ring { background: linear-gradient(145deg, var(--red-soft), #fff); box-shadow: inset 0 0 0 1px rgba(200,20,27,.08); }
+.promise-item { transition: box-shadow .3s, transform .3s var(--ease); }
+@media (max-width: 860px) {
+  .promise-item:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+}
+
+/* ---------- Section divider flourish between light sections ---------- */
+.cats::before, #occasions::before {
+  content: ""; display: block; width: 56px; height: 3px; margin: 0 auto 40px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent); border-radius: 3px;
+}
+
+/* ---------- FAQ: gold hover cue ---------- */
+.faq-item { transition: border-color .2s, box-shadow .2s; }
+.faq-item:hover { border-color: var(--gold-line); }
+.faq-item summary::after { background: var(--gold-soft); color: var(--red-deep); }
+.faq-item[open] summary::after { background: var(--red-soft); }
+
+/* ---------- Footer: subtle gold top hairline ---------- */
+.site-footer { position: relative; background: linear-gradient(180deg, #1a1c1f, var(--ink)); }
+.site-footer::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--gold), var(--red), var(--gold), transparent); }
+
+/* ---------- Action bar (mobile): lift the active tap ---------- */
+.action-bar { box-shadow: 0 -6px 24px -18px rgba(0,0,0,.5); }
+
+/* ---------- Reveal: add a touch of scale for life ---------- */
+.js .reveal { transform: translateY(20px) scale(.995); }
+.js .reveal.is-visible { transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { transform: none; }
+}

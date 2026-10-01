@@ -1,0 +1,129 @@
+/* =========================================================
+   Premium motion layer – loaded after v3.css.
+   Works with the existing .reveal / .is-visible observer.
+   Everything here is decorative and fully disabled under
+   prefers-reduced-motion at the bottom of the file.
+   ========================================================= */
+
+/* ---------- Smoother, more premium reveal easing ---------- */
+.js .reveal {
+  transition: opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1);
+  will-change: opacity, transform;
+}
+
+/* Staggered cascade for grids – children fade up one after another */
+.cat-cards > .reveal:nth-child(1) { transition-delay: .04s; }
+.cat-cards > .reveal:nth-child(2) { transition-delay: .12s; }
+.cat-cards > .reveal:nth-child(3) { transition-delay: .20s; }
+.cat-cards > .reveal:nth-child(4) { transition-delay: .28s; }
+
+.terms-grid > .reveal:nth-child(1) { transition-delay: .05s; }
+.terms-grid > .reveal:nth-child(2) { transition-delay: .15s; }
+.terms-grid > .reveal:nth-child(3) { transition-delay: .25s; }
+
+.occasion-grid > .reveal:nth-child(1) { transition-delay: .04s; }
+.occasion-grid > .reveal:nth-child(2) { transition-delay: .10s; }
+.occasion-grid > .reveal:nth-child(3) { transition-delay: .16s; }
+.occasion-grid > .reveal:nth-child(4) { transition-delay: .22s; }
+.occasion-grid > .reveal:nth-child(5) { transition-delay: .28s; }
+.occasion-grid > .reveal:nth-child(6) { transition-delay: .34s; }
+
+.promise-grid > .reveal:nth-child(1) { transition-delay: .04s; }
+.promise-grid > .reveal:nth-child(2) { transition-delay: .12s; }
+.promise-grid > .reveal:nth-child(3) { transition-delay: .20s; }
+.promise-grid > .reveal:nth-child(4) { transition-delay: .28s; }
+
+.service-grid > .reveal:nth-child(1) { transition-delay: .05s; }
+.service-grid > .reveal:nth-child(2) { transition-delay: .15s; }
+.service-grid > .reveal:nth-child(3) { transition-delay: .25s; }
+
+.store-grid > .reveal:nth-child(2) { transition-delay: .12s; }
+
+/* ---------- Hero content entrance ---------- */
+@keyframes heroUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.slide.is-active .eyebrow { animation: heroUp .8s cubic-bezier(.2,.7,.2,1) both; animation-delay: .15s; }
+.slide.is-active h1,
+.slide.is-active .h1 { animation: heroUp .9s cubic-bezier(.2,.7,.2,1) both; animation-delay: .28s; }
+.slide.is-active .lead { animation: heroUp .9s cubic-bezier(.2,.7,.2,1) both; animation-delay: .42s; }
+.slide.is-active .hero-cta { animation: heroUp .9s cubic-bezier(.2,.7,.2,1) both; animation-delay: .56s; }
+.hero-strip { animation: heroUp 1s cubic-bezier(.2,.7,.2,1) both; animation-delay: .7s; }
+
+/* ---------- Pulsing glow on the primary hero call-to-action ---------- */
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 10px 24px -10px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.18); }
+  50% { box-shadow: 0 14px 34px -8px rgba(200,20,27,.55), inset 0 1px 0 rgba(255,255,255,.18); }
+}
+.hero-cta .btn-primary { animation: ctaGlow 3.2s ease-in-out 1.4s infinite; }
+
+/* ---------- Moving sheen across the premium red bands ---------- */
+.terms, .quote-band { position: relative; }
+.terms > .container, .quote-band > .container { position: relative; z-index: 1; }
+.terms::after, .quote-band::after {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,255,255,.06) 48%, rgba(255,255,255,.14) 50%, rgba(255,255,255,.06) 52%, transparent 70%);
+  background-size: 240% 100%; background-position: 120% 0;
+  animation: sheen 7s ease-in-out 1.5s infinite;
+}
+@keyframes sheen { 0% { background-position: 120% 0; } 55%, 100% { background-position: -60% 0; } }
+
+/* ---------- Gently floating accents ---------- */
+@keyframes floatY { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.since-seal { animation: floatY 4.5s ease-in-out infinite; }
+.term-stamp { animation: floatY 4s ease-in-out infinite; }
+.term:nth-child(2) .term-stamp { animation-delay: .6s; }
+.term:nth-child(3) .term-stamp { animation-delay: 1.2s; }
+
+/* Soft breathing shimmer on the big outlined "SAME DAY" watermark */
+@keyframes breathe { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+.terms::before { animation: breathe 6s ease-in-out infinite; }
+
+/* ---------- Category number badge: subtle pop on card hover ---------- */
+.cat-card .cat-num { transition: transform .35s var(--ease), box-shadow .35s; }
+.cat-card:hover .cat-num { transform: scale(1.08) rotate(-3deg); box-shadow: 0 10px 22px -6px var(--red-glow); }
+
+/* Category collage images breathe up a touch on hover */
+.cat-media img { transition: transform .7s var(--ease); }
+.cat-card:hover .cat-media img { transform: scale(1.05); }
+
+/* ---------- Quick category circles: playful spring on hover ---------- */
+.quick-cats .quick-item:hover .quick-img { transform: translateY(-5px) scale(1.05); }
+.quick-cats .quick-img { transition: transform .3s cubic-bezier(.34,1.56,.64,1); }
+
+/* ---------- Occasion arrow link nudges continuously to invite taps ---------- */
+@keyframes nudge { 0%, 90%, 100% { transform: translateX(0); } 95% { transform: translateX(4px); } }
+.link-arrow .ico { animation: nudge 4s ease-in-out infinite; }
+.link-arrow:hover .ico { animation: none; }
+
+/* ---------- Topbar icons twinkle softly ---------- */
+@keyframes twinkle { 0%, 100% { opacity: .8; } 50% { opacity: 1; } }
+.topbar .ico { animation: twinkle 3s ease-in-out infinite; }
+
+/* ---------- Animated gradient sweep on the footer hairline ---------- */
+.site-footer::before { background-size: 200% 100%; animation: hairline 8s linear infinite; }
+@keyframes hairline { to { background-position: 200% 0; } }
+
+/* ---------- Kicker rule draws in when its heading reveals ---------- */
+.reveal .kicker::before { transition: width .6s cubic-bezier(.2,.7,.2,1) .2s; }
+.reveal:not(.is-visible) .kicker::before { width: 0; }
+
+/* ---------- Section headings rise slightly ahead of body copy ---------- */
+.reveal.section-head h2 { transition: opacity .8s var(--ease) .08s, transform .8s var(--ease) .08s; }
+
+/* ---------- Buttons: springier press ---------- */
+.btn { transition: transform .18s cubic-bezier(.34,1.56,.64,1), background-color .2s, box-shadow .25s, color .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(0) scale(.97); }
+.chips a:hover { transform: translateY(-2px); }
+
+/* ---------- Respect users who prefer no motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal,
+  .cat-cards > .reveal, .terms-grid > .reveal, .occasion-grid > .reveal,
+  .promise-grid > .reveal, .service-grid > .reveal, .store-grid > .reveal { transition-delay: 0s !important; }
+  .slide.is-active .eyebrow, .slide.is-active h1, .slide.is-active .h1,
+  .slide.is-active .lead, .slide.is-active .hero-cta, .hero-strip { animation: none; }
+  .hero-cta .btn-primary, .since-seal, .term-stamp, .terms::before,
+  .terms::after, .quote-band::after, .link-arrow .ico, .topbar .ico,
+  .site-footer::before { animation: none; }
+  .btn:hover, .chips a:hover { transform: none; }
+}

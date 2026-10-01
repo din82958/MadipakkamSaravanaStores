@@ -1,0 +1,365 @@
+/* =========================================================
+   Texture & craft layer – loaded last, after premium.css.
+   Three jobs:
+     1. Brand identity through subtle heritage textures
+        (paper grain, brass filigree, kolam dot-grids).
+     2. Per-section premium layout refinements.
+     3. Playful "cartoon" motion – springy, characterful
+        micro-animations that stay tasteful.
+   Purely decorative. Fully disabled under
+   prefers-reduced-motion at the end of the file.
+   ========================================================= */
+
+:root {
+  /* Fine paper grain – blended soft-light so it only whispers */
+  --tex-grain:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='0.4'/%3E%3C/svg%3E");
+  /* Warm linen weave for the calmer mist sections */
+  --tex-weave:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cg fill='none' stroke='%23a8895a' stroke-width='0.6' opacity='0.16'%3E%3Cpath d='M0 6h12M6 0v12'/%3E%3C/g%3E%3C/svg%3E");
+  /* Brass filigree diamond for espresso-dark surfaces */
+  --tex-brass:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cg fill='none' stroke='%23b0863a' stroke-width='1' opacity='0.12'%3E%3Cpath d='M22 6l7 16-7 16-7-16z'/%3E%3Ccircle cx='22' cy='22' r='2.4'/%3E%3C/g%3E%3C/svg%3E");
+  /* Kolam-style dot grid for the oxblood promotional bands */
+  --tex-kolam:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cg fill='%23ffffff' opacity='0.06'%3E%3Ccircle cx='5' cy='5' r='1.4'/%3E%3Ccircle cx='20' cy='20' r='1.4'/%3E%3C/g%3E%3C/svg%3E");
+  /* Brass fleuron – a diamond flanked by tapering rules, for section seams */
+  --tex-fleuron:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='16' viewBox='0 0 240 16'%3E%3Cdefs%3E%3ClinearGradient id='l' gradientUnits='userSpaceOnUse' x1='24' y1='0' x2='104' y2='0'%3E%3Cstop offset='0' stop-color='%23b0863a' stop-opacity='0'/%3E%3Cstop offset='1' stop-color='%23c9a45c'/%3E%3C/linearGradient%3E%3ClinearGradient id='r' gradientUnits='userSpaceOnUse' x1='136' y1='0' x2='216' y2='0'%3E%3Cstop offset='0' stop-color='%23c9a45c'/%3E%3Cstop offset='1' stop-color='%23b0863a' stop-opacity='0'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cline x1='24' y1='8' x2='104' y2='8' stroke='url(%23l)' stroke-width='1.2'/%3E%3Cline x1='136' y1='8' x2='216' y2='8' stroke='url(%23r)' stroke-width='1.2'/%3E%3Cpath d='M120 1l7 7-7 7-7-7z' fill='%23c9a45c'/%3E%3Cpath d='M120 4l4 4-4 4-4-4z' fill='%238a6626'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   1 · BRAND TEXTURES
+   ========================================================= */
+
+/* Cream canvas + every opaque light section share the paper grain
+   so the whole page feels printed rather than screen-flat. */
+body,
+.quick, .cats, #gallery, #stores, #faq {
+  background-color: var(--page);
+  background-image: var(--tex-grain);
+  background-blend-mode: soft-light;
+}
+
+/* Mist sections layer a faint warm weave over the grain */
+.section-mist, .legacy, #season {
+  background-image: var(--tex-weave), var(--tex-grain);
+  background-blend-mode: multiply, soft-light;
+}
+
+/* Oxblood promise band picks up a kolam dot-grid behind its content
+   (gradients re-declared so the band keeps its warm depth) */
+.terms {
+  background-image:
+    var(--tex-kolam),
+    radial-gradient(ellipse at 90% 0%, rgba(201, 164, 92, .25), transparent 55%),
+    linear-gradient(160deg, var(--red) 0%, var(--red-deep) 100%);
+}
+
+/* Areas band (oxblood) also carries the kolam grid */
+.section-red {
+  background-image:
+    var(--tex-kolam),
+    radial-gradient(ellipse at 85% 0%, rgba(201, 164, 92, .22), transparent 55%),
+    linear-gradient(160deg, var(--red) 0%, var(--red-deep) 100%);
+  background-blend-mode: normal;
+}
+
+/* Espresso-dark surfaces get the brass filigree motif */
+.section-dark {
+  background-image: var(--tex-brass);
+  background-color: var(--ink);
+}
+.site-footer {
+  background-image: var(--tex-brass), linear-gradient(180deg, #211c19, #17130f);
+}
+
+/* Tactile grain on the ivory cards – solid-colour cards only, so their
+   background-colour survives while the grain rides on top via soft-light */
+.cat-card, .term, .promise-item, .faq-item, .occasion {
+  background-image: var(--tex-grain);
+  background-blend-mode: soft-light;
+}
+
+/* =========================================================
+   2 · PER-SECTION PREMIUM REFINEMENTS
+   ========================================================= */
+
+/* Signature brass underline that draws in as each heading reveals */
+.section .section-head h2 { position: relative; }
+.section .section-head h2::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  margin-top: 20px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transition: width .9s var(--ease) .28s;
+}
+.section .section-head.is-visible h2::after { width: 66px; }
+/* Stores already carries a centred divider under its head – avoid doubling */
+#stores .section-head h2::after { display: none; }
+
+/* Category cards: warmer frame + a brass hairline that lights on hover */
+.cat-card {
+  border-color: var(--gold-line);
+  transition: box-shadow .4s var(--ease), transform .4s var(--ease), border-color .4s;
+}
+.cat-card:hover { border-color: var(--gold); }
+/* Thin brass ribbon across the top edge, like the store cards */
+.cat-card .cat-media::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  z-index: 2;
+  background: linear-gradient(90deg, var(--gold-deep), #e7cf9a 45%, var(--gold) 55%, var(--gold-deep));
+  opacity: .85;
+}
+
+/* Occasion cards: brass frame to match the collection */
+.occasion { border-color: var(--gold-line); }
+.occasion:hover { border-color: var(--gold); }
+
+/* Promise / term cards: refined ivory with a warm inner highlight */
+.term { border: 1px solid var(--gold-line); }
+.promise-item { border-color: var(--gold-line); box-shadow: 0 1px 2px rgba(33, 28, 25, .04); }
+
+/* Services (dark): brass hairline framing on each card */
+.service { border-color: rgba(176, 134, 58, .22); }
+.service:hover { border-color: rgba(176, 134, 58, .5); }
+
+/* FAQ: brass hairline warmth on hover already present – deepen the lift */
+.faq-item { transition: border-color .25s, box-shadow .25s, transform .25s var(--ease); }
+.faq-item:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+
+/* Gallery tiles: subtle brass frame + gentle lift on hover.
+   Keep opacity + transform in the transition so the store-switch
+   fade/stagger from v2.css still plays; only add box-shadow. */
+#gallery .gallery button {
+  box-shadow: inset 0 0 0 1px var(--gold-line), var(--shadow-sm);
+  transition: opacity .5s var(--ease), transform .5s var(--ease), box-shadow .4s var(--ease);
+}
+#gallery .gallery button:hover {
+  transform: translateY(-3px);
+  box-shadow: inset 0 0 0 1px var(--gold), 0 18px 40px -18px rgba(33, 28, 25, .4);
+}
+
+/* Legacy timeline: brass node glow to feel like an engraved milestone */
+.timeline li::before {
+  box-shadow: 0 0 0 4px rgba(176, 134, 58, .14);
+}
+
+/* =========================================================
+   3 · CARTOON MOTION – springy, characterful micro-animations
+   ========================================================= */
+
+/* Squash-and-stretch "jelly" bounce for round brand elements */
+@keyframes jelly {
+  0%   { transform: scale(1, 1); }
+  28%  { transform: scale(1.14, .86); }
+  48%  { transform: scale(.9, 1.1); }
+  66%  { transform: scale(1.06, .94); }
+  82%  { transform: scale(.98, 1.02); }
+  100% { transform: scale(1, 1); }
+}
+/* Quick category circles: smooth premium lift (see premium.css) */
+
+/* Since-1990s seal gives a friendly jelly wobble on hover */
+.since-seal:hover { animation: jelly .7s var(--ease); }
+
+/* Cheeky wobble for the promise "stamps" and the kalash emblem on hover */
+@keyframes wobble {
+  0%, 100% { transform: rotate(-10deg); }
+  25%      { transform: rotate(-2deg) scale(1.06); }
+  55%      { transform: rotate(-16deg) scale(1.04); }
+  80%      { transform: rotate(-7deg); }
+}
+.term:hover .term-stamp { animation: wobble .7s var(--ease); }
+
+@keyframes emblemSway {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-7px) rotate(3.5deg); }
+}
+.head-emblem { animation: emblemSway 5s ease-in-out infinite; }
+.head-emblem:hover { animation: wobble .7s var(--ease); }
+
+/* Category number badge pops in with a bouncy overshoot on reveal */
+@keyframes badgePop {
+  0%   { transform: scale(0) rotate(-14deg); opacity: 0; }
+  60%  { transform: scale(1.22) rotate(6deg); opacity: 1; }
+  80%  { transform: scale(.94) rotate(-3deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+.cat-card.is-visible .cat-num { animation: badgePop .7s cubic-bezier(.34, 1.56, .64, 1) both; }
+
+/* Occasion pills bounce up with a springy overshoot on hover */
+.quick-occ .quick-item {
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), border-color .2s, background .2s;
+}
+.quick-occ .quick-item:hover { transform: translateY(-4px) scale(1.03); }
+
+/* Playful bob on the quote-band lamps overrides the calm glow with life */
+@keyframes lampBob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+  50%      { transform: translateY(-8px) rotate(1.5deg); }
+}
+.quote-band .quote-lamp-l { animation: lampGlow 4.5s ease-in-out infinite, lampBob 6s ease-in-out infinite; }
+
+/* Bouncy nudge for the "read more" occasion arrows */
+@keyframes hop {
+  0%, 60%, 100% { transform: translateX(0); }
+  75%           { transform: translateX(5px) translateY(-2px); }
+  88%           { transform: translateX(2px); }
+}
+.link-arrow:hover .ico { animation: hop .6s var(--ease); }
+
+/* Category cards give a friendly little lift-and-tilt on hover */
+.cat-card:hover { transform: translateY(-5px) rotate(-.35deg); }
+.occasion:hover { transform: translateY(-5px) rotate(.3deg); }
+
+/* Store cards keep their calm lift but add a whisper of tilt for character */
+#stores .store:hover { transform: translateY(-6px) rotate(-.25deg); }
+
+/* =========================================================
+   4 · SECTION THEME FIXES – lift the plainer sections up
+      to match the heritage-boutique treatment.
+   ========================================================= */
+
+/* ---- Areas band: boutique delivery tags instead of bare outlines ---- */
+/* Brass underline for the areas heading (it isn't a .section-head) */
+#areas .areas-wrap > div h2 { position: relative; }
+#areas .areas-wrap > div h2::after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 2px;
+  margin-top: 20px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #f0d9a4, transparent);
+  transition: width .9s var(--ease) .28s;
+}
+#areas .areas-wrap.is-visible > div h2::after { width: 66px; }
+
+/* Frosted brass pills, each tipped with a small glowing dot */
+#areas .areas li {
+  position: relative;
+  padding-left: 34px;
+  border: 1px solid rgba(240, 226, 196, .45);
+  background: rgba(255, 255, 255, .07);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .14), 0 8px 18px -14px rgba(0, 0, 0, .6);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), background .3s, border-color .3s;
+}
+#areas .areas li::before {
+  content: "";
+  position: absolute;
+  left: 15px; top: 50%;
+  width: 8px; height: 8px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #f4e2b4, var(--gold));
+  box-shadow: 0 0 0 3px rgba(176, 134, 58, .22);
+}
+#areas .areas li:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, .13);
+  border-color: var(--gold);
+}
+/* The trailing "+ nearby areas" pill reads as an invitation, not a location */
+#areas .areas li:last-child { padding-left: 18px; }
+#areas .areas li:last-child::before { display: none; }
+
+/* ---- FAQ: warm ivory cards with a brass keyline that lights on open ---- */
+.faq-item {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--gold-line);
+  background-color: transparent;
+  background-image: var(--tex-grain), linear-gradient(180deg, #fffdf9, #fbf6ec);
+  background-blend-mode: soft-light, normal;
+}
+.faq-item::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--gold), var(--gold-deep));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform .35s var(--ease);
+}
+.faq-item[open]::before,
+.faq-item:hover::before { transform: scaleY(1); }
+.faq-item[open] { border-color: var(--gold); box-shadow: var(--shadow-gold); }
+
+/* ---- Footer: soften the brass filigree so it whispers ---- */
+.site-footer {
+  background-image: var(--tex-brass), linear-gradient(180deg, #211c19, #17130f);
+  background-blend-mode: soft-light, normal;
+}
+
+/* =========================================================
+   5 · PREMIUM SECTION SEAMS
+      Colored bands read as intentional "mounted plates" with
+      crisp brass edges; light sections open with a brass
+      fleuron so every division feels crafted, not accidental.
+   ========================================================= */
+
+/* Oxblood / dark bands: framed with a thin brass rule top and bottom,
+   plus a hairline highlight and shadow for a beaten-metal edge */
+.terms, .quote-band, .section-red {
+  border-top: 1px solid var(--gold-line);
+  border-bottom: 1px solid var(--gold-line);
+  box-shadow:
+    inset 0 1px 0 rgba(240, 226, 196, .18),
+    inset 0 -1px 0 rgba(0, 0, 0, .22);
+}
+.section-dark {
+  border-top: 1px solid rgba(176, 134, 58, .3);
+  border-bottom: 1px solid rgba(176, 134, 58, .3);
+}
+
+/* Brass fleuron centred on each light section's top seam, marking the
+   division with an engraved-ornament flourish that straddles the join */
+.cats, #gallery, #faq { position: relative; }
+.cats::before,
+#gallery::before,
+#faq::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  width: auto;
+  height: 18px;
+  margin: 0;
+  border-radius: 0;
+  transform: translateY(-50%);
+  background: var(--tex-fleuron) center / 260px 18px no-repeat;
+  pointer-events: none;
+  opacity: .9;
+  z-index: 2;
+}
+
+/* =========================================================
+   6 · REDUCED MOTION – switch every playful flourish off
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+  .section .section-head h2::after,
+  #areas .areas-wrap > div h2::after { transition: none; width: 66px; }
+  .faq-item::before { transition: none; }
+  .quick-cats .quick-item:hover .quick-img,
+  .quick-cats .quick-item:focus-visible .quick-img,
+  .since-seal:hover,
+  .term:hover .term-stamp,
+  .head-emblem, .head-emblem:hover,
+  .cat-card.is-visible .cat-num,
+  .quote-band .quote-lamp-l,
+  .link-arrow:hover .ico { animation: none; }
+  .quick-occ .quick-item:hover,
+  .cat-card:hover, .occasion:hover,
+  #areas .areas li:hover,
+  #stores .store:hover { transform: none; }
+}

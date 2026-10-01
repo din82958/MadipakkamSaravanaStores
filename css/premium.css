@@ -1,0 +1,1021 @@
+/* =========================================================
+   Premium refinement layer – loaded last.
+   Focus: editorial typography, cinematic image treatment,
+   consistent framing and calmer, more spacious layouts.
+   Purely visual; no markup or content changes.
+   ========================================================= */
+
+:root {
+  /* ---- Heritage-luxury palette: oxblood + antique brass + warm cream ---- */
+  --red: #8a2327;            /* refined deep brick-red (brand accent) */
+  --red-deep: #5e161a;       /* oxblood – gradients & hovers */
+  --red-soft: #f5e9e5;       /* warm blush */
+  --red-glow: rgba(138, 35, 39, .3);
+
+  --gold: #b0863a;           /* antique brass */
+  --gold-deep: #8a6626;
+  --gold-soft: #f2e7cf;
+  --gold-line: rgba(176, 134, 58, .42);
+
+  --ink: #211c19;            /* warm espresso instead of cold charcoal */
+  --charcoal: #2a2320;
+  --text: #3b342f;
+  --muted: #78706a;
+  --line: #e8e1d6;
+  --mist: #f4efe5;
+  --page: #faf6ee;           /* cream canvas */
+  --white: #ffffff;
+
+  --frame: rgba(33, 28, 25, .09);          /* hairline frame around media */
+  --radius: 20px;
+  --radius-sm: 14px;
+}
+
+/* ---------- Editorial typography ---------- */
+body { letter-spacing: .002em; color: var(--text); }
+h1, h2, h3, .h1 { text-wrap: balance; }
+p { text-wrap: pretty; }
+
+.hero h1, .hero .h1,
+.section h2,
+.terms h2 {
+  font-weight: 600;
+  letter-spacing: -.018em;
+}
+.hero h1, .hero .h1 { font-size: clamp(2.9rem, 6.4vw, 5.8rem); line-height: 1.0; }
+.section h2 { line-height: 1.06; }
+
+/* Refined eyebrow / kicker: restrained gold, wider tracking */
+.eyebrow, .kicker, .quick-label, .nav-title,
+.season-tag, .cat h4 { letter-spacing: .26em; }
+.kicker { color: var(--gold); font-weight: 600; font-size: .72rem; }
+.kicker::before { background: linear-gradient(90deg, var(--gold), transparent); width: 30px; }
+.eyebrow { color: #e9c877; }
+
+/* Lead / supporting copy: calmer, more readable */
+.lead { color: rgba(255,255,255,.9); font-weight: 400; line-height: 1.6; }
+.section-sub { color: var(--muted); font-size: 1.06rem; line-height: 1.6; }
+.about-copy p, .promise-item p, .service p, .occasion-body p, .term p, .faq-item p { line-height: 1.65; }
+
+/* ---------- Consistent premium framing on all media ---------- */
+.cat-card, .occasion, .store, .about-collage figure,
+.season-card, .feature, .gallery button, .quote-band {
+  border-radius: var(--radius);
+}
+.store-media img, .occasion-media img, .cat-media,
+.about-collage figure, .season-media, .gallery button, .feature {
+  position: relative;
+}
+/* Subtle inset hairline gives candid photos an intentional, gallery-framed look */
+.store-media::after, .occasion-media::after, .about-collage figure::after,
+.season-media::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--frame), inset 0 -60px 60px -40px rgba(20,21,26,.28);
+}
+
+/* Gentle, cohesive colour grading so mixed-quality photos feel curated */
+.store-media img, .occasion-media img, .about-collage img,
+.season-media img, .cat-media img, .gallery img, .feature img,
+.quick-img img {
+  filter: saturate(1.06) contrast(1.04) brightness(.99);
+  transition: filter .5s var(--ease), transform .7s var(--ease);
+}
+.store:hover .store-media img, .occasion:hover .occasion-media img,
+.cat-card:hover .cat-media img { filter: saturate(1.12) contrast(1.06) brightness(1.02); }
+
+/* ---------- Cinematic hero ---------- */
+.slide-media img { filter: saturate(1.05) contrast(1.08) brightness(.9); object-position: center 32%; }
+/* Warm cinematic wash + bottom vignette, sitting above the photo, below the text */
+.slide::before {
+  background:
+    linear-gradient(180deg, rgba(18,12,10,.30) 0%, rgba(18,12,10,.10) 30%, rgba(16,12,12,.72) 78%, rgba(12,10,11,.95) 100%),
+    radial-gradient(120% 80% at 85% 12%, rgba(184,146,63,.18), transparent 55%);
+}
+@media (min-width: 861px) {
+  .slide::before {
+    background:
+      linear-gradient(90deg, rgba(14,11,12,.95) 0%, rgba(14,11,12,.78) 42%, rgba(14,11,12,.28) 78%, rgba(14,11,12,.12) 100%),
+      linear-gradient(0deg, rgba(12,10,11,.85), transparent 42%),
+      radial-gradient(90% 70% at 88% 16%, rgba(184,146,63,.16), transparent 55%);
+  }
+}
+.eyebrow { margin-bottom: 22px; }
+.hero .lead { max-width: 46ch; margin-top: 22px; }
+.hero-cta { margin-top: 34px; }
+
+/* ---------- Editorial hero copy: heritage-boutique detailing ---------- */
+/* Brass "chapter rule" opening the eyebrow */
+.hero .eyebrow::before {
+  content: "";
+  flex: none;
+  width: 40px; height: 1px;
+  background: linear-gradient(90deg, var(--gold), rgba(176, 134, 58, 0));
+}
+/* Headline: warm depth so the serif reads crisply over the photo */
+.hero h1, .hero .h1 {
+  text-shadow: 0 1px 2px rgba(12, 10, 11, .32), 0 16px 44px rgba(12, 10, 11, .45);
+}
+/* Lead framed by a slim brass accent, like a boutique caption */
+.hero .lead {
+  padding-left: 18px;
+  border-left: 2px solid var(--gold-line);
+  color: rgba(255, 255, 255, .92);
+}
+@media (min-width: 861px) {
+  .hero .lead { padding-left: 22px; }
+}
+
+/* ---------- Category circles: refined gold ring ---------- */
+.quick-cats .quick-img {
+  padding: 3px;
+  background: linear-gradient(145deg, #e7d3a4, var(--gold));
+  box-shadow: 0 2px 6px rgba(16,18,20,.08), 0 14px 26px -16px rgba(20,21,26,.4);
+  transition: transform .55s cubic-bezier(.22,.61,.36,1), box-shadow .55s cubic-bezier(.22,.61,.36,1), background .55s cubic-bezier(.22,.61,.36,1);
+}
+.quick-cats .quick-img img { border: 2.5px solid #fff; transition: filter .55s cubic-bezier(.22,.61,.36,1); }
+.quick-cats .quick-item:hover .quick-img,
+.quick-cats .quick-item:focus-visible .quick-img {
+  transform: translateY(-3px) scale(1.025);
+  background: linear-gradient(145deg, #f2e0b0, var(--gold-deep));
+  box-shadow: 0 10px 18px -6px rgba(16,18,20,.12),
+              0 22px 38px -18px rgba(138,102,38,.5),
+              0 0 0 4px rgba(176,134,58,.14);
+}
+.quick-cats .quick-item:hover .quick-img img,
+.quick-cats .quick-item:focus-visible .quick-img img { filter: saturate(1.06) brightness(1.02); }
+.quick-cats .quick-item {
+  font-weight: 600; letter-spacing: .01em;
+  transition: color .4s cubic-bezier(.22,.61,.36,1);
+}
+.quick-cats .quick-item:hover,
+.quick-cats .quick-item:focus-visible { color: var(--red-deep); }
+
+/* Occasion pills: softer, more refined */
+.quick-occ .quick-item {
+  border-color: rgba(184,146,63,.4); background: #fffdf8;
+  box-shadow: 0 1px 2px rgba(16,18,20,.04);
+}
+.quick-occ .quick-item:hover { border-color: var(--gold); background: #fbf5e8; }
+
+/* ---------- Header: no wrapping, calmer spacing ---------- */
+.nav a { white-space: nowrap; }
+@media (min-width: 861px) {
+  .nav { gap: clamp(16px, 1.9vw, 30px); margin-right: 18px; }
+  .header-row { gap: 18px; }
+  .brand-main { letter-spacing: .05em; }
+}
+
+/* ---------- More generous, calmer section rhythm ---------- */
+@media (min-width: 861px) {
+  .section { padding: 128px 0; }
+  .section-head { margin-bottom: 60px; }
+  .container { max-width: 1200px; }
+}
+.cat-body { padding-top: 24px; }
+.cat-body h3, .occasion-body h3, .store-body h3, .season-body h3 { letter-spacing: -.01em; }
+
+/* ---------- Buttons: quieter, more premium weight ---------- */
+.btn { letter-spacing: .06em; font-size: .92rem; text-transform: none; }
+.btn-lg { letter-spacing: .05em; }
+.btn-outline { border-color: var(--line); }
+.btn-glass { border-color: rgba(255,255,255,.4); }
+
+/* ---------- Since-1990s seal: elegant gold ring ---------- */
+.since-seal { outline-color: rgba(255,255,255,.55); box-shadow: 0 16px 40px -12px rgba(94,22,26,.55), 0 0 0 1px rgba(176,134,58,.55); }
+
+/* ---------- Chips: lighter, more boutique ---------- */
+.chips a { background: #fff; border-color: var(--line); font-weight: 500; box-shadow: 0 1px 2px rgba(16,18,20,.03); }
+
+/* ---------- Footer: refined warm espresso ---------- */
+.site-footer { background: linear-gradient(180deg, #211c19, #17130f); }
+.copy { color: rgba(255,255,255,.42); }
+
+/* ---------- Selection colour ---------- */
+::selection { background: rgba(176,134,58,.32); }
+
+/* =========================================================
+   Retune the earlier layers' hardcoded bright reds to the
+   new oxblood + brass palette so the whole site is cohesive.
+   ========================================================= */
+.btn-primary {
+  background: linear-gradient(180deg, #9c2a2e 0%, var(--red) 55%, var(--red-deep) 100%);
+  box-shadow: 0 10px 24px -10px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.14);
+}
+.btn-primary:hover { background: linear-gradient(180deg, var(--red) 0%, var(--red-deep) 100%); }
+.chips a:hover, .chips a:focus-visible { background: linear-gradient(180deg, #9c2a2e, var(--red-deep)); border-color: var(--red-deep); }
+.since-seal { background: linear-gradient(145deg, #9c2a2e, var(--red-deep)); }
+.cat-num { background: linear-gradient(135deg, var(--red), var(--red-deep)); }
+
+/* Warmer meta / accent icons and hairlines */
+.meta .ico, .action-bar a .ico, .quick-label, .cat h4 { color: var(--red); }
+.legacy-stats strong { background: linear-gradient(180deg, var(--red), var(--red-deep)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+/* Hero glow pulse retuned to oxblood */
+@keyframes ctaGlow {
+  0%, 100% { box-shadow: 0 10px 24px -10px var(--red-glow), inset 0 1px 0 rgba(255,255,255,.14); }
+  50% { box-shadow: 0 14px 34px -8px rgba(138,35,39,.5), inset 0 1px 0 rgba(255,255,255,.14); }
+}
+
+/* Section dark (services) warms with the espresso ink automatically via --ink;
+   nudge its red kicker/accents to a softer rose that reads on dark */
+.section-dark .kicker { color: #e0a96b; }
+.service .icon-ring { background: rgba(138,35,39,.22); color: #e8a08a; }
+.footer-brand .brand-top { color: #d59b6b; }
+
+/* Topbar: deep oxblood gradient with brass hairline */
+.topbar { background: linear-gradient(90deg, var(--red-deep), var(--red) 50%, var(--red-deep)); }
+
+/* =========================================================
+   Section-level theme adaptation + premium text styling
+   ========================================================= */
+
+/* Gallery tabs: warm ink pill with brass active state */
+.tab { color: var(--muted); letter-spacing: .01em; }
+.tab.is-active { background: linear-gradient(180deg, var(--ink), #17130f); color: #fff; box-shadow: 0 8px 18px -10px rgba(33,28,25,.5); }
+
+/* Quote band tags: brass outline, refined tracking */
+.quote-tags li { border-color: rgba(176,134,58,.5); color: rgba(255,255,255,.9); letter-spacing: .16em; }
+.quote-text em { color: #e6c584; }
+.quote-band .kicker, .quote-mark { color: #e6c584; }
+
+/* FAQ: warm cards, brass toggle, serif questions for a boutique feel */
+.faq-item { background: #fff; border-color: var(--line); }
+.faq-item[open] { border-color: var(--gold-line); }
+.faq-item h3 { font-family: var(--serif); font-weight: 600; font-size: 1.18rem; letter-spacing: -.005em; }
+.faq-item summary::after { background: var(--gold-soft); color: var(--red-deep); }
+.faq-item[open] summary::after { background: var(--red-soft); color: var(--red); }
+html[lang="ta"] .faq-item h3 { font-family: var(--sans); font-size: .95rem; }
+
+/* Areas (oxblood band): airier chips */
+.section-red .areas li { border-color: rgba(255,255,255,.35); letter-spacing: .01em; }
+.section-red .kicker { color: rgba(255,255,255,.82); }
+.section-red .kicker::before { background: linear-gradient(90deg, rgba(255,255,255,.7), transparent); }
+
+/* Timeline year + stats: brass/oxblood accents */
+.tl-year { color: var(--red); }
+.timeline li::before { border-color: var(--red); }
+.legacy-stats { border-color: var(--line); }
+.legacy-stats span, .strip-grid span { color: var(--muted); letter-spacing: .04em; }
+
+/* Store badges: refined heritage tags */
+.badge { background: rgba(255,255,255,.94); color: var(--ink); letter-spacing: .04em; }
+.badge-new { background: linear-gradient(180deg, var(--red), var(--red-deep)); color: #fff; }
+
+/* Section subheads + leads: consistent premium measure */
+.section-sub { max-width: 54ch; }
+.eyebrow { font-size: .74rem; }
+
+/* Hero stats strip: warm serif numerals */
+.strip-grid strong { letter-spacing: -.01em; }
+
+/* Hero stats strip → crafted espresso "brass plate" that matches the theme */
+.hero-strip {
+  background:
+    var(--tex-brass),
+    linear-gradient(180deg, rgba(32, 23, 19, .62) 0%, rgba(18, 13, 11, .88) 100%);
+  background-blend-mode: soft-light, normal;
+  border-top: 1px solid var(--gold-line);
+  box-shadow: inset 0 1px 0 rgba(240, 226, 196, .14);
+}
+.strip-grid strong {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 9px;
+  color: #f7edda;
+}
+.strip-grid strong::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 24px; height: 2px;
+  background: linear-gradient(90deg, var(--gold), rgba(176, 134, 58, 0));
+}
+.strip-grid span { color: rgba(240, 226, 196, .64); }
+/* Brass hairline dividers in place of the cool white ones */
+.strip-grid div:nth-child(odd) { border-right-color: var(--gold-line); }
+.strip-grid div:nth-child(-n+2) { border-bottom-color: var(--gold-line); }
+@media (min-width: 861px) {
+  .strip-grid div,
+  .strip-grid div:nth-child(odd),
+  .strip-grid div:nth-child(even),
+  .strip-grid div:nth-child(-n+2) { border-left-color: var(--gold-line); }
+}
+
+/* Occasion + category headings: tighter, more editorial */
+.occasion-body h3, .cat-body h3 { font-weight: 600; }
+.occasion-body p { color: var(--muted); }
+
+/* Quick-bar labels in brass */
+.quick-label { color: var(--red); }
+.quick-label::before { background: var(--gold); }
+
+/* Buttons on cream: outline reads warmer */
+.btn-outline { background: #fff; color: var(--ink); }
+.btn-outline:hover { border-color: var(--red); color: var(--red); }
+
+/* Legacy kicker: align to the antique-gold section kicker used everywhere else */
+.about-copy .kicker { color: var(--gold); font-size: .72rem; }
+
+/* =========================================================
+   STORES – heritage-boutique treatment
+   Gold-framed cards, cinematic store photos, brass meta
+   icons, an engraved section divider and refined motion.
+   ========================================================= */
+
+/* Engraved brass divider under the "Two stores, one family" heading */
+#stores .section-head { position: relative; }
+#stores .section-head::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 3px;
+  margin: 24px 0 0;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+/* Roomier, calmer grid */
+#stores .store-grid { gap: 30px; }
+
+/* The card itself: warm ivory, hairline brass frame, soft depth */
+#stores .store {
+  position: relative;
+  background: linear-gradient(180deg, #fffdf9 0%, #fbf6ec 100%);
+  border: 1px solid var(--gold-line);
+  box-shadow:
+    0 2px 6px rgba(33, 28, 25, .05),
+    0 26px 60px -30px rgba(33, 28, 25, .38);
+  transition: transform .45s var(--ease), box-shadow .45s var(--ease), border-color .45s var(--ease);
+}
+
+/* Thin brass ribbon along the top edge for a signboard feel */
+#stores .store::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  z-index: 3;
+  background: linear-gradient(90deg, var(--gold-deep), #e7cf9a 45%, var(--gold) 55%, var(--gold-deep));
+  opacity: .9;
+}
+
+#stores .store:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow:
+    0 6px 14px rgba(33, 28, 25, .08),
+    0 34px 70px -28px rgba(94, 22, 26, .4);
+}
+
+/* Cinematic storefront: taller frame + graded warmth + slow zoom */
+#stores .store-media { aspect-ratio: 4 / 3; }
+#stores .store-media img {
+  transform: scale(1.02);
+  transition: transform 1.1s var(--ease), filter .6s var(--ease);
+}
+#stores .store:hover .store-media img { transform: scale(1.09); }
+
+/* Warm bottom vignette so the white body blends into the photo */
+#stores .store-media::after {
+  box-shadow:
+    inset 0 0 0 1px rgba(33, 28, 25, .12),
+    inset 0 -90px 70px -50px rgba(30, 18, 16, .55);
+}
+
+/* Heritage badge: engraved brass seal */
+#stores .badge {
+  top: 16px; left: 16px;
+  padding: 7px 15px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: .82rem;
+  letter-spacing: .06em;
+  background: linear-gradient(180deg, #fffdf8, #f5ecd8);
+  color: var(--red-deep);
+  border: 1px solid var(--gold-line);
+  box-shadow: 0 10px 24px -12px rgba(33, 28, 25, .5);
+}
+#stores .badge-new {
+  background: linear-gradient(180deg, #9c2a2e, var(--red-deep));
+  color: #fff;
+  border-color: rgba(255, 255, 255, .28);
+}
+
+/* Store name: larger, with a short brass underline flourish */
+#stores .store-body { padding: 30px 30px 28px; }
+#stores .store-body h3 {
+  position: relative;
+  display: inline-block;
+  font-size: 2.35rem;
+  margin-bottom: 22px;
+  padding-bottom: 12px;
+}
+#stores .store-body h3::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 46px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+html[lang="ta"] #stores .store-body h3 { font-size: 1.5rem; }
+
+/* Meta rows: brass-circle icons, comfortable rhythm */
+#stores .meta {
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+  color: var(--text);
+  font-size: .96rem;
+}
+#stores .meta .ico {
+  width: 34px; height: 34px;
+  margin-top: 0;
+  padding: 8px;
+  border-radius: 50%;
+  background: var(--gold-soft);
+  color: var(--red-deep);
+  box-shadow: inset 0 0 0 1px var(--gold-line);
+}
+
+/* Actions: flex-wrap so each pill keeps its natural width (no clipped digits) */
+#stores .store-actions {
+  margin-top: 26px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+#stores .store-actions .btn { flex: 0 0 auto; }
+@media (max-width: 860px) {
+  #stores .store-actions .btn-primary { flex: 1 1 100%; }
+}
+
+/* Map toggle: brass hairline + warm reveal */
+#stores .map-toggle { border-top-color: var(--gold-line); }
+#stores .map-toggle summary::after { color: var(--gold-deep); }
+#stores .map-toggle[open] summary::after { color: var(--red); }
+
+/* Second card drifts in a little after the first (reveal already staggered) */
+@media (min-width: 861px) {
+  #stores .store-body { padding: 34px 36px 30px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #stores .store:hover { transform: none; }
+  #stores .store-media img,
+  #stores .store:hover .store-media img { transform: none; transition: none; }
+}
+
+/* =========================================================
+   BUTTONS – premium finish
+   Soft gradients, a hairline top highlight for depth,
+   brass-warm outlines and tighter, richer shadows so every
+   pill feels crafted rather than flat.
+   ========================================================= */
+
+.btn {
+  font-weight: 600;
+  border-width: 1px;
+}
+
+/* Primary (Call): oxblood with a crisp top sheen + tight warm shadow */
+.btn-primary {
+  background: linear-gradient(180deg, #a13034 0%, var(--red) 52%, var(--red-deep) 100%);
+  border-color: rgba(94, 22, 26, .6);
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .22) inset,
+    0 -8px 16px -10px rgba(0, 0, 0, .3) inset,
+    0 10px 22px -12px rgba(94, 22, 26, .7);
+}
+.btn-primary:hover {
+  background: linear-gradient(180deg, var(--red) 0%, var(--red-deep) 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .22) inset,
+    0 -8px 16px -10px rgba(0, 0, 0, .3) inset,
+    0 16px 30px -12px rgba(94, 22, 26, .78);
+}
+
+/* WhatsApp: deep heritage emerald gradient instead of flat bright green */
+.btn-whatsapp {
+  background: linear-gradient(180deg, #2a9d57 0%, #1f7a44 55%, #176035 100%);
+  border-color: rgba(15, 74, 41, .55);
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .24) inset,
+    0 -8px 16px -10px rgba(0, 0, 0, .28) inset,
+    0 10px 22px -12px rgba(23, 96, 53, .6);
+}
+.btn-whatsapp:hover {
+  background: linear-gradient(180deg, #23904e 0%, #145c33 100%);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .24) inset,
+    0 -8px 16px -10px rgba(0, 0, 0, .28) inset,
+    0 16px 30px -12px rgba(23, 96, 53, .68);
+}
+
+/* Outline (Directions): warm ivory with a brass hairline + faint lift */
+.btn-outline {
+  background: linear-gradient(180deg, #fffdf9, #f8f2e6);
+  border-color: var(--gold-line);
+  color: var(--ink);
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .7) inset,
+    0 6px 16px -12px rgba(33, 28, 25, .4);
+}
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--red-deep);
+  background: linear-gradient(180deg, #fffdf9, #f5ecd8);
+}
+.btn-outline .ico { color: var(--gold-deep); }
+
+/* Glass (on hero): warmer brass edge */
+.btn-glass {
+  border-color: rgba(240, 226, 196, .5);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, .2) inset, 0 12px 26px -14px rgba(0, 0, 0, .5);
+}
+
+/* =========================================================
+   HERITAGE BRASS MOTIFS
+   Hand-drawn kuthu vilakku + kalash SVGs used as premium,
+   on-theme decorative accents. Purely decorative (aria-hidden).
+   ========================================================= */
+
+/* Kuthu vilakku lamps flanking the quote band, like a shrine */
+.quote-band .quote-lamp {
+  position: absolute;
+  bottom: -2%;
+  z-index: 0;
+  height: 82%;
+  width: auto;
+  opacity: .55;
+  pointer-events: none;
+  user-select: none;
+  filter: drop-shadow(0 0 28px rgba(224, 169, 75, .45));
+  animation: lampGlow 4.5s ease-in-out infinite;
+}
+.quote-lamp-l { left: 3%; }
+.quote-lamp-r { right: 3%; transform: scaleX(-1); animation-delay: .9s; }
+
+@keyframes lampGlow {
+  0%, 100% { opacity: .5;  filter: drop-shadow(0 0 24px rgba(224, 169, 75, .38)); }
+  50%      { opacity: .64; filter: drop-shadow(0 0 42px rgba(224, 169, 75, .6)); }
+}
+
+@media (max-width: 900px) {
+  .quote-band .quote-lamp { height: 48%; opacity: .3; }
+}
+@media (max-width: 560px) {
+  .quote-band .quote-lamp { display: none; }
+}
+
+/* Kalash emblem crowning the occasions heading */
+.head-emblem {
+  display: block;
+  width: 52px;
+  height: auto;
+  margin: 0 0 16px;
+  filter: drop-shadow(0 8px 16px rgba(138, 35, 39, .18));
+  animation: floatY 5s ease-in-out infinite;
+}
+/* The kalash now opens the section, so drop the plain gold divider here */
+#occasions::before { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .quote-band .quote-lamp,
+  .head-emblem { animation: none; }
+}
+
+/* =========================================================
+   "STEP INSIDE" GALLERY — editorial, brand-premium framing
+   Heading and store switch share one brass-ruled header row;
+   tiles get a cinematic scrim, brass edge and a richer lift.
+   ========================================================= */
+
+/* Header: title block left, store-switch pills right, on a brass baseline */
+#gallery .gallery-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 18px 44px;
+  margin-bottom: 30px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--gold-line);
+}
+#gallery .gallery-head .section-head { margin-bottom: 0; }
+#gallery .gallery-head .section-sub { margin-top: 14px; max-width: 48ch; }
+#gallery .gallery-head .tabs { margin-bottom: 0; flex-shrink: 0; }
+
+/* Store-switch pills: warm ivory shell, brass hairline, oxblood active pill */
+#gallery .tabs {
+  background: linear-gradient(180deg, #fffdf9, #f7f0e3);
+  border-color: var(--gold-line);
+  box-shadow: 0 10px 26px -18px rgba(33, 28, 25, .55);
+}
+#gallery .tab { transition: color .3s var(--ease); }
+#gallery .tab.is-active {
+  background: linear-gradient(180deg, #a13034 0%, var(--red) 52%, var(--red-deep) 100%);
+  color: #fff;
+  box-shadow:
+    0 1px 0 rgba(255, 255, 255, .18) inset,
+    0 8px 18px -10px var(--red-glow);
+}
+
+/* Tiles: soft always-on bottom scrim for depth; it lifts on hover
+   to reveal the full photo, pairing with the existing zoom + brass frame. */
+#gallery .gallery button { position: relative; }
+#gallery .gallery button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent 50%, rgba(33, 28, 25, .44));
+  opacity: .8;
+  transition: opacity .45s var(--ease);
+}
+#gallery .gallery button:hover::before { opacity: .3; }
+
+/* Swipe hint: brass, spaced, engraved feel */
+#gallery .gallery-hint {
+  color: var(--gold-deep);
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-size: .72rem;
+  font-weight: 600;
+}
+
+/* Desktop mosaic: give the hero tile a stronger anchor + keep the
+   "+N more" overlay reading above the scrim. */
+@media (min-width: 861px) {
+  #gallery .gallery button:first-child::before {
+    background: linear-gradient(180deg, transparent 46%, rgba(33, 28, 25, .5));
+  }
+  #gallery .gallery button.has-more::after { z-index: 2; }
+
+  /* "+N more": a warm oxblood-brass veil with an engraved brass frame,
+     so opening the full set feels like a considered invitation, not a jump. */
+  #gallery .gallery button.has-more::after {
+    background: linear-gradient(180deg, rgba(33, 28, 25, .34), rgba(94, 22, 26, .74));
+    color: #fdf6ea;
+    letter-spacing: .01em;
+    text-shadow: 0 2px 14px rgba(0, 0, 0, .45);
+    box-shadow: inset 0 0 0 1px var(--gold-line), inset 0 0 0 5px rgba(253, 246, 234, .06);
+    transition: background .45s var(--ease);
+  }
+  #gallery .gallery button.has-more:hover::after {
+    background: linear-gradient(180deg, rgba(33, 28, 25, .28), rgba(94, 22, 26, .6));
+  }
+}
+
+/* =========================================================
+   FULL-SCREEN "VIEW ALL" GALLERY — brass-framed editorial filmstrip
+   ========================================================= */
+.gallery-all {
+  width: 100vw; height: 100vh; height: 100dvh;
+  max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0;
+  background:
+    radial-gradient(120% 80% at 50% -10%, rgba(176, 134, 58, .12), transparent 60%),
+    linear-gradient(180deg, #1c1815, #0e0f11);
+  color: #fdf6ea;
+}
+.gallery-all::backdrop { background: rgba(10, 11, 13, .6); }
+.gallery-all[open] { display: flex; flex-direction: column; }
+
+/* Header: title left, brass close pill right, on a brass baseline */
+.gallery-all .ga-head {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 22px clamp(18px, 4vw, 56px);
+  padding-top: calc(22px + env(safe-area-inset-top));
+  border-bottom: 1px solid var(--gold-line);
+  background: linear-gradient(180deg, rgba(28, 24, 21, .96), rgba(28, 24, 21, .0));
+}
+.gallery-all .ga-title {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+  letter-spacing: .01em;
+  color: #fdf6ea;
+}
+.gallery-all .ga-close {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 18px;
+  font-size: .72rem; font-weight: 600;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: #fdf6ea;
+  background: rgba(253, 246, 234, .06);
+  border: 1px solid var(--gold-line);
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background .3s var(--ease), border-color .3s, transform .3s var(--ease);
+}
+.gallery-all .ga-close:hover { background: rgba(253, 246, 234, .14); border-color: var(--gold); transform: translateY(-1px); }
+.gallery-all .ga-close .ico { width: 15px; height: 15px; }
+
+/* Viewport: holds the filmstrip and the flanking nav arrows */
+.gallery-all .ga-viewport {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* Filmstrip: large frames scroll sideways with snap; the next frame peeks in */
+.gallery-all .ga-grid {
+  flex: 1 1 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2.4vw, 34px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding-inline: clamp(20px, 8vw, 120px);
+  padding: clamp(16px, 3vh, 40px) clamp(20px, 8vw, 120px);
+  padding-bottom: calc(clamp(16px, 3vh, 40px) + env(safe-area-inset-bottom));
+}
+.gallery-all .ga-grid::-webkit-scrollbar { height: 6px; }
+.gallery-all .ga-grid::-webkit-scrollbar-thumb { background: rgba(176, 134, 58, .5); border-radius: 999px; }
+.gallery-all .ga-grid::-webkit-scrollbar-track { background: transparent; }
+
+.gallery-all .ga-grid button {
+  position: relative;
+  flex: 0 0 auto;
+  height: min(74vh, 760px);
+  aspect-ratio: 3 / 2;
+  width: auto;
+  padding: 0; border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #211c19;
+  cursor: zoom-in;
+  scroll-snap-align: center;
+  box-shadow: inset 0 0 0 1px var(--gold-line), 0 40px 80px -46px rgba(0, 0, 0, .8);
+  animation: gaTileIn .55s var(--ease) both;
+  animation-delay: calc(var(--x, 0) * 40ms);
+}
+.gallery-all .ga-grid img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease);
+}
+.gallery-all .ga-grid button::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  box-shadow: inset 0 -80px 70px -50px rgba(0, 0, 0, .55);
+  opacity: .8;
+  transition: opacity .4s var(--ease);
+}
+.gallery-all .ga-grid button:hover img { transform: scale(1.05); }
+.gallery-all .ga-grid button:hover::after { opacity: .35; }
+@keyframes gaTileIn {
+  from { opacity: 0; transform: translateX(28px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* Nav arrows: brass-hairline discs floating over the strip edges */
+.gallery-all .ga-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 52px; height: 52px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: #fdf6ea;
+  background: rgba(20, 17, 15, .66);
+  border: 1px solid var(--gold-line);
+  backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background .3s var(--ease), border-color .3s, transform .3s var(--ease);
+}
+.gallery-all .ga-nav:hover { background: rgba(94, 22, 26, .72); border-color: var(--gold); }
+.gallery-all .ga-nav:active { transform: translateY(-50%) scale(.94); }
+.gallery-all .ga-nav .ico { width: 20px; height: 20px; }
+.gallery-all .ga-prev { left: clamp(10px, 2.5vw, 30px); }
+.gallery-all .ga-next { right: clamp(10px, 2.5vw, 30px); }
+@media (max-width: 700px) { .gallery-all .ga-nav { display: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-all .ga-grid { scroll-behavior: auto; }
+  .gallery-all .ga-grid button { animation: none; }
+}
+
+@media (max-width: 640px) {
+  #gallery .gallery-head { align-items: flex-start; }
+  #gallery .gallery-head .tabs { align-self: stretch; }
+}
+
+/* =========================================================
+   "ON NOW & COMING UP" — festival & season banners
+   Heritage-boutique treatment: a brass-ruled header, a
+   gold-framed cinematic banner over an oxblood editorial
+   panel, a live countdown pill and refined slider controls.
+   ========================================================= */
+
+/* Section: warm cream stage with a soft brass halo behind the banner */
+#season {
+  position: relative;
+  padding: 76px 0 60px;
+  background: var(--page);
+  overflow: hidden;
+}
+#season::before {
+  content: "";
+  position: absolute;
+  inset: -18% 0 auto;
+  height: 64%;
+  pointer-events: none;
+  background: radial-gradient(58% 100% at 50% 0%, rgba(176, 134, 58, .12), transparent 72%);
+}
+#season .container { position: relative; }
+
+/* Header: kicker left, slider arrows right, resting on a brass baseline */
+#season .season-head {
+  align-items: flex-end;
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid var(--gold-line);
+}
+#season .season-arrows { gap: 10px; }
+#season .season-arrow {
+  width: 46px; height: 46px;
+  background: linear-gradient(180deg, #fffdf9, #f7f0e3);
+  border-color: var(--gold-line);
+  color: var(--red-deep);
+  box-shadow: 0 8px 20px -14px rgba(33, 28, 25, .55);
+  transition: transform .3s var(--ease), border-color .3s, color .3s, box-shadow .3s;
+}
+#season .season-arrow:hover {
+  border-color: var(--gold);
+  color: var(--red);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 26px -12px rgba(94, 22, 26, .4);
+}
+#season .season-arrow:active { transform: translateY(0) scale(.96); }
+
+/* The banner card: gold hairline frame, brass signboard ribbon, deep warm depth */
+#season .season-card {
+  border: 1px solid var(--gold-line);
+  box-shadow:
+    0 2px 8px rgba(33, 28, 25, .06),
+    0 42px 84px -38px rgba(33, 28, 25, .52);
+}
+#season .season-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  z-index: 4;
+  background: linear-gradient(90deg, var(--gold-deep), #e7cf9a 45%, var(--gold) 55%, var(--gold-deep));
+  opacity: .92;
+}
+
+/* Editorial panel: richer oxblood with a brass corner glow */
+#season .season-body {
+  background:
+    radial-gradient(120% 92% at 100% 0%, rgba(176, 134, 58, .16), transparent 55%),
+    radial-gradient(110% 110% at 0% 100%, rgba(138, 35, 39, .42), transparent 60%),
+    linear-gradient(180deg, #2a2320, var(--ink));
+}
+
+/* Tag: brass gradient lettering + roomier spacing */
+#season .season-tag { color: var(--gold); gap: 12px; }
+#season .season-tag > span:first-child {
+  background: linear-gradient(90deg, #e7cf9a, var(--gold));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Live countdown pill: oxblood with a softly pulsing status dot */
+#season .season-count {
+  position: relative;
+  display: inline-flex; align-items: center;
+  padding: 5px 12px 5px 26px;
+  background: linear-gradient(180deg, #a13034, var(--red-deep));
+  border: 1px solid rgba(255, 255, 255, .16);
+  box-shadow: 0 6px 16px -8px rgba(94, 22, 26, .7);
+}
+#season .season-count::before {
+  content: "";
+  position: absolute;
+  left: 11px; top: 50%;
+  width: 7px; height: 7px;
+  margin-top: -3.5px;
+  border-radius: 50%;
+  background: #ffd9a0;
+  animation: seasonPulse 2s ease-out infinite;
+}
+@keyframes seasonPulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 217, 160, .7); }
+  70%  { box-shadow: 0 0 0 8px rgba(255, 217, 160, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(255, 217, 160, 0); }
+}
+
+#season .season-body h3 { letter-spacing: -.01em; }
+
+/* Slow cinematic Ken Burns on the banner as it fades in */
+#season .season-track .season-media img { transform: scale(1.08); }
+#season .season-track .season-card.is-active .season-media img {
+  transform: scale(1);
+  transition: transform 8s ease-out;
+}
+
+/* A soft light sweep glides across the photo the moment it becomes active */
+#season .season-card.is-active .season-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 32%, rgba(255, 255, 255, .18) 48%, transparent 62%);
+  transform: translateX(-120%);
+  animation: seasonSheen 1.5s var(--ease) .3s;
+}
+@keyframes seasonSheen { to { transform: translateX(120%); } }
+
+/* Progress dots: brass-to-oxblood active pill */
+#season .season-dots { margin-top: 22px; }
+#season .season-dot { background: #d9cdb3; }
+#season .season-dot.is-active {
+  width: 30px;
+  background: linear-gradient(90deg, var(--gold), var(--red));
+}
+
+@media (min-width: 861px) {
+  #season { padding: 96px 0 76px; }
+  #season .season-track .season-media { min-height: 340px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #season .season-arrow:hover { transform: none; }
+  #season .season-count::before { animation: none; }
+  #season .season-card.is-active .season-media::before { animation: none; display: none; }
+  #season .season-track .season-card.is-active .season-media img { transition: none; }
+}
+
+/* =========================================================
+   "TWO STORES, ONE FAMILY" — premium stage
+   Sits the gold-framed store cards on the same warm brass
+   halo as the banners, adds a light-sweep that glides over
+   each storefront as it reveals, and a crisper heading.
+   ========================================================= */
+
+/* Warm cream stage with a soft brass halo behind the two cards */
+#stores { position: relative; overflow: hidden; }
+#stores::after {
+  content: "";
+  position: absolute;
+  left: 50%; top: 12%;
+  width: min(1200px, 96%);
+  height: 70%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(60% 60% at 50% 0%, rgba(176, 134, 58, .1), transparent 72%);
+}
+#stores .container { position: relative; z-index: 1; }
+
+/* Heading: brass flourish grows in as the header reveals */
+#stores .section-head::after {
+  width: 0;
+  transition: width .8s var(--ease) .2s;
+}
+#stores .section-head.is-visible::after { width: 64px; }
+
+/* Light sweep glides across each storefront as its card scrolls into view */
+#stores .store-media > img { position: relative; z-index: 0; }
+#stores .store-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(105deg, transparent 34%, rgba(255, 255, 255, .22) 48%, transparent 62%);
+  transform: translateX(-130%);
+}
+#stores .store.is-visible .store-media::before {
+  animation: storeSheen 1.5s var(--ease) .35s;
+}
+#stores .store-grid > .reveal:nth-child(2).is-visible .store-media::before {
+  animation-delay: .5s;
+}
+@keyframes storeSheen { to { transform: translateX(130%); } }
+
+/* Keep the heritage badge above the sweep + vignette */
+#stores .store-media .badge { z-index: 3; }
+
+@media (prefers-reduced-motion: reduce) {
+  #stores .section-head::after { transition: none; width: 64px; }
+  #stores .store.is-visible .store-media::before { animation: none; display: none; }
+}

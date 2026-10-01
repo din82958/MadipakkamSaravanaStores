@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 470" fill="none" role="img" aria-label="Traditional brass kuthu vilakku lamp">
+  <defs>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#d9b978"/>
+      <stop offset=".5" stop-color="#b0863a"/>
+      <stop offset="1" stop-color="#8a6626"/>
+    </linearGradient>
+    <linearGradient id="flame" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6d38a"/>
+      <stop offset=".55" stop-color="#e0a94b"/>
+      <stop offset="1" stop-color="#a13034"/>
+    </linearGradient>
+  </defs>
+  <g stroke="url(#brass)" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round">
+    <!-- flame -->
+    <path d="M100 22c11 22 17 33 17 47a17 17 0 0 1-34 0c0-14 6-25 17-47Z" fill="url(#flame)" stroke="none"/>
+    <path d="M100 52c4 8 6 12 6 18a6 6 0 0 1-12 0c0-6 2-10 6-18Z" fill="#fff6e4" stroke="none"/>
+    <!-- bud finial -->
+    <path d="M100 88c5 6 5 14 0 20-5-6-5-14 0-20Z" fill="url(#brass)" stroke="none"/>
+    <!-- oil dish with wick beaks -->
+    <path d="M50 116q50 26 100 0"/>
+    <path d="M52 116q48 16 96 0l3-9q-51 12-102 0Z" fill="url(#brass)" stroke="none"/>
+    <path d="M50 110 34 106l16-5Z" fill="url(#brass)" stroke="none"/>
+    <path d="M150 110l16-4-16-5Z" fill="url(#brass)" stroke="none"/>
+    <!-- column with knobs -->
+    <rect x="93" y="132" width="14" height="196" rx="7" fill="url(#brass)" stroke="none"/>
+    <circle cx="100" cy="158" r="13" fill="url(#brass)" stroke="none"/>
+    <circle cx="100" cy="238" r="15" fill="url(#brass)" stroke="none"/>
+    <circle cx="100" cy="312" r="12" fill="url(#brass)" stroke="none"/>
+    <!-- tiered base -->
+    <ellipse cx="100" cy="344" rx="27" ry="8" fill="url(#brass)" stroke="none"/>
+    <ellipse cx="100" cy="374" rx="41" ry="10" fill="url(#brass)" stroke="none"/>
+    <ellipse cx="100" cy="406" rx="57" ry="12" fill="url(#brass)" stroke="none"/>
+    <ellipse cx="100" cy="436" rx="74" ry="16" fill="url(#brass)" stroke="none"/>
+  </g>
+</svg>

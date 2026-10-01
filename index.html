@@ -17,7 +17,7 @@
   <meta name="description" content="Vessel shop in Madipakkam &amp; Medavakkam, Chennai, since 1980: steel &amp; brass vessels, cookware, plastics, pooja items. Free same-day delivery, bulk orders in 1 day.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Madipakkam Saravana Stores">
-  <meta name="theme-color" content="#c8141b">
+  <meta name="theme-color" content="#8a2327">
   <meta name="format-detection" content="telephone=yes">
 
   <!-- Local SEO -->
@@ -57,10 +57,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600&family=Noto+Serif+Tamil:wght@500&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="images/madipakkam/thumbs/1.jpg" media="(max-width: 760px)">
-  <link rel="preload" as="image" href="images/madipakkam/1.jpg" media="(min-width: 761px)">
+  <link rel="preload" as="image" href="images/madipakkam/thumbs/1.webp" type="image/webp" media="(max-width: 760px)">
+  <link rel="preload" as="image" href="images/madipakkam/1.webp" type="image/webp" media="(min-width: 761px)">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/v2.css">
+  <link rel="stylesheet" href="css/v3.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/premium.css">
+  <link rel="stylesheet" href="css/texture.css">
   <script>
     document.documentElement.classList.add('js', 'is-loading');
     // Always start at the top on refresh (browsers otherwise jump back to where you were)
@@ -959,8 +963,10 @@
       <!-- Slide: Madipakkam (legacy) -->
       <article class="slide is-active" aria-roledescription="slide" aria-label="Madipakkam store">
         <picture class="slide-media">
+          <source media="(max-width: 760px)" type="image/webp" srcset="images/madipakkam/thumbs/1.webp">
           <source media="(max-width: 760px)" srcset="images/madipakkam/thumbs/1.jpg">
-          <img src="images/madipakkam/1.jpg" alt="Madipakkam Saravana Stores, Madipakkam store front" fetchpriority="high" width="1600" height="896">
+          <source type="image/webp" srcset="images/madipakkam/1.webp">
+          <img src="images/madipakkam/1.jpg" alt="Madipakkam Saravana Stores, Madipakkam store front" fetchpriority="high" width="1600" height="678">
         </picture>
         <div class="container slide-inner">
           <p class="eyebrow"><span data-ta="மடிப்பாக்கம்">Madipakkam</span><span class="dot"></span><span data-ta="1980 முதல்">Since 1980</span></p>
@@ -976,8 +982,10 @@
       <!-- Slide: Medavakkam -->
       <article class="slide" aria-roledescription="slide" aria-label="Medavakkam store">
         <picture class="slide-media">
-          <source media="(max-width: 760px)" srcset="images/medavakkam/14.jpg">
-          <img src="images/medavakkam/1.jpg" alt="Madipakkam Saravana Stores, Medavakkam store front" loading="lazy" width="1280" height="960">
+          <source media="(max-width: 760px)" type="image/webp" srcset="images/medavakkam/thumbs/1.webp">
+          <source media="(max-width: 760px)" srcset="images/medavakkam/thumbs/1.jpg">
+          <source type="image/webp" srcset="images/medavakkam/1.webp">
+          <img src="images/medavakkam/1.jpg" alt="Madipakkam Saravana Stores, Medavakkam store front" loading="lazy" width="1500" height="1437">
         </picture>
         <div class="container slide-inner">
           <p class="eyebrow"><span data-ta="மேடவாக்கம்">Medavakkam</span><span class="dot"></span><span data-ta="புதிய கடை – 2023">New store – 2023</span></p>
@@ -1153,6 +1161,7 @@
   <section class="section section-mist" id="occasions">
     <div class="container">
       <div class="section-head reveal">
+        <img class="head-emblem" src="brand/kalash.svg" alt="" aria-hidden="true" loading="lazy">
         <p class="kicker" data-ta="விசேஷங்களுக்கு">Shop by occasion</p>
         <h2 data-ta="ஒவ்வொரு விசேஷத்திற்கும், சரியான பாத்திரங்கள்">The right vessels for every occasion</h2>
         <p class="section-sub" data-ta="சொல்லுங்கள் – பட்டியல் தயார் செய்து, விலை சொல்லி, எந்த அளவையும் ஒரே நாளில் இலவசமாக டெலிவரி செய்கிறோம்.">Tell us the occasion – we'll help with the list, quote a price and deliver any quantity free, in one day.</p>
@@ -1220,7 +1229,7 @@
           <button class="season-arrow" type="button" data-dir="1" aria-label="Next banner"><svg class="ico"><use href="#i-right"/></svg></button>
         </div>
       </div>
-      <div class="season-track" id="seasonTrack" aria-roledescription="carousel"></div>
+      <div class="season-track reveal" id="seasonTrack" aria-roledescription="carousel"></div>
       <div class="season-dots" id="seasonDots"></div>
     </div>
   </section>
@@ -1228,13 +1237,16 @@
   <!-- GALLERY -->
   <section class="section" id="gallery">
     <div class="container">
-      <div class="section-head reveal">
-        <p class="kicker" data-ta="புகைப்படங்கள்">Gallery</p>
-        <h2 data-ta="எங்கள் கடைக்குள்ளே">Step inside</h2>
-      </div>
-      <div class="tabs" role="tablist">
-        <button class="tab is-active" role="tab" aria-selected="true" data-tab="medavakkam" data-ta="மேடவாக்கம்">Medavakkam</button>
-        <button class="tab" role="tab" aria-selected="false" data-tab="madipakkam" data-ta="மடிப்பாக்கம்">Madipakkam</button>
+      <div class="gallery-head reveal">
+        <div class="section-head">
+          <p class="kicker" data-ta="புகைப்படங்கள்">Gallery</p>
+          <h2 data-ta="எங்கள் கடைக்குள்ளே">Step inside</h2>
+          <p class="section-sub" data-ta="மேடவாக்கம் மற்றும் மடிப்பாக்கம் கடைகளுக்குள் ஒரு பார்வை — பாத்திரங்கள், சமையல் பொருட்கள், பூஜை சாமான்கள் அனைத்தும் ஒரே கூரையின் கீழ்.">A look around our Medavakkam and Madipakkam stores — aisles of vessels, cookware and pooja essentials, all under one roof.</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Choose a store">
+          <button class="tab is-active" role="tab" aria-selected="true" data-tab="medavakkam" data-ta="மேடவாக்கம்">Medavakkam</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="madipakkam" data-ta="மடிப்பாக்கம்">Madipakkam</button>
+        </div>
       </div>
       <div class="gallery" id="galleryGrid"></div>
       <p class="gallery-hint" data-ta="← ஸ்வைப் செய்யுங்கள் →">← Swipe to see more →</p>
@@ -1354,6 +1366,8 @@
   <!-- QUOTE BAND -->
   <section class="quote-band" id="quote">
     <img class="quote-bg" src="images/madipakkam/5.jpg" alt="Stainless steel vessel aisle at Madipakkam Saravana Stores" loading="lazy" width="1600" height="905">
+    <img class="quote-lamp quote-lamp-l" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
+    <img class="quote-lamp quote-lamp-r" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
     <div class="container quote-inner reveal">
       <span class="quote-mark" aria-hidden="true">&ldquo;</span>
       <p class="kicker" data-ta="அனைத்து சமையலறை பாத்திரங்களும்">Every kitchen utensil</p>
@@ -1568,6 +1582,19 @@
   <button class="lb-btn lb-prev" type="button" data-lb="prev" aria-label="Previous"><svg class="ico"><use href="#i-left"/></svg></button>
   <button class="lb-btn lb-next" type="button" data-lb="next" aria-label="Next"><svg class="ico"><use href="#i-right"/></svg></button>
   <p class="lb-count" id="lbCount"></p>
+</dialog>
+
+<!-- Full-screen "view all" gallery -->
+<dialog class="gallery-all" id="galleryAll" aria-label="All store photos">
+  <div class="ga-head">
+    <p class="ga-title" id="gaTitle"></p>
+    <button class="ga-close" type="button" data-ga="close" aria-label="Close"><span id="gaCloseLabel">Close</span> <svg class="ico"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="ga-viewport">
+    <button class="ga-nav ga-prev" type="button" data-ga="prev" aria-label="Previous"><svg class="ico"><use href="#i-left"/></svg></button>
+    <div class="ga-grid" id="gaGrid"></div>
+    <button class="ga-nav ga-next" type="button" data-ga="next" aria-label="Next"><svg class="ico"><use href="#i-right"/></svg></button>
+  </div>
 </dialog>
 
 <script src="js/site-config.js"></script>
