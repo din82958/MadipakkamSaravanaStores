@@ -494,6 +494,9 @@ if (!window.gtag && /^G-[A-Z0-9]+$/i.test(SITE.analyticsId || '')) {
   window.gtag = function () { window.dataLayer.push(arguments); };
   window.gtag('js', new Date());
   window.gtag('config', SITE.analyticsId);
+} else if (window.gtag && /^G-[A-Z0-9]+$/i.test(SITE.analyticsId || '')) {
+  // The <head> tag only configures the Google Ads ID – add GA4 to the same tag
+  window.gtag('config', SITE.analyticsId);
 }
 // Add ?ga_debug to the URL to see events live in GA4 → Admin → DebugView
 const GA_DEBUG = /[?&]ga_debug\b/.test(location.search);
@@ -540,7 +543,7 @@ function track(name, params = {}) {
   if (!window.gtag) return;
   window.gtag('event', name, { ...adCtx, ...params, ...(GA_DEBUG && { debug_mode: true }), transport_type: 'beacon' });
   const label = adsOn && (ADS.labels || {})[name.replace('click_', '')];
-  if (label && name.startsWith('click_')) window.gtag('event', 'conversion', { send_to: `${ADS.id}/${label}`, transport_type: 'beacon' });
+  if (label && name.startsWith('click_')) window.gtag('event', 'conversion', { send_to: `${ADS.id}/${label}`, value: 1.0, currency: 'INR', transport_type: 'beacon' });
 }
 // The visit that came from an ad: which ad, which sitelink, which section it opened on
 if (adVisit && adVisit.is_new) track('ad_landing', { landing_section: clean(location.hash.slice(1), 'top') });
@@ -568,23 +571,64 @@ if (window.gtag) {
       seen.unobserve(en.target);
     }), { threshold: 0.5 });
     $$('.cat-card[id]').forEach(c => seen.observe(c));
+
+    // How far down the page people get: a section counts once its top passes the middle of the screen
+    const reached = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      track('view_section', { section: en.target.id });
+      reached.unobserve(en.target);
+    }), { rootMargin: '0px 0px -50% 0px' });
+    $$('main section[id]').forEach(s => reached.observe(s));
+
+    // Which store card people actually read
+    const storeSeen = new IntersectionObserver(entries => entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      track('view_store', { store: en.target.id });
+      storeSeen.unobserve(en.target);
+    }), { threshold: 0.5 });
+    $$('.store[id]').forEach(s => storeSeen.observe(s));
   }
+
+  // Every other tap is reported as ui_click with the button's English text, read now
+  // (before Tamil can be switched on) so reports don't split one button into two languages
+  const labels = new WeakMap();
+  const labelOf = (el) => {
+    if (!labels.has(el)) {
+      const text = el.getAttribute('aria-label') || el.textContent || ($('img', el) || {}).alt || '';
+      labels.set(el, text.replace(/\s+/g, ' ').trim().slice(0, 60) || '(no text)');
+    }
+    return labels.get(el);
+  };
+  $$('a, button, summary').forEach(labelOf);
 
   // Capture phase so we see the tap before other handlers change the link or close the sheet
   document.addEventListener('click', e => {
-    const el = e.target.closest('a, button');
+    const el = e.target.closest('a, button, summary');
     if (!el) return;
     const href = el.getAttribute('href') || '';
     const link_location = placeOf(el);
 
+    // FAQ question opened (the store-card map has its own event below)
+    if (el.matches('summary')) {
+      const item = el.closest('.faq-item');
+      if (item && !item.open) track('faq_open', { question: labelOf(el) });
+      return;
+    }
     // Category shortcuts (#cat-steel etc.)
     if (CATEGORY[href.slice(1)]) {
       interest.category = CATEGORY[href.slice(1)];
       track('select_category', { category: interest.category, link_location });
+      return;
     }
-    // Store look-ups: "Visit Medavakkam", gallery tabs
-    if (href === '#madipakkam' || href === '#medavakkam') track('select_location', { store: href.slice(1), action: 'visit_link', link_location });
-    if (el.matches('.tab[data-tab]')) track('select_location', { store: el.dataset.tab, action: 'photo_tab', link_location });
+    // Store look-ups: "Visit Medavakkam", gallery tabs, a photo opened
+    if (href === '#madipakkam' || href === '#medavakkam') return track('select_location', { store: href.slice(1), action: 'visit_link', link_location });
+    if (el.matches('.tab[data-tab]')) return track('select_location', { store: el.dataset.tab, action: 'photo_tab', link_location });
+    if (el.closest('#galleryGrid')) {
+      const tab = $('.tab.is-active[data-tab]');
+      return track('view_photo', { store: tab ? tab.dataset.tab : 'not_chosen', link_location: 'gallery' });
+    }
+    if (el.id === 'langToggle') return track('change_language', { language: document.documentElement.lang === 'ta' ? 'en' : 'ta' });
+    if (el.id === 'menuToggle') { if (el.getAttribute('aria-expanded') !== 'true') track('open_menu', { link_location }); return; }
 
     // Opening the "which store?" sheet
     if (el.dataset.picker) {
@@ -605,7 +649,11 @@ if (window.gtag) {
 
     // The lead itself: call, WhatsApp or directions (direct links, or a store chosen in the sheet)
     const method = href.startsWith('tel:') ? 'call' : href.includes('wa.me/') ? 'whatsapp' : href.includes('maps.app.goo.gl') ? 'directions' : null;
-    if (!method) return;
+    if (!method) {
+      // Anything else: section links, festival banners, carousel and photo arrows, social links…
+      const link_url = /^(#|$)/.test(href) ? (href.length > 1 ? href : '(none)') : href.slice(0, 100);
+      return track('ui_click', { element: labelOf(el), link_location, link_url });
+    }
     const inSheet = el.closest('#picker');
     if (inSheet) pickerChosen = true;
     const ctx = inSheet && pickerCtx ? pickerCtx : { link_location, ...interest };

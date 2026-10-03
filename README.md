@@ -32,7 +32,7 @@ This is a simple static website. You don't need any software to run it: double-c
 ## Site settings: `js/site-config.js`
 All the things you'll update regularly are in one file:
 
-1. **Google Analytics.** The GA4 tag (`G-E55J9Y15PK`) is in the `<head>` of `index.html`, and the same ID is set as `analyticsId`. The site sends these events:
+1. **Google Analytics.** The Google tag in the `<head>` of `index.html` loads Google Ads (`AW-18484151582`); `js/main.js` adds GA4 (`analyticsId`, `G-E55J9Y15PK`) to the same tag. The site sends these events:
 
    | Event | When | Details sent |
    |---|---|---|
@@ -44,14 +44,32 @@ All the things you'll update regularly are in one file:
    | `open_store_picker` | the "Which store?" sheet opens | `contact_method` + context |
    | `picker_dismissed` | the sheet is closed without choosing a store | `contact_method` + context |
    | `click_call` / `click_whatsapp` / `click_directions` | the customer calls, WhatsApps or asks for directions | `store`, `contact_method`, `via_picker` + context |
+   | `view_section` | the visitor scrolls to a section (its top passes the middle of the screen) | `section` |
+   | `view_store` | a store card (Madipakkam / Medavakkam) is scrolled into view | `store` |
+   | `view_photo` | a store photo is opened | `store` |
+   | `faq_open` | an FAQ question is opened | `question` |
+   | `change_language` | English / Tamil switched | `language` |
+   | `open_menu` | the menu is opened | `link_location` |
+   | `ui_click` | any other tap (section links, banners, arrows, sheet Cancel…) | `element` (button text, in English), `link_location`, `link_url` |
 
    *Context* means `link_location` (which part of the page was tapped) plus the last `category`, `product` and `occasion` the visitor tapped, so each lead shows what they were interested in. `store` is `madipakkam` or `medavakkam`.
 
    **One-time setup in GA4** (analytics.google.com):
-   - *Admin → Custom definitions → Create custom dimension* (scope **Event**), one for each of: `category`, `product`, `occasion`, `store`, `contact_method`, `link_location`, `action`, `via_picker`. Until these exist, the reports can't show the details.
+   - *Admin → Custom definitions → Create custom dimension* (scope **Event**), one for each of: `category`, `product`, `occasion`, `store`, `contact_method`, `link_location`, `action`, `via_picker`, `section`, `question`, `language`, `element`, `link_url`. Until these exist, the reports can't show the details (they only fill in from the day you create them).
    - *Admin → Events*: mark `click_call`, `click_whatsapp` and `click_directions` as **key events** (leads).
-   - *Explore → Funnel exploration*, steps: 1 `page_view` → 2 `view_category` → 3 `select_product` → 4 `open_store_picker` → 5 `click_whatsapp` or `click_call`. Add a breakdown by `category` or `store`.
-   - *Explore → Free form*: rows `store`, columns `contact_method`, value *Event count*, filtered to the three `click_*` events. This shows Madipakkam vs Medavakkam by call, WhatsApp and directions.
+   - **Funnel: visit → lead.** *Explore → Funnel exploration*, leave *Make open funnel* off, steps (add several events to one step with **Or**):
+     1. *Visited*: `session_start`
+     2. *Browsed*: `view_category`, or `view_section` where `section` = `categories` / `occasions` / `stores`
+     3. *Showed interest*: `select_category` or `select_product` or `select_occasion` or `select_location` or `view_photo` or `view_store` or `open_store_picker`
+     4. *Lead*: `click_call` or `click_whatsapp` or `click_directions`
+
+     Visitors who call straight from the top of the page skip steps 2–3, so they don't show in this funnel; the key-event count has every lead.
+     *Breakdown*: `store`, `ad_click` or *Device category*. Each step shows how many dropped off before the next.
+   - **Funnel: "Which store?" sheet.** 1 `open_store_picker` → 2 `click_call` or `click_whatsapp` or `click_directions`; the drop-off is people who closed the sheet (also counted as `picker_dismissed`).
+   - **Funnel: which store.** 1 `view_store` → 2 `select_location` → 3 `click_call` or `click_whatsapp` or `click_directions`, with breakdown `store`.
+   - **Leads by store and method.** *Explore → Free form*: rows `store`, columns `contact_method`, value *Event count*, filtered to the three `click_*` events. This shows Madipakkam vs Medavakkam by call, WhatsApp and directions.
+   - **Everything people tap.** *Explore → Free form*: rows `element`, then `link_location`, value *Event count*, filtered to `ui_click`.
+   - **Who contacted.** GA4 doesn't name people (that's not allowed). *Explore → User explorer* shows each anonymous visitor's taps in order, for example *view_store → select_location → click_directions*.
    - To test, open the site with `?ga_debug` at the end of the address and watch *Admin → DebugView*.
 
    **Ads: which leads came from an advertisement**

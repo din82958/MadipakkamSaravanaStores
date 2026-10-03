@@ -18,7 +18,7 @@ window.SITE = {
      Don't do both, or each lead is counted twice. */
   adsConversion: {
     id: 'AW-18484151582',
-    labels: { call: '', whatsapp: '', directions: '' },
+    labels: { call: '_G_6CJGiwIsdEJ6K9-1E', whatsapp: '', directions: '' },
   },
 
   /* ---------- 2. Google ratings & customer quotes ----------
