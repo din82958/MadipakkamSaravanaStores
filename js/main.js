@@ -51,11 +51,12 @@ function setLang(next) {
 $('#langToggle').addEventListener('click', () => setLang(lang === 'en' ? 'ta' : 'en'));
 
 // ===== Hero carousel (one slide per store) =====
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const hero = $('.hero');
+if (hero) {   // home page only
 const slides = $$('.slide', hero);
 const dots = $$('.carousel-dot', hero);
 const SLIDE_MS = 7000;
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let slideIndex = 0;
 let slideTimer = null;
 hero.style.setProperty('--slide-ms', SLIDE_MS + 'ms');
@@ -100,6 +101,7 @@ const strip = $('.hero-strip');
 const setStripH = () => hero.style.setProperty('--strip-h', strip.offsetHeight + 'px');
 setStripH();
 window.addEventListener('resize', setStripH);
+}
 
 // ===== Madipakkam photo: used automatically once images/madipakkam/1.jpg exists =====
 function usePhotoIfExists(el, urls) {
@@ -158,7 +160,10 @@ document.addEventListener('click', e => {
   const key = mode === 'call' ? 'tel' : mode === 'whatsapp' ? 'wa' : 'map';
   pickerTitle.textContent = TEXT[mode][lang];
   Object.entries(pickLinks).forEach(([store, link]) => {
-    link.href = mode === 'whatsapp' ? waLink(STORES[store].wa, el.dataset.occasion) : STORES[store][key];
+    // data-wa-text (catalogue / gift lists) replaces the whole pre-filled message
+    link.href = mode !== 'whatsapp' ? STORES[store][key]
+      : el.dataset.waText ? `${STORES[store].wa}?text=${encodeURIComponent(el.dataset.waText)}`
+      : waLink(STORES[store].wa, el.dataset.occasion);
     link.target = mode === 'call' ? '_self' : '_blank';
   });
   picker.showModal();
@@ -209,13 +214,15 @@ function renderGallery(store) {
     img.loading = 'lazy';
     img.decoding = 'async';
     img.alt = `Inside Madipakkam Saravana Stores, ${store[0].toUpperCase() + store.slice(1)} – vessels and kitchenware, photo ${i + 1}`;
+    // Light WebP thumb first (made by tools/optimize_images.py), then the JPG thumb, then the full photo
+    const tries = [`images/${store}/thumbs/${file}`, full];
     img.onerror = () => {
-      if (!img.dataset.retried) { img.dataset.retried = '1'; img.src = full; return; }
+      if (tries.length) { img.src = tries.shift(); return; }
       btn.remove();
       current = current.filter(u => u !== full);
       if (!current.length) showEmpty(); else markDesktopOverflow();
     };
-    img.src = `images/${store}/thumbs/${file}`;
+    img.src = `images/${store}/thumbs/${file.replace(/\.jpe?g$/i, '.webp')}`;
     btn.appendChild(img);
     btn.addEventListener('click', () => openLightbox(current.indexOf(full)));
     grid.appendChild(btn);
@@ -267,7 +274,7 @@ function switchGallery(store) {
     grid.classList.remove('is-entering');
   }, 260);
 }
-renderGallery('medavakkam');
+if (grid) renderGallery('medavakkam');
 
 // ===== Lightbox =====
 const lightbox = $('#lightbox');
@@ -277,12 +284,16 @@ let lbIndex = 0;
 
 function showPhoto(i) {
   lbIndex = (i + current.length) % current.length;
-  lbImg.src = current[lbIndex];
+  // Lighter WebP copy (tools/optimize_images.py) when there is one, else the original JPG
+  const jpg = current[lbIndex];
+  lbImg.onerror = () => { lbImg.onerror = null; lbImg.src = jpg; };
+  lbImg.src = jpg.replace(/\.jpe?g$/i, '.webp');
   lbImg.alt = `Store photo ${lbIndex + 1}`;
   lbCount.textContent = `${lbIndex + 1} / ${current.length}`;
 }
 function openLightbox(i) { if (i < 0) return; showPhoto(i); lightbox.showModal(); }
 
+if (lightbox) {   // home page only
 lightbox.addEventListener('click', e => {
   const action = e.target.closest('[data-lb]')?.dataset.lb;
   if (action === 'close' || e.target === lightbox) lightbox.close();
@@ -301,6 +312,7 @@ lightbox.addEventListener('touchend', e => {
   if (Math.abs(dx) > 50) showPhoto(lbIndex + (dx < 0 ? 1 : -1));
   touchX = null;
 });
+}
 
 // ===== Reveal on scroll =====
 if ('IntersectionObserver' in window) {
@@ -440,6 +452,7 @@ const starRow = (n) => {
 function renderReviews() {
   const data = SITE.reviews || {};
   const section = $('#reviews');
+  if (!section) return;
   const storeName = (k) => (REVIEW_TEXT[k] ? REVIEW_TEXT[k][lang] : esc(k));
   // Every real quote from both shops, interleaved so the strip alternates shops
   const lists = Object.keys(data).map(k => (data[k].quotes || []).map(q => ({ ...q, store: k })));
@@ -552,7 +565,7 @@ if (window.gtag) {
   const storeOf = (s) => /madipakkam|9698471616|Lc5Mn1nZLhLbLNLt5|12\.97/i.test(s) ? 'madipakkam'
     : /medavakkam|9444577336|SWVrHgRHAYiuGCfy9|12\.92/i.test(s) ? 'medavakkam' : 'not_chosen';
   const placeOf = (el) => {
-    const zones = [['.action-bar', 'action_bar'], ['.nav-extra', 'menu'], ['#header', 'header'], ['.hero', 'hero'],
+    const zones = [['#listSheet', 'my_list'], ['.action-bar', 'action_bar'], ['.nav-extra', 'menu'], ['#header', 'header'], ['.hero', 'hero'],
       ['.quick-item', 'quick_links'], ['.season-card', 'festival_banner'], ['footer', 'footer']];
     for (const [sel, name] of zones) if (el.closest(sel)) return name;
     const sec = el.closest('section[id]');
@@ -637,6 +650,10 @@ if (window.gtag) {
         interest.category = CATEGORY[card.id];
         interest.product = el.dataset.occasion || '(none)';
         track('select_product', { category: interest.category, product: interest.product });
+      } else if (el.closest('#catalogue') && el.dataset.occasion) {
+        interest.category = el.dataset.category ? `catalogue_${el.dataset.category}` : 'catalogue';
+        interest.product = el.dataset.occasion.slice(0, 100);
+        track('select_product', { category: interest.category, product: interest.product });
       } else if (el.dataset.occasion) {
         interest.occasion = el.dataset.occasion;
         track('select_occasion', { occasion: interest.occasion, link_location });
@@ -680,15 +697,32 @@ if (saved === 'ta') setLang('ta');
 // ===== Years since 1980 (legacy counters) =====
 $$('.js-years').forEach(el => { el.textContent = new Date().getFullYear() - 1980; });
 
-// ===== Start at the top on refresh =====
+// ===== Scroll position: top on a fresh visit or refresh, the same spot after pressing Back =====
+// (e.g. Home → tap "Stainless steel vessels" → catalogue → Back = back at the category cards)
+const navType = (performance.getEntriesByType && (performance.getEntriesByType('navigation')[0] || {}).type) || '';
+const isBack = navType === 'back_forward';
+const SCROLL_KEY = 'scroll:' + location.pathname;
+window.addEventListener('pagehide', () => { try { sessionStorage.setItem(SCROLL_KEY, String(Math.round(window.scrollY))); } catch (e) {} });
 const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
-if (!location.hash) { toTop(); window.addEventListener('load', toTop); }
+let savedY = null;
+try { savedY = sessionStorage.getItem(SCROLL_KEY); } catch (e) {}
+if (isBack && savedY !== null) {
+  const back = () => window.scrollTo({ top: +savedY, left: 0, behavior: 'instant' });
+  back();
+  window.addEventListener('load', () => { back(); setTimeout(back, 350); });   // again once photos have their size
+} else if (!location.hash) { toTop(); window.addEventListener('load', toTop); }
 
 // ===== Splash screen =====
 // Plays its intro for at least ~2.3s, then lifts once the page has loaded (never waits more than 5s).
 (function () {
+  // Played once per visit (see the script in <head>): remembered for the rest of the browsing session
+  try { sessionStorage.setItem('splashSeen', '1'); } catch (e) {}
   const splash = $('#splash');
-  if (!splash) return;
+  if (!splash) { document.documentElement.classList.remove('is-loading'); return; }
+  // No intro after Back, or when coming from another page of the site
+  if (isBack || document.documentElement.classList.contains('is-back')) {
+    splash.remove(); document.documentElement.classList.remove('is-loading'); return;
+  }
   const MIN_MS = reduceMotion ? 600 : 2300;   // measured from the start of the page load
   let done = false;
   function finish() {

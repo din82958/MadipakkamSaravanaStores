@@ -1,0 +1,29 @@
+<!-- Page content for gift-finder.html. Run "python tools/build_pages.py" after editing this file or index.html. -->
+  <!-- SEER & OCCASION LISTS (kits live in js/catalogue.js) -->
+  <section class="section gift-finder" id="gift-finder">
+    <div class="container">
+      <div class="section-head reveal">
+        <img class="head-emblem" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
+        <p class="kicker" data-ta="சீர் & விசேஷப் பட்டியல்">Seer &amp; Occasion Lists</p>
+        <h1 data-ta="விசேஷத்தையும் பட்ஜெட்டையும் சொல்லுங்கள் – பட்டியல் நாங்கள் தருகிறோம்">Pick the occasion and budget – we’ll draft the list</h1>
+        <p class="section-sub" data-ta="எங்கள் கடையின் உண்மையான பொருட்கள், விலைகளுடன். பொருட்களை மாற்றலாம், நீக்கலாம், பிறகு WhatsApp-ல் அனுப்புங்கள் – மீதியை நாங்கள் பார்த்துக்கொள்கிறோம்.">Real items from our shelves, with prices. Swap or remove anything, then send it on WhatsApp – we’ll take care of the rest.</p>
+      </div>
+      <div class="gf-card reveal" id="giftFinder">
+        <div class="gf-step">
+          <p class="gf-label"><b>1</b><span data-ta="விசேஷத்தைத் தேர்ந்தெடுங்கள்">Choose the occasion</span></p>
+          <div class="gf-occ" id="gfOcc" role="group" aria-label="Occasion"></div>
+        </div>
+        <div class="gf-step" id="gfBudgetStep" hidden>
+          <p class="gf-label"><b>2</b><span id="gfBudgetLabel"></span></p>
+          <div class="gf-budget" id="gfBudget"></div>
+        </div>
+        <div class="gf-result" id="gfResult" aria-live="polite"></div>
+      </div>
+      <a class="page-crosslink reveal" href="catalogue.html">
+        <svg class="ico"><use href="#i-search"/></svg>
+        <span><strong data-ta="குறிப்பிட்ட பொருள் தேடுகிறீர்களா?">Looking for something specific?</strong>
+        <span data-ta="எங்கள் அனைத்து பொருட்களையும் விலையுடன் தேடுங்கள்.">Search all our items with prices.</span></span>
+        <svg class="ico"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+  </section>

@@ -15,8 +15,8 @@
   --white: #ffffff;
   --green: #1a8f4c;
 
-  --serif: "Cormorant Garamond", "Noto Serif Tamil", Georgia, serif;
-  --sans: "Jost", "Noto Sans Tamil", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --serif: "Cormorant Garamond", "Anek Tamil", Georgia, serif;
+  --sans: "Jost", "Mukta Malar", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gold: #c9a45c;
 
   --radius: 18px;
@@ -40,7 +40,7 @@ body {
   -webkit-font-smoothing: antialiased;
   padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom));
 }
-html[lang="ta"] { --serif: "Noto Serif Tamil", "Cormorant Garamond", serif; --sans: "Noto Sans Tamil", "Jost", system-ui, sans-serif; }
+html[lang="ta"] { --serif: "Anek Tamil", "Mukta Malar", "Cormorant Garamond", serif; --sans: "Mukta Malar", "Jost", system-ui, sans-serif; }
 img { max-width: 100%; display: block; }
 a { color: inherit; }
 h1, h2, h3, h4 { margin: 0; line-height: 1.2; color: var(--ink); }

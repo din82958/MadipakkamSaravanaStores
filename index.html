@@ -55,7 +55,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600&family=Noto+Serif+Tamil:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="images/madipakkam/thumbs/1.webp" type="image/webp" media="(max-width: 760px)">
   <link rel="preload" as="image" href="images/madipakkam/1.webp" type="image/webp" media="(min-width: 761px)">
   <link rel="stylesheet" href="css/style.css">
@@ -64,12 +64,19 @@
   <link rel="stylesheet" href="css/animations.css">
   <link rel="stylesheet" href="css/premium.css">
   <link rel="stylesheet" href="css/texture.css">
+  <link rel="stylesheet" href="css/catalogue.css">
+  <link rel="stylesheet" href="css/mobile.css">
   <script>
-    document.documentElement.classList.add('js', 'is-loading');
-    // Always start at the top on refresh (browsers otherwise jump back to where you were)
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     (function () {
       var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      // The splash intro plays once per visit: not after Back, and not when coming from another page of the site
+      var back = nav && nav.type === 'back_forward';
+      var seen = false;
+      try { seen = sessionStorage.getItem('splashSeen') === '1'; } catch (e) {}
+      var skip = back || seen;
+      document.documentElement.classList.add('js', skip ? 'is-back' : 'is-loading');
+      // Start at the top on refresh (browsers otherwise jump back to where you were)
+      if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
       if (nav && nav.type === 'reload' && location.hash) history.replaceState(null, '', location.pathname + location.search);
     })();
   </script>
@@ -750,6 +757,14 @@
       "mainEntity": [
         {
           "@type": "Question",
+          "name": "Do you take old vessels in exchange?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Bring your old steel, brass, copper or aluminium vessels to either store. We weigh them, and you can take new products from the shop for their value."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "Do you offer free home delivery?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -862,6 +877,125 @@
     <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5Z"/><path d="m3 8 9 5 9-5"/><path d="M12 13v8"/></symbol>
     <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></symbol>
     <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h.01M4 12h.01M4 18h.01"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18"/><path d="M8 6V4h8v2"/><path d="m19 6-1 14H6L5 6"/></symbol>
+    <symbol id="i-pot" viewBox="0 0 24 24"><path d="M9 3h6"/><path d="M10 3v3c-3 1-6 4-6 8a8 8 0 0 0 16 0c0-4-3-7-6-8V3"/></symbol>
+    <symbol id="i-lamp" viewBox="0 0 24 24"><path d="M12 3c1.5 2 1.5 3.5 0 5-1.5-1.5-1.5-3 0-5z"/><path d="M4 11h16c0 3-3.5 5-8 5s-8-2-8-5z"/><path d="M12 16v4M8 21h8"/></symbol>
+    <symbol id="i-pan" viewBox="0 0 24 24"><path d="M3 10h18c0 4.5-4 8-9 8s-9-3.5-9-8z"/><path d="M1 10h2M21 10h2"/></symbol>
+    <symbol id="i-plate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/></symbol>
+    <symbol id="i-bottle" viewBox="0 0 24 24"><path d="M10 2h4v3l2 3v12a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2V8l2-3z"/><path d="M8 12h8"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m3 11 9-8 9 8"/><path d="M5 10v10h14V10"/></symbol>
+    <symbol id="p-agal" viewBox="0 0 24 24"><path d="M12 3.5c1.4 1.6 1.4 3 0 4.3-1.4-1.3-1.4-2.7 0-4.3z" style="fill:var(--if,none)"/><path d="M3.5 11.5h17c-.6 3.2-4 5.5-8.5 5.5s-7.9-2.3-8.5-5.5z" style="fill:var(--if,none)"/><path d="M12 7.8v3.7"/><path d="M9 17v2.5h6V17"/><path d="M7 21h10"/></symbol>
+    <symbol id="p-kudam" viewBox="0 0 24 24"><path d="M9 2.8h6"/><path d="M10 2.8v2.6"/><path d="M14 2.8v2.6"/><path d="M10 5.4C6.4 6.5 4.5 9.6 4.5 13a7.5 7.5 0 0 0 15 0c0-3.4-1.9-6.5-5.5-7.6z" style="fill:var(--if,none)"/><path d="M5.3 11.3h13.4" opacity=".55"/></symbol>
+    <symbol id="p-plate" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" style="fill:var(--if,none)"/><circle cx="12" cy="12" r="5.5"/><path d="M8.5 7.6a5.5 5.5 0 0 1 3.5-1.1" opacity=".6"/></symbol>
+    <symbol id="p-bottle" viewBox="0 0 24 24"><path d="M9.5 2.5h5v2.8l2 3V20a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2V8.3l2-3z" style="fill:var(--if,none)"/><path d="M9.5 5.3h5"/><path d="M7.5 12h9M7.5 16h9" opacity=".55"/></symbol>
+    <symbol id="p-kadai" viewBox="0 0 24 24"><path d="M3.5 10h17c0 4.6-3.8 8-8.5 8s-8.5-3.4-8.5-8z" style="fill:var(--if,none)"/><path d="M2.5 10h19"/><path d="M1 8.6 3 10M23 8.6 21 10"/><path d="M6 13.2h12" opacity=".55"/></symbol>
+    <symbol id="p-agarbathi" viewBox="0 0 24 24"><path d="M4.5 21h15"/><path d="M7.5 21c0-2.3 2-3.8 4.5-3.8s4.5 1.5 4.5 3.8z" style="fill:var(--if,none)"/><path d="M12 17.2V8.2M10.3 17.4 7.4 9M13.7 17.4 16.6 9"/><path d="M12 8.2c.7-.8.7-1.6 0-2.4-.7.8-.7 1.6 0 2.4z" style="fill:var(--if,none)"/><path d="M7.4 9c.4-.9.2-1.7-.6-2.3-.4.9-.2 1.7.6 2.3z" style="fill:var(--if,none)"/><path d="M16.6 9c-.4-.9-.2-1.7.6-2.3.4.9.2 1.7-.6 2.3z" style="fill:var(--if,none)"/><path d="M12 5c-.9-.9.9-1.8 0-2.9M6.4 6.1c-.9-.8.4-1.8-.4-2.8M17.6 6.1c.9-.8-.4-1.8.4-2.8" opacity=".55"/></symbol>
+    <symbol id="p-perfume" viewBox="0 0 24 24"><rect x="7" y="10" width="11" height="11" rx="2.6" style="fill:var(--if,none)"/><path d="M10.3 10V7.6h4.4V10"/><rect x="9.6" y="5.2" width="5.8" height="2.4" rx=".8" style="fill:var(--if,none)"/><path d="M9.6 6.4H7.4"/><path d="M5 4.6h.01M4 6.4h.01M5 8.2h.01M2.6 5.4h.01M2.6 7.4h.01" stroke-width="2.2"/><path d="M15.4 6.4h2.2c1.4 0 2.1-.9 2.4-2"/><circle cx="20.4" cy="3" r="1.3" style="fill:var(--if,none)"/><path d="M9.5 14.5h6" opacity=".55"/><path d="M9.5 17.2h3.5" opacity=".4"/></symbol>
+    <symbol id="p-chimta" viewBox="0 0 24 24"><circle cx="12" cy="3.6" r="1.6"/><path d="M11 5 6.2 19.6a1 1 0 0 0 .7 1.3l.6.1a1 1 0 0 0 1.1-.6L12.4 6" style="fill:var(--if,none)"/><path d="M13 5l4.8 14.6a1 1 0 0 1-.7 1.3l-.6.1a1 1 0 0 1-1.1-.6L11.6 6" style="fill:var(--if,none)"/><path d="M8.8 12.5l2.1.6M15.2 12.5l-2.1.6" opacity=".55"/></symbol>
+    <symbol id="p-board" viewBox="0 0 24 24"><rect x="2.5" y="7.5" width="15" height="13" rx="3" style="fill:var(--if,none)"/><circle cx="5.6" cy="10.6" r="1"/><path d="M5 17.5h7" opacity=".5"/><path d="M9.2 16.2 7 18.4"/><path d="M9.2 16.2 20.3 5.1c.5 3.3-1.4 6.5-6.3 8.9z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" style="fill:var(--if,none)"/><circle cx="12" cy="12" r="7" opacity=".45"/><path d="M12 3.8v1.6M12 18.6v1.6M3.8 12h1.6M18.6 12h1.6"/><path d="M12 7.4V12l3.2 2"/><circle cx="12" cy="12" r=".8"/></symbol>
+    <symbol id="p-clothstand" viewBox="0 0 24 24"><path d="M2.5 6.5h19"/><path d="M4 6.5 5.3 20M20 6.5 18.7 20"/><path d="M5.3 20l3.3-4.2 3.4 4.2 3.4-4.2 3.3 4.2"/><path d="M5.6 6.5h4.2v6.8L7.7 12.2l-2.1 1.1z" style="fill:var(--if,none)"/><path d="M13 6.5l-1.8 1.9 1.3 1.1V14h5.6V9.5l1.3-1.1-1.8-1.9h-1.3a1.5 1.5 0 0 1-3 0z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-milkboiler" viewBox="0 0 24 24"><path d="M5 9h12v8.5A3.5 3.5 0 0 1 13.5 21h-5A3.5 3.5 0 0 1 5 17.5z" style="fill:var(--if,none)"/><path d="M4 9h14"/><path d="M5 10.5 2.6 9.2"/><path d="M8 9c0-1.6 1.3-2.6 3-2.6s3 1 3 2.6"/><path d="M11 6.4V4.6"/><path d="M9.6 4.6h2.8"/><path d="M17 12h2.5"/><path d="M7 14.5h8" opacity=".5"/></symbol>
+    <symbol id="p-strainer" viewBox="0 0 24 24"><circle cx="9" cy="11" r="6.2" style="fill:var(--if,none)"/><path d="M15.2 11H22"/><path d="M5.6 8.2l6.8 5.6M5.6 13.8l6.8-5.6M3.8 11h10.4M9 5.8v10.4" opacity=".45"/></symbol>
+    <symbol id="p-coffeefilter" viewBox="0 0 24 24"><rect x="7" y="3.5" width="10" height="6" rx="1" style="fill:var(--if,none)"/><path d="M6 9.5h12"/><path d="M7 9.5v9A2.5 2.5 0 0 0 9.5 21h5a2.5 2.5 0 0 0 2.5-2.5v-9" style="fill:var(--if,none)"/><circle cx="12" cy="2.3" r=".9"/><path d="M9 6.5h6M8.5 14.5h7" opacity=".5"/></symbol>
+    <symbol id="p-press" viewBox="0 0 24 24"><rect x="7.5" y="6" width="9" height="12" rx="1" style="fill:var(--if,none)"/><path d="M6.5 6h11M6.5 18h11"/><path d="M12 6V2.5"/><path d="M8.5 2.5h7"/><path d="M10 18l-.6 3.2M12 18v3.5M14 18l.6 3.2" opacity=".65"/><path d="M7.5 12h9" opacity=".45"/></symbol>
+    <symbol id="p-mould" viewBox="0 0 24 24"><path d="M3 10h18l-2 9H5z" style="fill:var(--if,none)"/><path d="M3 10c1.5-2 3-2 4.5 0s3 2 4.5 0 3-2 4.5 0 3 2 4.5 0"/><path d="M7 10.8l1 8.2M12 11v8M17 10.8 16 19" opacity=".5"/></symbol>
+    <symbol id="p-rolling" viewBox="0 0 24 24"><circle cx="11.5" cy="14.5" r="6.8" style="fill:var(--if,none)"/><path d="M5 9.5 18.5 6" stroke-width="2.6"/><path d="M2.4 10.2l2.2-.6M18.9 5.9l2.2-.6"/></symbol>
+    <symbol id="p-manai" viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="4" rx="1.3" style="fill:var(--if,none)"/><path d="M5 13v4.5M19 13v4.5M8.5 13v2.5M15.5 13v2.5"/><path d="M6 11h12" opacity=".5"/></symbol>
+    <symbol id="p-arivalmanai" viewBox="0 0 24 24"><rect x="3" y="17.5" width="16" height="3.2" rx="1" style="fill:var(--if,none)"/><path d="M8.5 17.5V9.5c0-3.4 2.6-6 6.2-6.4-1.2 3-2.2 5.4-2.2 8.6v5.8" style="fill:var(--if,none)"/><path d="M10.5 12h2" opacity=".5"/></symbol>
+    <symbol id="p-muram" viewBox="0 0 24 24"><path d="M3.5 8.5h17l-1.6 9.4a2 2 0 0 1-2 1.6H7.1a2 2 0 0 1-2-1.6z" style="fill:var(--if,none)"/><path d="M3.5 8.5c3 2.2 14 2.2 17 0"/><path d="M8 12.5l.8 5M12 12.8v4.8M16 12.5l-.8 5" opacity=".45"/></symbol>
+    <symbol id="p-churner" viewBox="0 0 24 24"><path d="M12 2.5v13"/><path d="M8.5 6.5h7"/><circle cx="12" cy="16" r="1.7" style="fill:var(--if,none)"/><path d="M12 17.7v3.8M10.4 16.6l-3.6 3.2M13.6 16.6l3.6 3.2M10.3 15.6 6.3 14.6M13.7 15.6l4-1"/></symbol>
+    <symbol id="p-ural" viewBox="0 0 24 24"><path d="M5 11h14l-1.5 6.5A3 3 0 0 1 14.6 20H9.4a3 3 0 0 1-2.9-2.5z" style="fill:var(--if,none)"/><path d="M4 11h16"/><path d="M14 11 18.4 3.6"/><circle cx="18.8" cy="3" r="1.3" style="fill:var(--if,none)"/><path d="M8 20.8h8"/></symbol>
+    <symbol id="p-lighter" viewBox="0 0 24 24"><path d="M2.5 8.5h11l2-1.5h4v5h-4l-2-1.5h-11z" style="fill:var(--if,none)"/><path d="M7.5 10.5v7a1.5 1.5 0 0 0 1.5 1.5h1a1.5 1.5 0 0 0 1.5-1.5v-7"/><path d="M21 8l1.5-1M21 11.5l1.5 1" opacity=".6"/></symbol>
+    <symbol id="p-cylinder" viewBox="0 0 24 24"><path d="M7 7.5h10v11a2.5 2.5 0 0 1-2.5 2.5h-5A2.5 2.5 0 0 1 7 18.5z" style="fill:var(--if,none)"/><path d="M7 7.5c0-2 2.2-3 5-3s5 1 5 3"/><path d="M10.5 4.5V2.8h3v1.7"/><path d="M7 12.5h10" opacity=".5"/></symbol>
+    <symbol id="p-fan" viewBox="0 0 24 24"><circle cx="12" cy="9" r="6.5" style="fill:var(--if,none)"/><circle cx="12" cy="9" r="1.2"/><path d="M12 7.8c-.5-2.2.3-3.6 1.8-4M13.1 9.7c2 1 2.6 2.6 1.8 4M10.9 9.4c-2.1-.5-3.3.3-3.9 1.8" opacity=".75"/><path d="M12 15.5V20"/><path d="M8 21h8"/></symbol>
+    <symbol id="p-heater" viewBox="0 0 24 24"><rect x="6.5" y="3" width="11" height="16" rx="3" style="fill:var(--if,none)"/><path d="M9.5 19v2M14.5 19v2"/><circle cx="12" cy="7.8" r="1.8"/><path d="M12 11.8c-1.3 1.5-1.3 2.9 0 3.9 1.3-1 1.3-2.4 0-3.9z"/></symbol>
+    <symbol id="p-scale" viewBox="0 0 24 24"><rect x="3" y="12" width="18" height="8" rx="2" style="fill:var(--if,none)"/><path d="M5 12l1.5-6h11L19 12"/><rect x="9" y="15" width="6" height="2.5" rx=".6"/><path d="M8 8.8h8" opacity=".5"/></symbol>
+    <symbol id="p-oven" viewBox="0 0 24 24"><rect x="2.5" y="5" width="19" height="14" rx="2" style="fill:var(--if,none)"/><rect x="5" y="7.5" width="10" height="9" rx="1"/><path d="M18 8.5h.01M18 11.5h.01M18 14.5h.01" stroke-width="2.4"/><path d="M5 21h2M17 21h2"/></symbol>
+    <symbol id="p-toaster" viewBox="0 0 24 24"><path d="M3.5 11a4 4 0 0 1 4-4h9a4 4 0 0 1 4 4v8h-17z" style="fill:var(--if,none)"/><path d="M8.5 7V4h3v3M12.5 7V3.5h3V7"/><path d="M20.5 12H22"/><path d="M6 15h11" opacity=".5"/></symbol>
+    <symbol id="p-iron" viewBox="0 0 24 24"><path d="M3 17h17.5c0-5-2.5-8-7-8H9a6 6 0 0 0-6 6z" style="fill:var(--if,none)"/><path d="M9 9c0-2 1.5-3.5 3.5-3.5H17"/><path d="M7 13.5h.01M10 13.5h.01M13 13.5h.01" stroke-width="2"/><path d="M3 20h17.5" opacity=".5"/></symbol>
+    <symbol id="p-hairdryer" viewBox="0 0 24 24"><path d="M3 9a5 5 0 0 1 5-5h9l3 1.5v7L17 14H8a5 5 0 0 1-5-5z" style="fill:var(--if,none)"/><circle cx="8" cy="9" r="2"/><path d="m10 14-1 6.5a1 1 0 0 0 1 1.2h1.5a1 1 0 0 0 1-.9L13 14"/><path d="M21.5 7.5h1M21.5 10.5h1" opacity=".6"/></symbol>
+    <symbol id="p-plug" viewBox="0 0 24 24"><path d="M8.5 2.5v4.5M15.5 2.5v4.5"/><path d="M6 7h12v4a6 6 0 0 1-12 0z" style="fill:var(--if,none)"/><path d="M12 17v4.5"/></symbol>
+    <symbol id="p-mat" viewBox="0 0 24 24"><path d="M3 8h13v11H3z" style="fill:var(--if,none)"/><circle cx="18.5" cy="10.5" r="2.5"/><path d="M16 8h2.5M16 13h2.5"/><path d="M5 11h9M5 14h9M5 17h9" opacity=".45"/></symbol>
+    <symbol id="p-bed" viewBox="0 0 24 24"><path d="M3 19V8"/><path d="M3 13.5h18v5.5"/><path d="M3 17h18" opacity=".5"/><rect x="5" y="10" width="5" height="3.5" rx="1.5" style="fill:var(--if,none)"/><path d="M11 13.5v-2a1.5 1.5 0 0 1 1.5-1.5H19a2 2 0 0 1 2 2v1.5" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-pillow" viewBox="0 0 24 24"><path d="M4 8c2-2 14-2 16 0 1 3 1 6 0 9-2 2-14 2-16 0-1-3-1-6 0-9z" style="fill:var(--if,none)"/><path d="M7.5 11c3-1 6-1 9 0" opacity=".5"/></symbol>
+    <symbol id="p-cradle" viewBox="0 0 24 24"><path d="M12 2.5v4"/><path d="M12 6.5 5 11M12 6.5l7 4.5"/><path d="M4 11h16c-.5 4-3.8 7-8 7s-7.5-3-8-7z" style="fill:var(--if,none)"/><path d="M7.5 14h9" opacity=".5"/></symbol>
+    <symbol id="p-net" viewBox="0 0 24 24"><path d="M12 3 4 19h16z" style="fill:var(--if,none)"/><path d="M12 3v16M8.4 10.5 7 19M15.6 10.5 17 19" opacity=".5"/><path d="M3 21h18"/><circle cx="12" cy="2.4" r=".8"/></symbol>
+    <symbol id="p-spray" viewBox="0 0 24 24"><path d="M8 10h7l1 2v8a1.5 1.5 0 0 1-1.5 1.5h-6A1.5 1.5 0 0 1 7 20v-8z" style="fill:var(--if,none)"/><path d="M9 10V7.5h5V10"/><path d="M8.5 7.5H15l2.5 1"/><path d="M14 7.5V5H9.5"/><path d="M20 5.5h.01M21.5 7.5h.01M20 9.5h.01" stroke-width="2.2"/><path d="M7.5 15h8" opacity=".5"/></symbol>
+    <symbol id="p-cleaner" viewBox="0 0 24 24"><path d="M6.5 9 8.5 6.5h4l1.5 1.5h3.5A1.5 1.5 0 0 1 19 9.5V20a1.5 1.5 0 0 1-1.5 1.5H8A1.5 1.5 0 0 1 6.5 20z" style="fill:var(--if,none)"/><path d="M9 6.5V4h3.5v2.5"/><path d="M14.5 10h2.5v3.5h-2.5"/><path d="M6.5 15.5H19" opacity=".5"/></symbol>
+    <symbol id="p-soap" viewBox="0 0 24 24"><rect x="3.5" y="11" width="14" height="8" rx="3" style="fill:var(--if,none)"/><path d="M6.5 14.5h8" opacity=".5"/><circle cx="17.5" cy="6.5" r="2.2"/><circle cx="13" cy="5.5" r="1.3"/><circle cx="20.3" cy="10.2" r="1"/></symbol>
+    <symbol id="p-mirror" viewBox="0 0 24 24"><ellipse cx="12" cy="9.5" rx="6" ry="7.5" style="fill:var(--if,none)"/><path d="M9.5 6.5c.8-1.5 2-2.3 3.5-2.4" opacity=".6"/><path d="M12 17v3M8 21h8"/></symbol>
+    <symbol id="p-comb" viewBox="0 0 24 24"><path d="M3 8.5h18v4.5H3z" style="fill:var(--if,none)"/><path d="M5 13v6.5M7.5 13v6.5M10 13v6.5M12.5 13v6.5M15 13v6.5M17.5 13v6.5M20 13v6.5"/></symbol>
+    <symbol id="p-towel" viewBox="0 0 24 24"><path d="M4 8h14a2 2 0 0 1 2 2v1H6a2 2 0 0 0-2 2z" style="fill:var(--if,none)"/><path d="M4 13a2 2 0 0 1 2-2h14v8H6a2 2 0 0 1-2-2z" style="fill:var(--if,none)"/><path d="M8 15h9" opacity=".5"/></symbol>
+    <symbol id="p-ladder" viewBox="0 0 24 24"><path d="M7 3 5 21M17 3l2 18"/><path d="M6.6 7h10.8M6.1 11.5h11.8M5.6 16h12.8"/></symbol>
+    <symbol id="p-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="11" rx="2" style="fill:var(--if,none)"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15" r="1.4"/><path d="M12 16.4V18"/></symbol>
+    <symbol id="p-hanger" viewBox="0 0 24 24"><path d="M12 8.5v-1a2 2 0 1 0-2-2"/><path d="M12 8.5 2.8 15.2A1.5 1.5 0 0 0 3.7 18h16.6a1.5 1.5 0 0 0 .9-2.8z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-clip" viewBox="0 0 24 24"><path d="M8.5 3h3l-.8 18H8.5z" style="fill:var(--if,none)"/><path d="M12.5 3h3L13.5 21h-2.2z" style="fill:var(--if,none)"/><circle cx="11.2" cy="12" r="1.3"/></symbol>
+    <symbol id="p-rack" viewBox="0 0 24 24"><path d="M5 3v18M19 3v18"/><path d="M5 7.5h14M5 13h14M5 18.5h14"/><rect x="7" y="4.5" width="3" height="3" rx=".5" style="fill:var(--if,none)"/><rect x="12" y="9.5" width="4.5" height="3.5" rx=".5" style="fill:var(--if,none)"/><rect x="7.5" y="15" width="5" height="3.5" rx=".5" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-bag" viewBox="0 0 24 24"><path d="M5 8h14l-1 13H6z" style="fill:var(--if,none)"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M8 12.5h8" opacity=".5"/></symbol>
+    <symbol id="p-dustbin" viewBox="0 0 24 24"><path d="M6 8h12l-1.2 12a1.5 1.5 0 0 1-1.5 1.3H8.7a1.5 1.5 0 0 1-1.5-1.3z" style="fill:var(--if,none)"/><path d="M5 8h14"/><path d="M6 8c0-2.5 2.7-4 6-4s6 1.5 6 4"/><path d="M10 11.5V18M14 11.5V18" opacity=".5"/><path d="M3.5 21.5h3"/></symbol>
+    <symbol id="p-oilcan" viewBox="0 0 24 24"><path d="M6 9h10v10.5a1.5 1.5 0 0 1-1.5 1.5h-7A1.5 1.5 0 0 1 6 19.5z" style="fill:var(--if,none)"/><path d="M8.5 9V6.5a2.5 2.5 0 0 1 5 0V9"/><path d="M16 11.5 21 7.5"/><path d="M6 14.5h10" opacity=".5"/></symbol>
+    <symbol id="p-funnel" viewBox="0 0 24 24"><path d="M3.5 5h17l-6.5 8v6.5l-4 2V13z" style="fill:var(--if,none)"/><path d="M3 5h18"/></symbol>
+    <symbol id="p-car" viewBox="0 0 24 24"><path d="M3 15v-3l2.5-4.5h9L18 12h2.5a1 1 0 0 1 1 1v2z" style="fill:var(--if,none)"/><circle cx="7.5" cy="16" r="2"/><circle cx="16.5" cy="16" r="2"/><path d="M6.5 11.5h10M11 7.5v4" opacity=".5"/></symbol>
+    <symbol id="p-ball" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" style="fill:var(--if,none)"/><path d="M4 9.5c4.5 1.5 11.5 1.5 16 0M4 14.5c4.5-1.5 11.5-1.5 16 0" opacity=".6"/></symbol>
+    <symbol id="p-racket" viewBox="0 0 24 24"><ellipse cx="9.5" cy="9" rx="5.5" ry="6" style="fill:var(--if,none)"/><path d="M13.5 13.5 20.5 20.5"/><path d="M5.2 7h8.6M4.5 10h10M8 3.4v11.2M11 3.4v11.2" opacity=".45"/></symbol>
+    <symbol id="p-game" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="3.5" style="fill:var(--if,none)"/><circle cx="8" cy="8" r="1.2"/><circle cx="16" cy="8" r="1.2"/><circle cx="12" cy="12" r="1.2"/><circle cx="8" cy="16" r="1.2"/><circle cx="16" cy="16" r="1.2"/></symbol>
+    <symbol id="p-toy" viewBox="0 0 24 24"><circle cx="7" cy="6" r="2.2"/><circle cx="17" cy="6" r="2.2"/><circle cx="12" cy="10" r="5" style="fill:var(--if,none)"/><path d="M7.5 21a4.5 4.5 0 0 1 9 0z" style="fill:var(--if,none)"/><circle cx="10.3" cy="9.4" r=".6"/><circle cx="13.7" cy="9.4" r=".6"/><path d="M11 12h2"/></symbol>
+    <symbol id="p-baby" viewBox="0 0 24 24"><path d="M10 2.5h4l.5 3h-5z" style="fill:var(--if,none)"/><path d="M8.5 5.5h7"/><path d="M9 5.5h6l1 3V20a1.5 1.5 0 0 1-1.5 1.5h-5A1.5 1.5 0 0 1 8 20V8.5z" style="fill:var(--if,none)"/><path d="M8 12h3M8 15h3M8 18h3" opacity=".6"/></symbol>
+    <symbol id="p-photo" viewBox="0 0 24 24"><path d="M5 21V10a7 7 0 0 1 14 0v11z" style="fill:var(--if,none)"/><path d="M7.5 21v-9.5a4.5 4.5 0 0 1 9 0V21"/><circle cx="12" cy="11.5" r="1.6"/><path d="M3.5 21h17"/></symbol>
+    <symbol id="p-trishul" viewBox="0 0 24 24"><path d="M12 22V6"/><path d="M7 4.5c0 3.6 2 5.6 5 5.6s5-2 5-5.6"/><path d="M12 2 10.6 5h2.8z" style="fill:var(--if,none)"/><path d="M7 4.5 6 3M17 4.5 18 3"/><path d="M10 14.5h4"/></symbol>
+    <symbol id="p-idol" viewBox="0 0 24 24"><circle cx="12" cy="6.6" r="2.5" style="fill:var(--if,none)"/><path d="M10 3.6 12 1.8l2 1.8"/><path d="M8 20c0-5 1.5-9.5 4-9.5s4 4.5 4 9.5z" style="fill:var(--if,none)"/><path d="M8.6 13.6 6 12M15.4 13.6 18 12"/><path d="M5 21.5h14"/></symbol>
+    <symbol id="p-chimil" viewBox="0 0 24 24"><path d="M5 11h14v5a7 7 0 0 1-14 0z" style="fill:var(--if,none)"/><path d="M4.5 11h15"/><path d="M6 11c0-3 2.7-5 6-5s6 2 6 5"/><circle cx="12" cy="4.6" r="1.3" style="fill:var(--if,none)"/><path d="M6 14.5h12" opacity=".5"/></symbol>
+    <symbol id="p-homa" viewBox="0 0 24 24"><path d="M3 20.5h18L19 15H5z" style="fill:var(--if,none)"/><path d="M5 15l1.5-4h11L19 15"/><path d="M12 3c2.5 2.5 3 5 0 8-3-3-2.5-5.5 0-8z" style="fill:var(--if,none)"/><path d="M9 8c-1 1.3-1 2.5 0 3M15 8c1 1.3 1 2.5 0 3" opacity=".6"/></symbol>
+    <symbol id="p-panchapathram" viewBox="0 0 24 24"><path d="M5 9h11l-1 9.5a2 2 0 0 1-2 1.5H8a2 2 0 0 1-2-1.5z" style="fill:var(--if,none)"/><path d="M4.5 9h12"/><path d="M14 9 19.5 3"/><circle cx="20" cy="2.6" r="1"/><path d="M6.4 13h8.2" opacity=".5"/><path d="M7.5 21.5h6"/></symbol>
+    <symbol id="p-undiyal" viewBox="0 0 24 24"><path d="M7 7c-2.5 1.5-3.5 4-3.5 6.5C3.5 18 7 21 12 21s8.5-3 8.5-7.5c0-2.5-1-5-3.5-6.5z" style="fill:var(--if,none)"/><path d="M8 4.5h8V7H8z"/><path d="M10 12h4" stroke-width="2.2"/><path d="M5.5 15.5h13" opacity=".5"/></symbol>
+    <symbol id="p-kolam" viewBox="0 0 24 24"><path d="M12 4c3 3 3 5 0 8-3-3-3-5 0-8zM12 12c3 3 3 5 0 8-3-3-3-5 0-8zM4 12c3-3 5-3 8 0-3 3-5 3-8 0zM12 12c3-3 5-3 8 0-3 3-5 3-8 0z" style="fill:var(--if,none)"/><circle cx="6.5" cy="6.5" r=".9"/><circle cx="17.5" cy="6.5" r=".9"/><circle cx="6.5" cy="17.5" r=".9"/><circle cx="17.5" cy="17.5" r=".9"/></symbol>
+    <symbol id="p-tape" viewBox="0 0 24 24"><circle cx="10" cy="12" r="7" style="fill:var(--if,none)"/><circle cx="10" cy="12" r="3"/><path d="M17 12h4.5v3.5"/></symbol>
+    <symbol id="p-shower" viewBox="0 0 24 24"><path d="M4 21V9a5 5 0 0 1 5-5h3"/><path d="M10.5 7h7l1.5 3h-10z" style="fill:var(--if,none)"/><path d="M11.6 13l-.5 1.5M14 13v1.5M16.4 13l.5 1.5M12.6 17l-.5 1.5M15.4 17l.5 1.5" stroke-width="2"/></symbol>
+    <symbol id="p-curtain" viewBox="0 0 24 24"><path d="M3 3.5h18"/><path d="M4 3.5h6c0 6-2 11-5 17H4z" style="fill:var(--if,none)"/><path d="M20 3.5h-6c0 6 2 11 5 17h1z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-plunger" viewBox="0 0 24 24"><path d="M12 2.5v11"/><path d="M6 19.5c0-4 2.7-6 6-6s6 2 6 6z" style="fill:var(--if,none)"/><path d="M4.5 19.5h15"/></symbol>
+    <symbol id="p-shaker" viewBox="0 0 24 24"><path d="M5 9h5l.6 11.5H4.4z" style="fill:var(--if,none)"/><path d="M5.5 9c0-2 .5-3.5 2-3.5s2 1.5 2 3.5"/><path d="M14 9h5l.6 11.5h-6.2z" style="fill:var(--if,none)"/><path d="M14.5 9c0-2 .5-3.5 2-3.5s2 1.5 2 3.5"/><path d="M7.5 3.5h.01M16.5 3.5h.01" stroke-width="2"/></symbol>
+    <symbol id="p-squeezer" viewBox="0 0 24 24"><path d="M3 13h18c-.8 4-4.3 6.5-9 6.5S3.8 17 3 13z" style="fill:var(--if,none)"/><path d="M8 13c0-3.5 1.8-7.5 4-9 2.2 1.5 4 5.5 4 9"/><path d="M10 13l2-7M14 13l-2-7" opacity=".5"/><path d="M21 13l1.5-1"/></symbol>
+    <symbol id="p-glove" viewBox="0 0 24 24"><path d="M7 21V11a5 5 0 0 1 10 0v2.5l2.3-1.5a1.5 1.5 0 0 1 1.7 2.4L17 18v3z" style="fill:var(--if,none)"/><path d="M7 17.5h10" opacity=".5"/></symbol>
+    <symbol id="p-grill" viewBox="0 0 24 24"><path d="M3 21 21 3"/><path d="M8.5 11.2 11.3 14 8.5 16.8 5.7 14z" style="fill:var(--if,none)"/><path d="M12.5 7.2 15.3 10l-2.8 2.8L9.7 10z" style="fill:var(--if,none)"/><path d="M16.5 3.2 19.3 6l-2.8 2.8L13.7 6z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-paniyaram" viewBox="0 0 24 24"><circle cx="9.5" cy="12" r="7" style="fill:var(--if,none)"/><path d="M16.5 12H22"/><circle cx="9.5" cy="12" r="1.3"/><circle cx="9.5" cy="8.2" r="1.2"/><circle cx="9.5" cy="15.8" r="1.2"/><circle cx="6.2" cy="10.1" r="1.2"/><circle cx="12.8" cy="10.1" r="1.2"/><circle cx="6.2" cy="13.9" r="1.2"/><circle cx="12.8" cy="13.9" r="1.2"/></symbol>
+    <symbol id="p-plant" viewBox="0 0 24 24"><path d="M7 14h10l-1.3 7H8.3z" style="fill:var(--if,none)"/><path d="M6 14h12"/><path d="M12 14V7"/><path d="M12 10c-3 0-5-1.8-5.5-5 3 0 5 1.8 5.5 5zM12 8.5c2.6 0 4.6-1.5 5.2-4.2-2.7 0-4.7 1.5-5.2 4.2z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-lantern" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="13" rx="2" style="fill:var(--if,none)"/><path d="M9 6V3.5h6V6"/><path d="M6 10h12M6 15h12" opacity=".5"/><path d="M12 11.3c-1 1.1-1 2 0 2.7 1-.7 1-1.6 0-2.7z"/><path d="M8 21h8"/></symbol>
+    <symbol id="p-pump" viewBox="0 0 24 24"><path d="M9 21V9h6v12z" style="fill:var(--if,none)"/><path d="M7.5 21h9"/><path d="M15 11h3.5v3"/><path d="M12 9V4.5"/><path d="M12 4.5 17 2"/></symbol>
+    <symbol id="p-cover" viewBox="0 0 24 24"><path d="M4 19.5V10c0-3 3.6-5 8-5s8 2 8 5v9.5l-2-1.6-2 1.6-2-1.6-2 1.6-2-1.6-2 1.6-2-1.6z" style="fill:var(--if,none)"/><path d="M8 6.2c-.6 3.8-.6 8 0 12M16 6.2c.6 3.8.6 8 0 12" opacity=".5"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="p-tawa" viewBox="0 0 24 24"><circle cx="10" cy="12" r="7.5" style="fill:var(--if,none)"/><circle cx="10" cy="12" r="4.5" opacity=".6"/><path d="M17.5 12H22"/></symbol>
+    <symbol id="p-cooker" viewBox="0 0 24 24"><path d="M4.5 11h12v6.5A3.5 3.5 0 0 1 13 21H8a3.5 3.5 0 0 1-3.5-3.5z" style="fill:var(--if,none)"/><path d="M3.5 11h14"/><path d="M17.5 10.4 22 9"/><path d="M8 11c0-1.7 1.2-2.7 2.5-2.7S13 9.3 13 11"/><path d="M10.5 8.3V6.4"/><circle cx="10.5" cy="5.3" r="1.1"/><path d="M7.3 14v3.5" opacity=".55"/></symbol>
+    <symbol id="p-idly" viewBox="0 0 24 24"><path d="M12 2.5V19"/><ellipse cx="12" cy="6.8" rx="7.5" ry="2" style="fill:var(--if,none)"/><ellipse cx="12" cy="11.3" rx="7.5" ry="2" style="fill:var(--if,none)"/><ellipse cx="12" cy="15.8" rx="7.5" ry="2" style="fill:var(--if,none)"/><path d="M8.5 21h7"/></symbol>
+    <symbol id="p-vilakku" viewBox="0 0 24 24"><path d="M12 1.8c1.2 1.4 1.2 2.6 0 3.7-1.2-1.1-1.2-2.3 0-3.7z" style="fill:var(--if,none)"/><path d="M6.5 7h11l-2.2 2.2H8.7z" style="fill:var(--if,none)"/><path d="M12 9.2V18"/><circle cx="12" cy="12.4" r="1.3" style="fill:var(--if,none)"/><path d="M9.5 15.2h5"/><path d="M6.5 21.5h11L15 18H9z" style="fill:var(--if,none)"/></symbol>
+    <symbol id="p-bell" viewBox="0 0 24 24"><path d="M6 16v-4.8a6 6 0 0 1 12 0V16l1.8 2H4.2z" style="fill:var(--if,none)"/><path d="M10 20.3a2 2 0 0 0 4 0"/><path d="M12 5.2V3.2"/><circle cx="12" cy="2.6" r=".9"/><path d="M8.5 12.5h7" opacity=".55"/></symbol>
+    <symbol id="p-urli" viewBox="0 0 24 24"><path d="M3 10.5h18c-1 4.6-4.5 7.3-9 7.3S4 15.1 3 10.5z" style="fill:var(--if,none)"/><path d="M2 10.5h20"/><path d="M1.5 8.6 3 10.5M22.5 8.6 21 10.5"/><path d="M5.6 13.6h12.8" opacity=".55"/><path d="M9 17.8V20h6v-2.2"/></symbol>
+    <symbol id="p-drum" viewBox="0 0 24 24"><path d="M8 3.5h8l1 3H7z" style="fill:var(--if,none)"/><path d="M4 6.5h16"/><path d="M5 6.5c-1 7.2 1.5 14 7 14s8-6.8 7-14z" style="fill:var(--if,none)"/><path d="M5.4 12h13.2" opacity=".55"/></symbol>
+    <symbol id="p-handi" viewBox="0 0 24 24"><path d="M4 9h16"/><path d="m5 9 1 9.2a2 2 0 0 0 2 1.8h8a2 2 0 0 0 2-1.8L19 9z" style="fill:var(--if,none)"/><path d="M6.2 9c0-2 2.6-3.2 5.8-3.2s5.8 1.2 5.8 3.2"/><path d="M2.5 10.5H5M19 10.5h2.5"/><path d="M6 13.5h12" opacity=".55"/></symbol>
+    <symbol id="p-tumbler" viewBox="0 0 24 24"><path d="M6 4h12l-1.5 16.5h-9z" style="fill:var(--if,none)"/><ellipse cx="12" cy="4" rx="6" ry="1"/><path d="M6.6 9.5h10.8" opacity=".55"/></symbol>
+    <symbol id="p-dabbara" viewBox="0 0 24 24"><path d="M9 2.8h6l-1 9.2h-4z" style="fill:var(--if,none)"/><path d="M3 13h18c-.8 3.9-4.3 6.2-9 6.2S3.8 16.9 3 13z" style="fill:var(--if,none)"/><path d="M2.5 13h19"/><path d="M9 21h6"/></symbol>
+    <symbol id="p-mug" viewBox="0 0 24 24"><path d="M5 6h11v11a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3z" style="fill:var(--if,none)"/><path d="M16 9h2a2.5 2.5 0 0 1 0 5h-2"/><path d="M5 9.5h11" opacity=".55"/></symbol>
+    <symbol id="p-jug" viewBox="0 0 24 24"><path d="M7 3h9l-1 3 1 2v10a3 3 0 0 1-3 3H9a3 3 0 0 1-3-3V8L4 5z" style="fill:var(--if,none)"/><path d="M16 9h1.5a2.5 2.5 0 0 1 0 5H16"/><path d="M6 11h10" opacity=".55"/></symbol>
+    <symbol id="p-casserole" viewBox="0 0 24 24"><path d="M4 10v6a4 4 0 0 0 4 4h8a4 4 0 0 0 4-4v-6z" style="fill:var(--if,none)"/><path d="M3 10h18"/><path d="M6 10c0-2.5 2.7-4 6-4s6 1.5 6 4"/><circle cx="12" cy="4.8" r="1.1"/><path d="M1.8 12.5H4M20 12.5h2.2"/></symbol>
+    <symbol id="p-tiffin" viewBox="0 0 24 24"><rect x="6" y="7.5" width="12" height="4" rx="1.2" style="fill:var(--if,none)"/><rect x="6" y="11.5" width="12" height="4" rx="1.2" style="fill:var(--if,none)"/><rect x="6" y="15.5" width="12" height="4.5" rx="1.2" style="fill:var(--if,none)"/><path d="M8.2 7.5V4.5a1 1 0 0 1 1-1h5.6a1 1 0 0 1 1 1v3"/><path d="M4.8 9v9M19.2 9v9" opacity=".6"/></symbol>
+    <symbol id="p-bowl" viewBox="0 0 24 24"><path d="M3 10h18c-.8 4.6-4.4 8-9 8s-8.2-3.4-9-8z" style="fill:var(--if,none)"/><path d="M2.5 10h19"/><path d="M9 18v2h6v-2"/><path d="M6 13h12" opacity=".5"/></symbol>
+    <symbol id="p-bucket" viewBox="0 0 24 24"><path d="M5 8.5h14l-2 12H7z" style="fill:var(--if,none)"/><path d="M4.5 8.5h15"/><path d="M5.5 8.5c0-3 2.9-5 6.5-5s6.5 2 6.5 5"/><path d="M5.8 13h12.4" opacity=".55"/></symbol>
+    <symbol id="p-basket" viewBox="0 0 24 24"><path d="M3 10h18l-2 10H5z" style="fill:var(--if,none)"/><path d="m7 10 3-6M17 10l-3-6"/><path d="M8.5 13v4M12 13v4M15.5 13v4"/><path d="M2.5 10h19"/></symbol>
+    <symbol id="p-ladle" viewBox="0 0 24 24"><circle cx="7" cy="16" r="4.2" style="fill:var(--if,none)"/><path d="M10 13 20.5 2.5"/><path d="M4.5 15.5h5" opacity=".55"/></symbol>
+    <symbol id="p-knife" viewBox="0 0 24 24"><path d="M3 21l4.5-4.5"/><path d="M7.5 16.5 20.5 3.5c.4 4.4-2.6 8.6-8.4 11.2z" style="fill:var(--if,none)"/><path d="M5.2 18.8 7 20.6" opacity=".7"/></symbol>
+    <symbol id="p-kettle" viewBox="0 0 24 24"><path d="M5 20h14l-1.5-9h-11z" style="fill:var(--if,none)"/><path d="M7 11c0-3 2.2-5 5-5s5 2 5 5"/><path d="m17.5 13 3-2.5"/><circle cx="12" cy="4.6" r="1.1"/><path d="M6 15.5h12" opacity=".55"/></symbol>
+    <symbol id="p-mixie" viewBox="0 0 24 24"><path d="M8 3h8l-1 10H9z" style="fill:var(--if,none)"/><path d="M16 5.5h1.5v5H15.5"/><rect x="6" y="13" width="12" height="7.5" rx="2" style="fill:var(--if,none)"/><circle cx="12" cy="16.8" r="1.4"/></symbol>
+    <symbol id="p-stove" viewBox="0 0 24 24"><rect x="2" y="9" width="20" height="9.5" rx="2" style="fill:var(--if,none)"/><circle cx="7.5" cy="13.7" r="2.4"/><circle cx="16.5" cy="13.7" r="2.4"/><path d="M7.5 9V6.5M16.5 9V6.5"/><path d="M5 18.5V20M19 18.5V20"/></symbol>
+    <symbol id="p-stool" viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="3.5" rx="1.2" style="fill:var(--if,none)"/><path d="m6 9-1.2 11.5M18 9l1.2 11.5M6.8 15h10.4"/></symbol>
+    <symbol id="p-broom" viewBox="0 0 24 24"><path d="m14.5 2.5-4.2 9.5"/><path d="M6 12h8.5l2 9H4z" style="fill:var(--if,none)"/><path d="m8 15.5-.8 5.5M12 15.5v5.5"/></symbol>
+    <symbol id="p-umbrella" viewBox="0 0 24 24"><path d="M2 12a10 10 0 0 1 20 0z" style="fill:var(--if,none)"/><path d="M12 12v7a2 2 0 0 0 4 0"/><path d="M12 2v1"/><path d="M7 12c0-4 2.2-8 5-9.6M17 12c0-4-2.2-8-5-9.6" opacity=".55"/></symbol>
+    <symbol id="p-container" viewBox="0 0 24 24"><rect x="4" y="8" width="16" height="12" rx="2" style="fill:var(--if,none)"/><path d="M3 5.5h18V8H3z"/><path d="M10 12h4"/><path d="M4 16h16" opacity=".5"/></symbol>
+    <symbol id="p-pan" viewBox="0 0 24 24"><circle cx="9" cy="12" r="6.5" style="fill:var(--if,none)"/><circle cx="9" cy="12" r="3.5" opacity=".55"/><path d="M15.5 12H22"/></symbol>
   </defs>
 </svg>
 
@@ -872,12 +1006,14 @@
       <li><svg class="ico"><use href="#i-truck"/></svg><strong data-ta="அதே நாளில் இலவச வீட்டு டெலிவரி">Free home delivery – same day</strong></li>
       <li><svg class="ico"><use href="#i-box"/></svg><strong data-ta="மொத்த ஆர்டர்கள் – எந்த அளவும், ஒரே நாளில்">Bulk orders – any quantity, in one day</strong></li>
       <li><svg class="ico"><use href="#i-shield"/></svg><strong data-ta="1980 முதல் நம்பிக்கை">Trusted since 1980</strong></li>
+      <li><svg class="ico"><use href="#i-swap"/></svg><strong data-ta="பழைய பாத்திரங்களுக்கு எடைக்கேற்ப புதிய பொருட்கள்">Old vessels exchanged by weight</strong></li>
       <li><svg class="ico"><use href="#i-pin"/></svg><strong data-ta="மடிப்பாக்கம் & மேடவாக்கம்">Madipakkam &amp; Medavakkam</strong></li>
     </ul>
     <ul class="topbar-list" aria-hidden="true">
       <li><svg class="ico"><use href="#i-truck"/></svg><strong data-ta="அதே நாளில் இலவச வீட்டு டெலிவரி">Free home delivery – same day</strong></li>
       <li><svg class="ico"><use href="#i-box"/></svg><strong data-ta="மொத்த ஆர்டர்கள் – எந்த அளவும், ஒரே நாளில்">Bulk orders – any quantity, in one day</strong></li>
       <li><svg class="ico"><use href="#i-shield"/></svg><strong data-ta="1980 முதல் நம்பிக்கை">Trusted since 1980</strong></li>
+      <li><svg class="ico"><use href="#i-swap"/></svg><strong data-ta="பழைய பாத்திரங்களுக்கு எடைக்கேற்ப புதிய பொருட்கள்">Old vessels exchanged by weight</strong></li>
       <li><svg class="ico"><use href="#i-pin"/></svg><strong data-ta="மடிப்பாக்கம் & மேடவாக்கம்">Madipakkam &amp; Medavakkam</strong></li>
     </ul>
   </div>
@@ -891,26 +1027,32 @@
     </a>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="#categories" data-ta="பொருட்கள்">Categories</a>
+      <a href="catalogue.html" data-ta="தேடுங்கள்">Search items</a>
       <a href="#occasions" data-ta="விசேஷங்கள்">Occasions</a>
-      <a href="#delivery" data-ta="டெலிவரி">Delivery</a>
+      <a href="gift-finder.html" data-ta="சீர் & விசேஷப் பட்டியல்">Seer &amp; Occasion Lists</a>
       <a href="#gallery" data-ta="புகைப்படங்கள்">Gallery</a>
       <a href="#legacy" data-ta="எங்கள் பாரம்பரியம்">Our Legacy</a>
       <a href="#stores" data-ta="கடைகள்">Stores</a>
       <div class="nav-extra">
         <p class="nav-title" data-ta="பொருட்கள் வாரியாக">Shop by category</p>
         <div class="nav-cats">
-          <a href="#cat-steel"><img src="images/medavakkam/thumbs/10.jpg" alt="" loading="lazy"><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
-          <a href="#cat-cookware"><img src="images/madipakkam/thumbs/4.jpg" alt="" loading="lazy"><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
-          <a href="#cat-plastics"><img src="images/madipakkam/thumbs/13.jpg" alt="" loading="lazy"><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
-          <a href="#cat-pooja"><img src="images/medavakkam/thumbs/3.jpg" alt="" loading="lazy"><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
+          <a href="#cat-steel"><img src="images/medavakkam/mini/10.webp" alt="" loading="lazy"><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
+          <a href="#cat-cookware"><img src="images/madipakkam/mini/4.webp" alt="" loading="lazy"><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
+          <a href="#cat-plastics"><img src="images/madipakkam/mini/13.webp" alt="" loading="lazy"><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
+          <a href="#cat-pooja"><img src="images/medavakkam/mini/3.webp" alt="" loading="lazy"><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
+        </div>
+        <div class="nav-tools">
+          <a class="btn btn-outline" href="catalogue.html"><svg class="ico"><use href="#i-search"/></svg><span data-ta="பொருட்களைத் தேடுங்கள்">Search our items</span></a>
+          <a class="btn btn-outline" href="gift-finder.html"><svg class="ico"><use href="#i-gift"/></svg><span data-ta="சீர் & விசேஷப் பட்டியல்">Seer &amp; Occasion Lists</span></a>
         </div>
         <div class="nav-call">
           <a class="btn btn-primary" href="tel:+919698471616"><svg class="ico"><use href="#i-phone"/></svg><span data-ta="மடிப்பாக்கம்">Madipakkam</span>&nbsp;·&nbsp;96984 71616</a>
-          <a class="btn btn-outline" href="tel:+919444577336"><svg class="ico"><use href="#i-phone"/></svg><span data-ta="மேடவாக்கம்">Medavakkam</span>&nbsp;·&nbsp;94445 77336</a>
+          <a class="btn btn-primary" href="tel:+919444577336"><svg class="ico"><use href="#i-phone"/></svg><span data-ta="மேடவாக்கம்">Medavakkam</span>&nbsp;·&nbsp;94445 77336</a>
         </div>
         <ul class="nav-terms">
           <li><svg class="ico"><use href="#i-truck"/></svg><span data-ta="அதே நாளில் இலவச வீட்டு டெலிவரி">Free home delivery – same day</span></li>
           <li><svg class="ico"><use href="#i-box"/></svg><span data-ta="மொத்த ஆர்டர்கள் – எந்த அளவும், ஒரே நாளில்">Bulk orders – any quantity, in one day</span></li>
+          <li><svg class="ico"><use href="#i-swap"/></svg><span data-ta="பழைய பாத்திரங்களுக்கு எடைக்கேற்ப புதிய பொருட்கள்">Old vessels exchanged by weight</span></li>
         </ul>
       </div>
     </nav>
@@ -935,21 +1077,21 @@
       <div class="quick-group">
         <p class="quick-label" data-ta="பொருட்கள்">Categories</p>
         <div class="quick-list quick-cats">
-          <a class="quick-item" href="#cat-steel"><span class="quick-img"><img src="images/medavakkam/thumbs/10.jpg" alt="" loading="eager"></span><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
-          <a class="quick-item" href="#cat-cookware"><span class="quick-img"><img src="images/madipakkam/thumbs/4.jpg" alt=""></span><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
-          <a class="quick-item" href="#cat-plastics"><span class="quick-img"><img src="images/madipakkam/thumbs/13.jpg" alt=""></span><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
-          <a class="quick-item" href="#cat-pooja"><span class="quick-img"><img src="images/medavakkam/thumbs/3.jpg" alt=""></span><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
+          <a class="quick-item" href="#cat-steel"><span class="quick-img"><img src="images/medavakkam/mini/10.webp" alt="" loading="eager"></span><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
+          <a class="quick-item" href="#cat-cookware"><span class="quick-img"><img src="images/madipakkam/mini/4.webp" alt=""></span><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
+          <a class="quick-item" href="#cat-plastics"><span class="quick-img"><img src="images/madipakkam/mini/13.webp" alt=""></span><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
+          <a class="quick-item" href="#cat-pooja"><span class="quick-img"><img src="images/medavakkam/mini/3.webp" alt=""></span><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
         </div>
       </div>
       <div class="quick-group">
         <p class="quick-label" data-ta="விசேஷங்கள்">Occasions</p>
         <div class="quick-list quick-occ">
-          <a class="quick-item" href="#occ-weddings"><span class="quick-img"><img src="images/medavakkam/thumbs/12.jpg" alt=""></span><span data-ta="திருமணம்">Weddings</span></a>
-          <a class="quick-item" href="#occ-seer"><span class="quick-img"><img src="images/medavakkam/thumbs/9.jpg" alt=""></span><span data-ta="சீர் வரிசை">Seer varisai</span></a>
-          <a class="quick-item" href="#occ-housewarming"><span class="quick-img"><img src="images/medavakkam/thumbs/7.jpg" alt=""></span><span data-ta="கிரகப்பிரவேசம்">Housewarming</span></a>
-          <a class="quick-item" href="#occ-gifts"><span class="quick-img"><img src="images/medavakkam/thumbs/5.jpg" alt=""></span><span data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</span></a>
-          <a class="quick-item" href="#occ-festivals"><span class="quick-img"><img src="images/madipakkam/thumbs/6.jpg" alt=""></span><span data-ta="பண்டிகை & பூஜை">Festivals &amp; pooja</span></a>
-          <a class="quick-item" href="#occ-kitchen"><span class="quick-img"><img src="images/madipakkam/thumbs/8.jpg" alt=""></span><span data-ta="புதிய வீட்டு சமையலறை">New home kitchen</span></a>
+          <a class="quick-item" href="#occ-weddings"><span class="quick-img"><img src="images/medavakkam/mini/12.webp" alt=""></span><span data-ta="திருமணம்">Weddings</span></a>
+          <a class="quick-item" href="#occ-seer"><span class="quick-img"><img src="images/medavakkam/mini/9.webp" alt=""></span><span data-ta="சீர் வரிசை">Seer varisai</span></a>
+          <a class="quick-item" href="#occ-housewarming"><span class="quick-img"><img src="images/medavakkam/mini/7.webp" alt=""></span><span data-ta="கிரகப்பிரவேசம்">Housewarming</span></a>
+          <a class="quick-item" href="#occ-gifts"><span class="quick-img"><img src="images/medavakkam/mini/5.webp" alt=""></span><span data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</span></a>
+          <a class="quick-item" href="#occ-festivals"><span class="quick-img"><img src="images/madipakkam/mini/6.webp" alt=""></span><span data-ta="பண்டிகை & பூஜை">Festivals &amp; pooja</span></a>
+          <a class="quick-item" href="#occ-kitchen"><span class="quick-img"><img src="images/madipakkam/mini/8.webp" alt=""></span><span data-ta="புதிய வீட்டு சமையலறை">New home kitchen</span></a>
         </div>
       </div>
     </div>
@@ -1025,97 +1167,118 @@
       <div class="section-head reveal">
         <p class="kicker" data-ta="எங்கள் கடையில் கிடைப்பவை">Everything in store</p>
         <h2 data-ta="நான்கு பிரிவுகள். ஆயிரக்கணக்கான பொருட்கள். ஒரே கூரையின் கீழ்.">Four departments. Thousands of items. One roof.</h2>
-        <p class="section-sub" data-ta="ஏதேனும் பொருளைத் தொட்டு WhatsApp-ல் கேளுங்கள் – விலையும் இருப்பும் உடனே சொல்கிறோம்.">Tap any item to ask on WhatsApp – we'll tell you the price and stock right away.</p>
+        <p class="section-sub" data-ta="ஏதேனும் பொருளைத் தொட்டு, எங்களிடம் உள்ளவற்றை விலையுடன் பாருங்கள்.">Tap any item to see everything we have, with prices.</p>
       </div>
 
       <div class="cat-cards">
 
         <article class="cat-card reveal" id="cat-steel">
           <div class="cat-media">
-            <img class="cat-main" src="images/medavakkam/thumbs/10.jpg" alt="Stainless steel vessels on display" loading="lazy">
-            <img src="images/medavakkam/thumbs/13.jpg" alt="Steel plates and bowls" loading="lazy">
-            <img src="images/medavakkam/thumbs/12.jpg" alt="Kudam and anda" loading="lazy">
+            <img class="cat-main" src="images/medavakkam/thumbs/10.webp" alt="Stainless steel vessels on display" loading="lazy">
+            <img src="images/medavakkam/thumbs/13.webp" alt="Steel plates and bowls" loading="lazy">
+            <img src="images/medavakkam/thumbs/12.webp" alt="Kudam and anda" loading="lazy">
             <span class="cat-num">01</span>
           </div>
           <div class="cat-body">
             <h3 data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</h3>
             <ul class="chips">
-              <li><a href="#" data-picker="whatsapp" data-occasion="stainless steel vessels" data-ta="எவர்சில்வர் பாத்திரங்கள்">Stainless steel vessels</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="dinner sets and plates" data-ta="டின்னர் செட் & தட்டுகள்">Dinner sets &amp; plates</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="tumblers, bowls and dabaras" data-ta="டம்ளர், கிண்ணம் & டபரா">Tumblers, bowls &amp; dabaras</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="tiffin boxes and carriers" data-ta="டிபன் பாக்ஸ் & கேரியர்">Tiffin boxes &amp; carriers</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="storage containers" data-ta="சேமிப்பு டப்பாக்கள்">Storage containers</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="kudam, anda and drums" data-ta="குடம், அண்டா & டிரம்">Kudam, anda &amp; drums</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="brass and copper vessels" data-ta="பித்தளை & செம்பு பாத்திரங்கள்">Brass &amp; copper vessels</a></li>
+              <li><a href="catalogue.html?q=stainless+steel" data-ta="எவர்சில்வர் பாத்திரங்கள்">Stainless steel vessels</a></li>
+              <li><a href="catalogue.html?q=dinner+set%2C+plate" data-ta="டின்னர் செட் & தட்டுகள்">Dinner sets &amp; plates</a></li>
+              <li><a href="catalogue.html?q=tumbler%2C+bowl%2C+dabbara" data-ta="டம்ளர், கிண்ணம் & டபரா">Tumblers, bowls &amp; dabaras</a></li>
+              <li><a href="catalogue.html?q=tiffin%2C+lunch+box%2C+carrier" data-ta="டிபன் பாக்ஸ் & கேரியர்">Tiffin boxes &amp; carriers</a></li>
+              <li><a href="catalogue.html?q=container" data-ta="சேமிப்பு டப்பாக்கள்">Storage containers</a></li>
+              <li><a href="catalogue.html?q=kudam%2C+anda%2C+drum" data-ta="குடம், அண்டா & டிரம்">Kudam, anda &amp; drums</a></li>
+              <li><a href="catalogue.html?cat=brass" data-ta="பித்தளை & செம்பு பாத்திரங்கள்">Brass &amp; copper vessels</a></li>
             </ul>
+            <a class="link-arrow cat-browse" href="catalogue.html?cat=steel"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
         <article class="cat-card reveal" id="cat-cookware">
           <div class="cat-media">
-            <img class="cat-main" src="images/madipakkam/thumbs/4.jpg" alt="Cookware and appliance display" loading="lazy">
-            <img src="images/madipakkam/thumbs/2.jpg" alt="Mixer grinders" loading="lazy">
-            <img src="images/medavakkam/thumbs/9.jpg" alt="Pressure cookers" loading="lazy">
+            <img class="cat-main" src="images/madipakkam/thumbs/4.webp" alt="Cookware and appliance display" loading="lazy">
+            <img src="images/madipakkam/thumbs/2.webp" alt="Mixer grinders" loading="lazy">
+            <img src="images/medavakkam/thumbs/9.webp" alt="Pressure cookers" loading="lazy">
             <span class="cat-num">02</span>
           </div>
           <div class="cat-body">
             <h3 data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</h3>
             <ul class="chips">
-              <li><a href="#" data-picker="whatsapp" data-occasion="pressure cookers" data-ta="பிரஷர் குக்கர்">Pressure cookers</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="idli cookers and steamers" data-ta="இட்லி பாத்திரம் & ஸ்டீமர்">Idli cookers &amp; steamers</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="kadai, tawa and non-stick" data-ta="கடாய், தவா & நான்-ஸ்டிக்">Kadai, tawa &amp; non-stick</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="gas stoves and induction" data-ta="கேஸ் அடுப்பு & இண்டக்ஷன்">Gas stoves &amp; induction</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="mixer and wet grinders" data-ta="மிக்ஸி & வெட் கிரைண்டர்">Mixer &amp; wet grinders</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="flasks and hot boxes" data-ta="ஃபிளாஸ்க் & ஹாட் பாக்ஸ்">Flasks &amp; hot boxes</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="ladles, graters and kitchen tools" data-ta="கரண்டி, துருவி & சமையலறை கருவிகள்">Ladles, graters &amp; kitchen tools</a></li>
+              <li><a href="catalogue.html?q=pressure+cooker%2C+cooker" data-ta="பிரஷர் குக்கர்">Pressure cookers</a></li>
+              <li><a href="catalogue.html?q=idly%2C+steamer" data-ta="இட்லி பாத்திரம் & ஸ்டீமர்">Idli cookers &amp; steamers</a></li>
+              <li><a href="catalogue.html?q=kadai%2C+tawa%2C+non+stick" data-ta="கடாய், தவா & நான்-ஸ்டிக்">Kadai, tawa &amp; non-stick</a></li>
+              <li><a href="catalogue.html?q=gas+stove%2C+induction%2C+burner" data-ta="கேஸ் அடுப்பு & இண்டக்ஷன்">Gas stoves &amp; induction</a></li>
+              <li><a href="catalogue.html?q=mixie%2C+mixer%2C+grinder" data-ta="மிக்ஸி & வெட் கிரைண்டர்">Mixer &amp; wet grinders</a></li>
+              <li><a href="catalogue.html?q=flask%2C+hot+box%2C+casserole" data-ta="ஃபிளாஸ்க் & ஹாட் பாக்ஸ்">Flasks &amp; hot boxes</a></li>
+              <li><a href="catalogue.html?q=laddle%2C+karandi%2C+grater%2C+peeler%2C+knife" data-ta="கரண்டி, துருவி & சமையலறை கருவிகள்">Ladles, graters &amp; kitchen tools</a></li>
             </ul>
+            <a class="link-arrow cat-browse" href="catalogue.html?cat=cookware"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
         <article class="cat-card reveal" id="cat-plastics">
           <div class="cat-media">
-            <img class="cat-main" src="images/madipakkam/thumbs/13.jpg" alt="Plastic buckets, tubs and baskets" loading="lazy">
-            <img src="images/madipakkam/thumbs/14.jpg" alt="Plastic baskets and crates" loading="lazy">
-            <img src="images/madipakkam/thumbs/15.jpg" alt="Plastic chairs and stools" loading="lazy">
+            <img class="cat-main" src="images/madipakkam/thumbs/13.webp" alt="Plastic buckets, tubs and baskets" loading="lazy">
+            <img src="images/madipakkam/thumbs/14.webp" alt="Plastic baskets and crates" loading="lazy">
+            <img src="images/madipakkam/thumbs/15.webp" alt="Plastic chairs and stools" loading="lazy">
             <span class="cat-num">03</span>
           </div>
           <div class="cat-body">
             <h3 data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</h3>
             <ul class="chips">
-              <li><a href="#" data-picker="whatsapp" data-occasion="buckets, mugs and tubs" data-ta="பக்கெட், மக் & டப்">Buckets, mugs &amp; tubs</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="baskets and crates" data-ta="கூடைகள் & கிரேட்கள்">Baskets &amp; crates</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="chairs and stools" data-ta="நாற்காலி & ஸ்டூல்">Chairs &amp; stools</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="water drums and bottles" data-ta="தண்ணீர் டிரம் & பாட்டில்கள்">Water drums &amp; bottles</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="plastic containers" data-ta="பிளாஸ்டிக் கண்டெய்னர்கள்">Plastic containers</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="dustbins" data-ta="குப்பைத் தொட்டிகள்">Dustbins</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="kitchen racks and stands" data-ta="சமையலறை ரேக் & ஸ்டாண்டுகள்">Kitchen racks &amp; stands</a></li>
+              <li><a href="catalogue.html?q=bucket%2C+mug%2C+tub" data-ta="பக்கெட், மக் & டப்">Buckets, mugs &amp; tubs</a></li>
+              <li><a href="catalogue.html?q=basket%2C+crate" data-ta="கூடைகள் & கிரேட்கள்">Baskets &amp; crates</a></li>
+              <li><a href="catalogue.html?q=chair%2C+stool" data-ta="நாற்காலி & ஸ்டூல்">Chairs &amp; stools</a></li>
+              <li><a href="catalogue.html?q=drum%2C+water+bottle%2C+water+can" data-ta="தண்ணீர் டிரம் & பாட்டில்கள்">Water drums &amp; bottles</a></li>
+              <li><a href="catalogue.html?q=plastic+container%2C+container+box" data-ta="பிளாஸ்டிக் கண்டெய்னர்கள்">Plastic containers</a></li>
+              <li><a href="catalogue.html?q=dustbin" data-ta="குப்பைத் தொட்டிகள்">Dustbins</a></li>
+              <li><a href="catalogue.html?q=rack%2C+stand" data-ta="சமையலறை ரேக் & ஸ்டாண்டுகள்">Kitchen racks &amp; stands</a></li>
             </ul>
+            <a class="link-arrow cat-browse" href="catalogue.html?cat=storage"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
         <article class="cat-card reveal" id="cat-pooja">
           <div class="cat-media">
-            <img class="cat-main" src="images/medavakkam/thumbs/3.jpg" alt="Brass vilakku and pooja items" loading="lazy">
-            <img src="images/medavakkam/thumbs/7.jpg" alt="Brass lamps" loading="lazy">
-            <img src="images/madipakkam/thumbs/6.jpg" alt="Pooja and brass aisle" loading="lazy">
+            <img class="cat-main" src="images/medavakkam/thumbs/3.webp" alt="Brass vilakku and pooja items" loading="lazy">
+            <img src="images/medavakkam/thumbs/7.webp" alt="Brass lamps" loading="lazy">
+            <img src="images/madipakkam/thumbs/6.webp" alt="Pooja and brass aisle" loading="lazy">
             <span class="cat-num">04</span>
           </div>
           <div class="cat-body">
             <h3 data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</h3>
             <ul class="chips">
-              <li><a href="#" data-picker="whatsapp" data-occasion="brass vilakku" data-ta="பித்தளை விளக்கு">Brass vilakku</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="pooja plates and sets" data-ta="பூஜை தட்டு & செட்கள்">Pooja plates &amp; sets</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="agal vilakku and diyas" data-ta="அகல் விளக்கு & தீபங்கள்">Agal vilakku &amp; diyas</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="seer vessels" data-ta="சீர் வரிசை பாத்திரங்கள்">Seer vessels</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="return gifts" data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="housewarming sets" data-ta="கிரகப்பிரவேச பொருட்கள்">Housewarming sets</a></li>
-              <li><a href="#" data-picker="whatsapp" data-occasion="festival items" data-ta="பண்டிகை பொருட்கள்">Festival items</a></li>
+              <li><a href="catalogue.html?q=vilakku" data-ta="பித்தளை விளக்கு">Brass vilakku</a></li>
+              <li><a href="catalogue.html?q=pooja%2C+arathi%2C+abishega%2C+kunguma" data-ta="பூஜை தட்டு & செட்கள்">Pooja plates &amp; sets</a></li>
+              <li><a href="catalogue.html?q=agal%2C+deepam" data-ta="அகல் விளக்கு & தீபங்கள்">Agal vilakku &amp; diyas</a></li>
+              <li><a href="gift-finder.html?kit=seer" data-ta="சீர் வரிசை பாத்திரங்கள்">Seer vessels</a></li>
+              <li><a href="gift-finder.html?kit=gifts" data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</a></li>
+              <li><a href="gift-finder.html?kit=housewarming" data-ta="கிரகப்பிரவேச பொருட்கள்">Housewarming sets</a></li>
+              <li><a href="gift-finder.html?kit=festivals" data-ta="பண்டிகை பொருட்கள்">Festival items</a></li>
             </ul>
+            <a class="link-arrow cat-browse" href="catalogue.html?cat=pooja"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
       </div>
       <p class="cat-note cats-note reveal" data-ta="பட்டியலில் இல்லையா? கேளுங்கள் – பெரும்பாலும் எங்களிடம் இருக்கும்.">Don't see it listed? Just ask – we most likely have it.</p>
+    </div>
+  </section>
+
+  <!-- SHOP TOOLS: opens the catalogue page (catalogue.html) -->
+  <section class="section shop-tools" id="shop-tools">
+    <div class="container">
+      <div class="tool-cards">
+        <a class="tool-card reveal" href="catalogue.html">
+          <span class="tool-ico"><svg class="ico"><use href="#i-search"/></svg></span>
+          <span class="tool-body">
+            <span class="kicker" data-ta="எங்கள் பொருட்கள்">Browse our range</span>
+            <strong data-ta="ஆயிரக்கணக்கான பொருட்களை விலையுடன் தேடுங்கள்">Search thousands of items with prices</strong>
+            <span class="tool-sub" data-ta="வருவதற்கு முன்பே தேடிப் பாருங்கள் – பட்டியலில் சேர்த்து WhatsApp-ல் அனுப்புங்கள்.">Find it before you visit – add to your list and send it on WhatsApp.</span>
+          </span>
+          <svg class="ico tool-arrow"><use href="#i-arrow"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -1145,6 +1308,12 @@
           <h3 data-ta="1980 முதல் நேர்மையான விலை">Honest prices since 1980</h3>
           <p data-ta="குறைந்த லாபம், நியாயமான விலை – பல ஆண்டுகளாக சென்னை குடும்பங்கள் நம்பி வாங்கும் கடை.">Low margins and fair prices – the shop Chennai families have trusted for decades.</p>
         </article>
+        <article class="term reveal">
+          <span class="term-stamp" data-ta="மாற்று">Exchange</span>
+          <span class="icon-ring"><svg class="ico"><use href="#p-scale"/></svg></span>
+          <h3 data-ta="பழைய பாத்திர மாற்று – எடைக்கேற்ப">Old vessels exchange – by weight</h3>
+          <p data-ta="உங்கள் பழைய எவர்சில்வர், பித்தளை, செம்பு அல்லது அலுமினியப் பாத்திரங்களைக் கொண்டு வாருங்கள். கடையில் எடை போட்டு, அதன் மதிப்புக்கு புதிய பொருட்களை எடுத்துச் செல்லலாம்.">Bring your old steel, brass, copper or aluminium vessels. We weigh them in store, and you can take new products from the shop for their value.</p>
+        </article>
       </div>
       <div class="terms-foot reveal">
         <p data-ta="இலவச டெலிவரி பகுதிகள்: மேடவாக்கம், மடிப்பாக்கம், பள்ளிக்கரணை, வேளச்சேரி, சோழிங்கநல்லூர், பெரும்பாக்கம் மற்றும் அருகிலுள்ள பகுதிகள்.">Free delivery areas: Medavakkam, Madipakkam, Pallikaranai, Velachery, Sholinganallur, Perumbakkam and nearby areas.</p>
@@ -1165,53 +1334,77 @@
         <h2 data-ta="ஒவ்வொரு விசேஷத்திற்கும், சரியான பாத்திரங்கள்">The right vessels for every occasion</h2>
         <p class="section-sub" data-ta="சொல்லுங்கள் – பட்டியல் தயார் செய்து, விலை சொல்லி, எந்த அளவையும் ஒரே நாளில் இலவசமாக டெலிவரி செய்கிறோம்.">Tell us the occasion – we'll help with the list, quote a price and deliver any quantity free, in one day.</p>
       </div>
+      <div class="occ-highlights">
+        <div class="occ-feature reveal">
+          <img class="occ-feature-bg" src="images/medavakkam/thumbs/9.webp" alt="" loading="lazy">
+          <div class="occ-feature-body">
+            <span class="occ-feature-tag" data-ta="அதிகம் கேட்கப்படுவது">Most asked</span>
+            <h3 data-ta="பட்ஜெட்டுக்குள் முழு சீர் வரிசை செட்">Build a complete seer set within your budget</h3>
+            <p data-ta="குத்து விளக்கு, குடம், அண்டா, குக்கர் மற்றும் பல – எங்கள் கடையின் பொருட்களிலிருந்து தயார் பட்டியல்.">Kuthu vilakku, kudam, anda, cooker and more – a ready list from our shelves.</p>
+            <p class="occ-budget-label" data-ta="உங்கள் பட்ஜெட்:">Your budget:</p>
+            <div class="occ-budgets"><a href="gift-finder.html?kit=seer&amp;budget=10000">₹10k</a><a href="gift-finder.html?kit=seer&amp;budget=25000">₹25k</a><a href="gift-finder.html?kit=seer&amp;budget=50000">₹50k</a><a href="gift-finder.html?kit=seer&amp;budget=100000">₹1L</a></div>
+            <a class="btn btn-primary occ-feature-cta" href="gift-finder.html?kit=seer"><span data-ta="சீர் செட் உருவாக்கு">Build my seer set</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+        <div class="occ-feature occ-feature-gold reveal">
+          <img class="occ-feature-bg" src="images/medavakkam/thumbs/7.webp" alt="" loading="lazy">
+          <div class="occ-feature-body">
+            <span class="occ-feature-tag" data-ta="புதிய வீடு">New home</span>
+            <h3 data-ta="பட்ஜெட்டுக்குள் புதிய வீட்டுக்குத் தேவையானவை">Everything for your new home, under a budget</h3>
+            <p data-ta="குத்து விளக்கு, பூஜை பொருட்கள், பால் காய்ச்சும் பாத்திரம், குக்கர், கடாய் – கிரகப்பிரவேசத்துக்கு ஒரே பட்டியல்.">Kuthu vilakku, pooja items, milk-boiling pot, cooker, kadai – one list for the housewarming.</p>
+            <p class="occ-budget-label" data-ta="உங்கள் பட்ஜெட்:">Your budget:</p>
+            <div class="occ-budgets"><a href="gift-finder.html?kit=housewarming&amp;budget=5000">₹5k</a><a href="gift-finder.html?kit=housewarming&amp;budget=10000">₹10k</a><a href="gift-finder.html?kit=housewarming&amp;budget=25000">₹25k</a><a href="gift-finder.html?kit=housewarming&amp;budget=50000">₹50k</a></div>
+            <a class="btn btn-primary occ-feature-cta" href="gift-finder.html?kit=housewarming"><span data-ta="புதிய வீட்டு பட்டியல் உருவாக்கு">Build my new home list</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+      </div>
       <div class="occasion-grid occ-v2">
         <article class="occasion reveal" id="occ-weddings">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/12.jpg" alt="Aluminium and steel cooking vessels for weddings" loading="lazy"><span class="occ-tag" data-ta="மொத்த ஆர்டர்">Bulk ready</span></div>
+          <div class="occasion-media"><img src="images/medavakkam/thumbs/12.webp" alt="Aluminium and steel cooking vessels for weddings" loading="lazy"><span class="occ-tag" data-ta="மொத்த ஆர்டர்">Bulk ready</span></div>
           <div class="occasion-body">
             <h3 data-ta="திருமணம்">Weddings</h3>
             <p data-ta="திருமண சமையலுக்கும் புதிய வீட்டுக்கும் சமையல் பாத்திரங்கள், டின்னர் செட் மற்றும் பரிமாறும் பாத்திரங்கள்.">Cooking vessels, dinner sets and serving ware for the wedding kitchen and the new home.</p>
-            <a class="link-arrow" href="#" data-picker="whatsapp" data-occasion="Weddings"><span data-ta="WhatsApp-ல் கேளுங்கள்">Ask on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="occ-cta" href="gift-finder.html?kit=weddings"><svg class="ico"><use href="#i-list"/></svg><span data-ta="திருமண சமையல் பட்டியல் தயாரிக்கவும்">Plan the wedding kitchen list</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
         <article class="occasion reveal" id="occ-seer">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/9.jpg" alt="Pressure cookers and vessels for seer varisai" loading="lazy"><span class="occ-tag" data-ta="முழு செட்">Full sets</span></div>
+          <div class="occasion-media"><img src="images/medavakkam/thumbs/9.webp" alt="Pressure cookers and vessels for seer varisai" loading="lazy"><span class="occ-tag" data-ta="முழு செட்">Full sets</span></div>
           <div class="occasion-body">
             <h3 data-ta="சீர் வரிசை">Seer varisai</h3>
             <p data-ta="குடம், அண்டா, குத்து விளக்கு மற்றும் முழு சீர் செட் – தயார் செய்து, பேக் செய்து டெலிவரி.">Kudam, anda, kuthu vilakku and full seer sets – prepared, packed and delivered.</p>
-            <a class="link-arrow" href="#" data-picker="whatsapp" data-occasion="Seer varisai"><span data-ta="WhatsApp-ல் கேளுங்கள்">Ask on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="occ-cta" href="gift-finder.html?kit=seer"><svg class="ico"><use href="#i-list"/></svg><span data-ta="முழு சீர் வரிசை செட் உருவாக்குங்கள்">Build a complete seer set</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
         <article class="occasion reveal" id="occ-housewarming">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/7.jpg" alt="Brass vilakku and pooja items for housewarming" loading="lazy"><span class="occ-tag" data-ta="பித்தளை & பூஜை">Brass &amp; pooja</span></div>
+          <div class="occasion-media"><img src="images/medavakkam/thumbs/7.webp" alt="Brass vilakku and pooja items for housewarming" loading="lazy"><span class="occ-tag" data-ta="பித்தளை & பூஜை">Brass &amp; pooja</span></div>
           <div class="occasion-body">
             <h3 data-ta="கிரகப்பிரவேசம்">Housewarming</h3>
             <p data-ta="பித்தளை விளக்கு, பூஜை செட், புதிய பானைகள் மற்றும் முழு சமையலறை செட்.">Brass vilakku, pooja sets, new pots and a complete starter kitchen.</p>
-            <a class="link-arrow" href="#" data-picker="whatsapp" data-occasion="Housewarming"><span data-ta="WhatsApp-ல் கேளுங்கள்">Ask on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="occ-cta" href="gift-finder.html?kit=housewarming"><svg class="ico"><use href="#i-list"/></svg><span data-ta="பட்ஜெட்டுக்குள் கிரகப்பிரவேச செட்">Housewarming set under your budget</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
         <article class="occasion reveal" id="occ-gifts">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/5.jpg" alt="Flasks and tiffin boxes for return gifts" loading="lazy"><span class="occ-tag" data-ta="எந்த அளவும்">Any quantity</span></div>
+          <div class="occasion-media"><img src="images/medavakkam/thumbs/5.webp" alt="Flasks and tiffin boxes for return gifts" loading="lazy"><span class="occ-tag" data-ta="எந்த அளவும்">Any quantity</span></div>
           <div class="occasion-body">
             <h3 data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</h3>
             <p data-ta="டிபன் பாக்ஸ், ஃபிளாஸ்க், எவர்சில்வர் தட்டு மற்றும் கிண்ணங்கள் – எந்த அளவிலும், ஒரே நாளில் தயார்.">Tiffin boxes, flasks, steel plates and bowls – any quantity, ready in one day.</p>
-            <a class="link-arrow" href="#" data-picker="whatsapp" data-occasion="Return gifts"><span data-ta="WhatsApp-ல் கேளுங்கள்">Ask on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="occ-cta" href="gift-finder.html?kit=gifts"><svg class="ico"><use href="#i-list"/></svg><span data-ta="ஒருவருக்கான பரிசு யோசனைகள்">Find gift ideas per guest</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
         <article class="occasion reveal" id="occ-festivals">
-          <div class="occasion-media"><img src="images/madipakkam/thumbs/6.jpg" alt="Brass lamps and festival vessels" loading="lazy"><span class="occ-tag" data-ta="பண்டிகை">Festive</span></div>
+          <div class="occasion-media"><img src="images/madipakkam/thumbs/6.webp" alt="Brass lamps and festival vessels" loading="lazy"><span class="occ-tag" data-ta="பண்டிகை">Festive</span></div>
           <div class="occasion-body">
             <h3 data-ta="பண்டிகை & பூஜை">Festivals &amp; pooja</h3>
             <p data-ta="தீபாவளி, கார்த்திகை தீபம், பொங்கல் மற்றும் அனைத்து பூஜைகளுக்கும் – விளக்குகள், தட்டுகள் மற்றும் பண்டிகை பாத்திரங்கள்.">Deepavali, Karthigai Deepam, Pongal and every pooja – lamps, plates and festival vessels.</p>
-            <a class="link-arrow" href="#" data-picker="whatsapp" data-occasion="Festivals & pooja"><span data-ta="WhatsApp-ல் கேளுங்கள்">Ask on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="occ-cta" href="gift-finder.html?kit=festivals"><svg class="ico"><use href="#i-list"/></svg><span data-ta="பண்டிகை பூஜை பட்டியல் தயாரிக்கவும்">Make a festival pooja list</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
         <article class="occasion reveal" id="occ-kitchen">
-          <div class="occasion-media"><img src="images/madipakkam/thumbs/8.jpg" alt="Wet grinders, mixies and stoves for a new kitchen" loading="lazy"><span class="occ-tag" data-ta="ஒரே இடத்தில்">One visit</span></div>
+          <div class="occasion-media"><img src="images/madipakkam/thumbs/8.webp" alt="Wet grinders, mixies and stoves for a new kitchen" loading="lazy"><span class="occ-tag" data-ta="ஒரே இடத்தில்">One visit</span></div>
           <div class="occasion-body">
             <h3 data-ta="புதிய வீட்டு சமையலறை">New home kitchen</h3>
             <p data-ta="புதிதாக சமையலறை அமைக்கிறீர்களா? குக்கர், அடுப்பு, மிக்ஸி மற்றும் அனைத்து பாத்திரங்களும் ஒரே இடத்தில்.">Setting up a kitchen from scratch? Cookers, stoves, mixies and every utensil in one visit.</p>
-            <a class="link-arrow" href="#" data-picker="whatsapp" data-occasion="New home kitchen"><span data-ta="WhatsApp-ல் கேளுங்கள்">Ask on WhatsApp</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="occ-cta" href="gift-finder.html?kit=kitchen"><svg class="ico"><use href="#i-list"/></svg><span data-ta="பட்ஜெட்டுக்குள் புதிய சமையலறை">New home kitchen under your budget</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
       </div>
@@ -1259,11 +1452,11 @@
       <div class="about">
         <div class="about-collage reveal">
           <figure class="collage-main">
-            <img src="images/madipakkam/thumbs/1.jpg" alt="Madipakkam store front" loading="lazy" width="800" height="448">
+            <img src="images/madipakkam/thumbs/1.webp" alt="Madipakkam store front" loading="lazy" width="800" height="448">
             <figcaption><strong data-ta="மடிப்பாக்கம்">Madipakkam</strong><span>1980</span></figcaption>
           </figure>
           <figure class="collage-side">
-            <img src="images/medavakkam/thumbs/1.jpg" alt="Medavakkam store front" loading="lazy" width="800" height="600">
+            <img src="images/medavakkam/thumbs/1.webp" alt="Medavakkam store front" loading="lazy" width="800" height="600">
             <figcaption><strong data-ta="மேடவாக்கம்">Medavakkam</strong><span>2023</span></figcaption>
           </figure>
           <div class="since-seal" aria-label="Since 1980">
@@ -1364,7 +1557,7 @@
 
   <!-- QUOTE BAND -->
   <section class="quote-band" id="quote">
-    <img class="quote-bg" src="images/madipakkam/5.jpg" alt="Stainless steel vessel aisle at Madipakkam Saravana Stores" loading="lazy" width="1600" height="905">
+    <img class="quote-bg" src="images/madipakkam/5.webp" alt="Stainless steel vessel aisle at Madipakkam Saravana Stores" loading="lazy" width="1600" height="905">
     <img class="quote-lamp quote-lamp-l" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
     <img class="quote-lamp quote-lamp-r" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
     <div class="container quote-inner reveal">
@@ -1399,7 +1592,7 @@
 
         <article class="store reveal" id="madipakkam">
           <div class="store-media">
-            <img src="images/madipakkam/thumbs/1.jpg" alt="Madipakkam store front" loading="lazy" width="800" height="448">
+            <img src="images/madipakkam/thumbs/1.webp" alt="Madipakkam store front" loading="lazy" width="800" height="448">
             <span class="badge" data-ta="1980 முதல்">Since 1980</span>
           </div>
           <div class="store-body">
@@ -1422,7 +1615,7 @@
 
         <article class="store reveal" id="medavakkam">
           <div class="store-media">
-            <img src="images/medavakkam/thumbs/1.jpg" alt="Medavakkam store front" loading="lazy" width="800" height="600">
+            <img src="images/medavakkam/thumbs/1.webp" alt="Medavakkam store front" loading="lazy" width="800" height="600">
             <span class="badge badge-new" data-ta="புதிய கிளை – 2023">New store – 2023</span>
           </div>
           <div class="store-body">
@@ -1476,6 +1669,10 @@
         <details class="faq-item">
           <summary><h3 data-ta="திருமணம் மற்றும் விழாக்களுக்கு மொத்த ஆர்டர் எடுப்பீர்களா?">Can you handle bulk orders for weddings and functions?</h3></summary>
           <p data-ta="ஆம். திருமணம், சீர் வரிசை, கிரகப்பிரவேசம், ரிட்டர்ன் கிஃப்ட், பண்டிகைகள் மற்றும் அலுவலகங்களுக்கு – எந்த அளவு மொத்த ஆர்டரும் ஒரே நாளில் தயார் செய்து டெலிவரி செய்கிறோம், எங்கள் வழக்கமான குறைந்த விலையில்.">Yes. Bulk orders of any quantity – for weddings, seer varisai, housewarmings, return gifts, festivals and offices – are prepared and delivered in one day, at our everyday low prices.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3 data-ta="பழைய பாத்திரங்களை மாற்றிக் கொள்வீர்களா?">Do you take old vessels in exchange?</h3></summary>
+          <p data-ta="ஆம். உங்கள் பழைய எவர்சில்வர், பித்தளை, செம்பு அல்லது அலுமினியப் பாத்திரங்களை எந்தக் கடைக்கும் கொண்டு வாருங்கள். எடை போட்டு, அதன் மதிப்புக்கு கடையிலிருந்து புதிய பொருட்களை எடுத்துக் கொள்ளலாம்.">Yes. Bring your old steel, brass, copper or aluminium vessels to either store. We weigh them, and you can take new products from the shop for their value.</p>
         </details>
         <details class="faq-item">
           <summary><h3 data-ta="உங்கள் கடைகள் எங்கே உள்ளன?">Where are your stores?</h3></summary>
@@ -1555,7 +1752,7 @@
 <nav class="action-bar" aria-label="Quick actions">
   <a href="#" data-picker="call"><svg class="ico"><use href="#i-phone"/></svg><span data-ta="அழைக்க">Call</span></a>
   <a href="#" data-picker="whatsapp" class="is-wa"><svg class="ico"><use href="#i-chat"/></svg><span>WhatsApp</span></a>
-  <a href="#categories"><svg class="ico"><use href="#i-tag"/></svg><span data-ta="பொருட்கள்">Categories</span></a>
+  <a href="catalogue.html"><svg class="ico"><use href="#i-search"/></svg><span data-ta="தேடு">Search</span></a>
   <a href="#" data-picker="directions"><svg class="ico"><use href="#i-nav"/></svg><span data-ta="வழி">Directions</span></a>
 </nav>
 
@@ -1596,7 +1793,23 @@
   </div>
 </dialog>
 
+<!-- "My list" – items picked in the catalogue / gift finder, sent as one WhatsApp message -->
+<button class="list-pill" id="listPill" type="button" hidden><svg class="ico"><use href="#i-list"/></svg><span id="listPillLabel">My list</span><b id="listCount">0</b></button>
+<dialog class="sheet list-sheet" id="listSheet" aria-labelledby="listTitle">
+  <div class="sheet-grip"></div>
+  <p class="sheet-title" id="listTitle">My list</p>
+  <p class="list-note" id="listNote"></p>
+  <ul class="list-items" id="listItems"></ul>
+  <p class="list-total" id="listTotal"></p>
+  <a class="btn btn-whatsapp btn-lg list-send" href="#" data-picker="whatsapp" data-occasion="My list" id="listSend"><svg class="ico"><use href="#i-chat"/></svg><span id="listSendLabel">Send list on WhatsApp</span></a>
+  <div class="list-foot">
+    <button class="list-clear" type="button" id="listClear">Clear list</button>
+    <form method="dialog"><button class="sheet-cancel" id="listClose">Close</button></form>
+  </div>
+</dialog>
+
 <script src="js/site-config.js"></script>
 <script src="js/main.js"></script>
+<script src="js/catalogue.js"></script>
 </body>
 </html>
