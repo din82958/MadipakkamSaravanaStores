@@ -2,30 +2,41 @@
   <!-- PRODUCT CATALOGUE (browse only – items come from js/catalogue-data.js, built by tools/build_catalogue.py) -->
   <section class="section shop-catalogue" id="catalogue">
     <div class="container">
-      <div class="section-head reveal">
+      <div class="section-head cat-hero reveal">
         <p class="kicker" data-ta="எங்கள் பொருட்கள்">Browse our range</p>
         <h1 data-ta="வருவதற்கு முன்பே தேடிப் பாருங்கள்">Find it before you visit</h1>
-        <p class="section-sub" data-ta="ஆயிரக்கணக்கான பொருட்கள், விலையுடன். பிடித்தவற்றை உங்கள் பட்டியலில் சேர்த்து WhatsApp-ல் அனுப்புங்கள்.">Thousands of items with prices. Add what you like to your list and send it on WhatsApp.</p>
+        <span class="cat-ornament" aria-hidden="true"><i></i><b></b><i></i></span>
+        <p class="section-sub" data-ta="எவர்சில்வர், பித்தளை, பூஜை பொருட்கள், சமையல் பாத்திரங்கள், பிளாஸ்டிக் மற்றும் மின்சாதனங்கள் – ஆயிரக்கணக்கான பொருட்கள், விலையுடன். பிடித்தவற்றை உங்கள் பட்டியலில் சேர்த்து WhatsApp-ல் அனுப்புங்கள்.">Thousands of stainless steel vessels, brass and pooja items, cookware, plastics and appliances – with prices. Add what you like to your list and send it on WhatsApp.</p>
+        <ul class="cat-trust">
+          <li><svg class="ico"><use href="#i-star"/></svg><span data-ta="1980 முதல் நம்பிக்கை">Trusted since 1980</span></li>
+          <li><svg class="ico"><use href="#i-pin"/></svg><span data-ta="மடிப்பாக்கம் & மேடவாக்கம்">Madipakkam &amp; Medavakkam</span></li>
+          <li><svg class="ico"><use href="#i-chat"/></svg><span data-ta="WhatsApp-ல் பட்டியல் அனுப்புங்கள்">Send your list on WhatsApp</span></li>
+        </ul>
       </div>
-      <div class="cat-tools reveal">
-        <label class="cat-search">
-          <svg class="ico"><use href="#i-search"/></svg>
-          <span class="sr-only" data-ta="பொருட்களைத் தேடுங்கள்">Search items</span>
-          <input type="search" id="catQuery" autocomplete="off" enterkeyhint="search">
-        </label>
-        <div class="cat-sort">
-          <button type="button" class="pick-btn" id="catSort" aria-haspopup="dialog"></button>
+      <div class="cat-panel reveal">
+        <div class="cat-tools">
+          <label class="cat-search">
+            <svg class="ico"><use href="#i-search"/></svg>
+            <span class="sr-only" data-ta="பொருட்களைத் தேடுங்கள்">Search items</span>
+            <input type="search" id="catQuery" autocomplete="off" enterkeyhint="search">
+          </label>
+          <div class="cat-sort">
+            <button type="button" class="pick-btn" id="catSort" aria-haspopup="dialog"></button>
+          </div>
         </div>
+        <div class="cat-filters">
+          <p class="cat-flabel" data-ta="வகை">Category</p>
+          <div class="fchips" id="catChips" role="group" aria-label="Category"></div>
+          <p class="cat-flabel" data-ta="விலை">Price</p>
+          <div class="fchips fchips-price" id="priceChips" role="group" aria-label="Price"></div>
+        </div>
+        <p class="price-notice"><svg class="ico"><use href="#i-tag"/></svg><span data-ta="விலைகள் மாறலாம். குறிப்பிட்ட விலைகள் தோராயமானவை – சரியான விலைக்கு கடையைத் தொடர்பு கொள்ளுங்கள்.">Prices may vary. Mentioned prices are approximate – contact the store for exact prices.</span></p>
       </div>
-      <div class="cat-filters reveal">
-        <div class="fchips" id="catChips" role="group" aria-label="Category"></div>
-        <div class="fchips fchips-price" id="priceChips" role="group" aria-label="Price"></div>
-      </div>
-      <p class="price-notice reveal"><svg class="ico"><use href="#i-tag"/></svg><span data-ta="விலைகள் மாறலாம். குறிப்பிட்ட விலைகள் தோராயமானவை – சரியான விலைக்கு கடையைத் தொடர்பு கொள்ளுங்கள்.">Prices may vary. Mentioned prices are approximate – contact the store for exact prices.</span></p>
       <p class="cat-status" id="catStatus" aria-live="polite"></p>
       <div class="product-grid" id="catGrid"></div>
       <div class="cat-more"><button class="btn btn-outline" type="button" id="catMore" hidden></button></div>
       <p class="cat-disclaimer" data-ta="விலைகள் மாறலாம். குறிப்பிட்ட விலைகள் தோராயமானவை – சரியான விலைக்கு கடையைத் தொடர்பு கொள்ளுங்கள். பட்டியலில் இல்லையா? கேளுங்கள் – பெரும்பாலும் எங்களிடம் இருக்கும்.">Prices may vary. Mentioned prices are approximate – contact the store for exact prices. Can’t find something? Just ask – we most likely have it.</p>
+      <!-- CATEGORY LINKS: filled in by tools/build_pages.py -->
       <a class="page-crosslink reveal" href="gift-finder.html">
         <svg class="ico"><use href="#i-gift"/></svg>
         <span><strong data-ta="ஒரு விசேஷத்துக்குத் திட்டமிடுகிறீர்களா?">Planning an occasion?</strong>

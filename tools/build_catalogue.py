@@ -330,6 +330,11 @@ def main():
         print(f'  {c:9s} {counts[c]}')
     print(f'Wrote:    {OUT} ({os.path.getsize(OUT) // 1024} KB)')
 
+    # The category pages and sitemap list these items too – rebuild them with the new prices
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import build_pages
+    build_pages.main()
+
 
 if __name__ == '__main__':
     main()

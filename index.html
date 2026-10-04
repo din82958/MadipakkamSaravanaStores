@@ -25,11 +25,9 @@
   <meta name="geo.position" content="12.9704899;80.190356">
   <meta name="ICBM" content="12.9704899, 80.190356">
 
-  <!-- Once the site has its own web address, remove the comment marks and put the address in
-       (also in robots.txt and sitemap.xml):
-  <link rel="canonical" href="https://YOUR-DOMAIN/">
-  <meta property="og:url" content="https://YOUR-DOMAIN/">
-  -->
+  <!-- The site's web address (tools/build_pages.py changes these for the other pages) -->
+  <link rel="canonical" href="https://madipakkamsaravanastores.in/">
+  <meta property="og:url" content="https://madipakkamsaravanastores.in/">
 
   <!-- Link previews on WhatsApp, Facebook and X -->
   <meta property="og:type" content="website">
@@ -38,14 +36,14 @@
   <meta property="og:locale:alternate" content="ta_IN">
   <meta property="og:title" content="Madipakkam Saravana Stores – Trusted since 1980">
   <meta property="og:description" content="Every kitchen utensil under one roof in Madipakkam &amp; Medavakkam, Chennai. Free same-day home delivery. Bulk orders of any quantity, delivered in one day.">
-  <meta property="og:image" content="images/share.jpg">
+  <meta property="og:image" content="https://madipakkamsaravanastores.in/images/share.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Madipakkam Saravana Stores – store front, since 1980">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Madipakkam Saravana Stores – Trusted since 1980">
   <meta name="twitter:description" content="Vessels, kitchenware, plastics &amp; pooja items in Madipakkam &amp; Medavakkam, Chennai. Free same-day delivery.">
-  <meta name="twitter:image" content="images/share.jpg">
+  <meta name="twitter:image" content="https://madipakkamsaravanastores.in/images/share.jpg">
 
   <!-- Icons -->
   <link rel="icon" href="icons/favicon.svg" type="image/svg+xml">
@@ -88,39 +86,40 @@
   "@graph": [
     {
       "@type": "Organization",
-      "@id": "#organization",
+      "@id": "https://madipakkamsaravanastores.in/#organization",
       "name": "Madipakkam Saravana Stores",
       "alternateName": [
         "Saravana Stores Madipakkam",
         "மடிப்பாக்கம் சரவணா ஸ்டோர்ஸ்"
       ],
+      "url": "https://madipakkamsaravanastores.in/",
       "foundingDate": "1980",
-      "logo": "icons/icon-512.png",
-      "image": "images/madipakkam/1.jpg",
+      "logo": "https://madipakkamsaravanastores.in/icons/icon-512.png",
+      "image": "https://madipakkamsaravanastores.in/images/madipakkam/1.jpg",
       "description": "Family-run vessel, kitchenware, plastics and pooja items shop in Chennai since 1980, with stores in Madipakkam and Medavakkam. Free same-day home delivery nearby and bulk orders of any quantity delivered in one day.",
       "slogan": "Trusted by Chennai families since 1980",
       "subOrganization": [
         {
-          "@id": "#store-madipakkam"
+          "@id": "https://madipakkamsaravanastores.in/#store-madipakkam"
         },
         {
-          "@id": "#store-medavakkam"
+          "@id": "https://madipakkamsaravanastores.in/#store-medavakkam"
         }
       ]
     },
     {
       "@type": "HomeGoodsStore",
-      "@id": "#store-madipakkam",
+      "@id": "https://madipakkamsaravanastores.in/#store-madipakkam",
       "name": "Madipakkam Saravana Stores – Madipakkam",
       "parentOrganization": {
-        "@id": "#organization"
+        "@id": "https://madipakkamsaravanastores.in/#organization"
       },
       "description": "Our first store, since 1980 – stainless steel and brass vessels, cookware, appliances, plastics and pooja items in Madipakkam, Chennai.",
       "telephone": "+91-9698471616",
       "image": [
-        "images/madipakkam/1.jpg",
-        "images/madipakkam/5.jpg",
-        "images/madipakkam/13.jpg"
+        "https://madipakkamsaravanastores.in/images/madipakkam/1.jpg",
+        "https://madipakkamsaravanastores.in/images/madipakkam/5.jpg",
+        "https://madipakkamsaravanastores.in/images/madipakkam/13.jpg"
       ],
       "priceRange": "₹",
       "currenciesAccepted": "INR",
@@ -432,17 +431,17 @@
     },
     {
       "@type": "HomeGoodsStore",
-      "@id": "#store-medavakkam",
+      "@id": "https://madipakkamsaravanastores.in/#store-medavakkam",
       "name": "Madipakkam Saravana Stores – Medavakkam",
       "parentOrganization": {
-        "@id": "#organization"
+        "@id": "https://madipakkamsaravanastores.in/#organization"
       },
       "description": "Our new, larger store (opened 2023) – stainless steel and brass vessels, cookware, appliances, plastics and pooja items in Medavakkam, Chennai.",
       "telephone": "+91-9444577336",
       "image": [
-        "images/medavakkam/1.jpg",
-        "images/medavakkam/10.jpg",
-        "images/medavakkam/3.jpg"
+        "https://madipakkamsaravanastores.in/images/medavakkam/1.jpg",
+        "https://madipakkamsaravanastores.in/images/medavakkam/10.jpg",
+        "https://madipakkamsaravanastores.in/images/medavakkam/3.jpg"
       ],
       "priceRange": "₹",
       "currenciesAccepted": "INR",
@@ -829,7 +828,7 @@
         "ta-IN"
       ],
       "publisher": {
-        "@id": "#organization"
+        "@id": "https://madipakkamsaravanastores.in/#organization"
       }
     }
   ]
@@ -1190,7 +1189,7 @@
               <li><a href="catalogue.html?q=kudam%2C+anda%2C+drum" data-ta="குடம், அண்டா & டிரம்">Kudam, anda &amp; drums</a></li>
               <li><a href="catalogue.html?cat=brass" data-ta="பித்தளை & செம்பு பாத்திரங்கள்">Brass &amp; copper vessels</a></li>
             </ul>
-            <a class="link-arrow cat-browse" href="catalogue.html?cat=steel"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="link-arrow cat-browse" href="stainless-steel-vessels.html"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
@@ -1212,7 +1211,7 @@
               <li><a href="catalogue.html?q=flask%2C+hot+box%2C+casserole" data-ta="ஃபிளாஸ்க் & ஹாட் பாக்ஸ்">Flasks &amp; hot boxes</a></li>
               <li><a href="catalogue.html?q=laddle%2C+karandi%2C+grater%2C+peeler%2C+knife" data-ta="கரண்டி, துருவி & சமையலறை கருவிகள்">Ladles, graters &amp; kitchen tools</a></li>
             </ul>
-            <a class="link-arrow cat-browse" href="catalogue.html?cat=cookware"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="link-arrow cat-browse" href="cookware.html"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
@@ -1234,7 +1233,7 @@
               <li><a href="catalogue.html?q=dustbin" data-ta="குப்பைத் தொட்டிகள்">Dustbins</a></li>
               <li><a href="catalogue.html?q=rack%2C+stand" data-ta="சமையலறை ரேக் & ஸ்டாண்டுகள்">Kitchen racks &amp; stands</a></li>
             </ul>
-            <a class="link-arrow cat-browse" href="catalogue.html?cat=storage"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="link-arrow cat-browse" href="plastic-storage.html"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
@@ -1256,7 +1255,7 @@
               <li><a href="gift-finder.html?kit=housewarming" data-ta="கிரகப்பிரவேச பொருட்கள்">Housewarming sets</a></li>
               <li><a href="gift-finder.html?kit=festivals" data-ta="பண்டிகை பொருட்கள்">Festival items</a></li>
             </ul>
-            <a class="link-arrow cat-browse" href="catalogue.html?cat=pooja"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
+            <a class="link-arrow cat-browse" href="pooja-items.html"><span data-ta="விலையுடன் அனைத்தையும் பாருங்கள்">See all with prices</span><svg class="ico"><use href="#i-arrow"/></svg></a>
           </div>
         </article>
 
@@ -1744,6 +1743,21 @@
       <a href="https://maps.app.goo.gl/SWVrHgRHAYiuGCfy9" target="_blank" rel="noopener" data-ta="வழி காட்டு →">Get directions →</a>
     </div>
   </div>
+  <nav class="container footer-cats" aria-label="Shop by category">
+    <h4 data-ta="வகைகள் – விலையுடன்">Shop by category – with prices</h4>
+    <ul>
+      <li><a href="stainless-steel-vessels.html" data-ta="எவர்சில்வர் பாத்திரங்கள்">Stainless steel vessels</a></li>
+      <li><a href="cookware.html" data-ta="சமையல் பாத்திரங்கள்">Cookware</a></li>
+      <li><a href="brass-copper-items.html" data-ta="பித்தளை & செம்பு">Brass &amp; copper</a></li>
+      <li><a href="pooja-items.html" data-ta="பூஜை பொருட்கள்">Pooja items &amp; lamps</a></li>
+      <li><a href="kitchen-appliances.html" data-ta="மின்சாதனங்கள்">Kitchen appliances</a></li>
+      <li><a href="bottles-flasks.html" data-ta="பாட்டில் & ஃபிளாஸ்க்">Bottles &amp; flasks</a></li>
+      <li><a href="plastic-storage.html" data-ta="பிளாஸ்டிக் & சேமிப்பு">Plastics &amp; storage</a></li>
+      <li><a href="home-cleaning.html" data-ta="வீடு & சுத்தம்">Home &amp; cleaning</a></li>
+      <li><a href="toys.html" data-ta="பொம்மைகள்">Toys</a></li>
+      <li><a href="household-items.html" data-ta="மற்ற வீட்டுப் பொருட்கள்">More household items</a></li>
+    </ul>
+  </nav>
   <p class="footer-hours" data-ta="இரண்டு கடைகளும்: காலை 10:30 – இரவு 9:30">Both stores: 10:30 AM – 9:30 PM</p>
   <p class="copy">© <span id="year"></span> Madipakkam Saravana Stores · <span data-ta="1980 முதல்">Since 1980</span></p>
 </footer>
