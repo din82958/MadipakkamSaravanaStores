@@ -4,14 +4,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18484151582"></script>
+  <!-- Google tag (gtag.js). The tag itself loads just after the page has finished loading, so it doesn't
+       slow down the first view; anything sent before that waits in dataLayer and is delivered then. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'AW-18484151582');
+  (function () {
+    function loadTag() {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18484151582';
+      document.head.appendChild(s);
+    }
+    if (document.readyState === 'complete') setTimeout(loadTag, 300);
+    else addEventListener('load', function () { setTimeout(loadTag, 300); });
+  })();
 </script>
   <title>Pooja Items &amp; Vilakku with Prices, Chennai | Madipakkam Saravana Stores</title>
   <meta name="description" content="111 pooja items items with prices, from ₹10 – vilakku, deepam, urli, bells. Madipakkam Saravana Stores, Madipakkam &amp; Medavakkam, Chennai. Since 1980.">
@@ -54,15 +64,10 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/v2.css">
-  <link rel="stylesheet" href="css/v3.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/premium.css">
-  <link rel="stylesheet" href="css/texture.css">
-  <link rel="stylesheet" href="css/catalogue.css">
-  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap"></noscript>
+  <!-- All of css/*.css in one file – built by tools/build_pages.py (edit the separate files, then run it) -->
+  <link rel="stylesheet" href="css/site.min.css">
   <script>
     (function () {
       var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
@@ -466,10 +471,10 @@
       <div class="nav-extra">
         <p class="nav-title" data-ta="பொருட்கள் வாரியாக">Shop by category</p>
         <div class="nav-cats">
-          <a href="index.html#cat-steel"><img src="images/medavakkam/mini/10.webp" alt="" loading="lazy"><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
-          <a href="index.html#cat-cookware"><img src="images/madipakkam/mini/4.webp" alt="" loading="lazy"><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
-          <a href="index.html#cat-plastics"><img src="images/madipakkam/mini/13.webp" alt="" loading="lazy"><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
-          <a href="index.html#cat-pooja"><img src="images/medavakkam/mini/3.webp" alt="" loading="lazy"><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
+          <a href="index.html#cat-steel"><img width="240" height="179" src="images/medavakkam/mini/10.webp" alt="" loading="lazy"><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
+          <a href="index.html#cat-cookware"><img width="240" height="179" src="images/madipakkam/mini/4.webp" alt="" loading="lazy"><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
+          <a href="index.html#cat-plastics"><img width="240" height="133" src="images/madipakkam/mini/13.webp" alt="" loading="lazy"><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
+          <a href="index.html#cat-pooja"><img width="240" height="179" src="images/medavakkam/mini/3.webp" alt="" loading="lazy"><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
         </div>
         <div class="nav-tools">
           <a class="btn btn-outline" href="catalogue.html"><svg class="ico"><use href="#i-search"/></svg><span data-ta="பொருட்களைத் தேடுங்கள்">Search our items</span></a>
@@ -691,20 +696,20 @@
       </ul>
     </div>
     <div>
-      <h4 data-ta="மடிப்பாக்கம்">Madipakkam</h4>
+      <h3 data-ta="மடிப்பாக்கம்">Madipakkam</h3>
       <address data-ta="கடை எண் 2, மேடவாக்கம் மெயின் ரோடு, பாதாள விநாயகர் கோவில் அருகில், மடிப்பாக்கம், சென்னை – 600091">Shop No. 2, Medavakkam Main Road, near Pathala Vinayagar Kovil, Madipakkam, Chennai – 600091</address>
       <a href="tel:+919698471616">96984 71616</a>
       <a href="https://maps.app.goo.gl/Lc5Mn1nZLhLbLNLt5" target="_blank" rel="noopener" data-ta="வழி காட்டு →">Get directions →</a>
     </div>
     <div>
-      <h4 data-ta="மேடவாக்கம்">Medavakkam</h4>
+      <h3 data-ta="மேடவாக்கம்">Medavakkam</h3>
       <address data-ta="2/2H, மேடவாக்கம் மெயின் ரோடு, ஆஞ்சநேயர் கோவில் அருகில், யுனைடெட் காலனி, பெல் நகர், மேடவாக்கம், சென்னை – 600100">2/2H, Medavakkam Main Road, near Anjaneyar Kovil, United Colony, BHEL Nagar, Medavakkam, Chennai – 600100</address>
       <a href="tel:+919444577336">94445 77336</a>
       <a href="https://maps.app.goo.gl/SWVrHgRHAYiuGCfy9" target="_blank" rel="noopener" data-ta="வழி காட்டு →">Get directions →</a>
     </div>
   </div>
   <nav class="container footer-cats" aria-label="Shop by category">
-    <h4 data-ta="வகைகள் – விலையுடன்">Shop by category – with prices</h4>
+    <h3 data-ta="வகைகள் – விலையுடன்">Shop by category – with prices</h3>
     <ul>
       <li><a href="stainless-steel-vessels.html" data-ta="எவர்சில்வர் பாத்திரங்கள்">Stainless steel vessels</a></li>
       <li><a href="cookware.html" data-ta="சமையல் பாத்திரங்கள்">Cookware</a></li>

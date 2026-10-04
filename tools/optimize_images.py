@@ -7,7 +7,9 @@ Usage:
 For every images/<store>/<n>.jpg it writes:
     images/<store>/<n>.webp         1400 px wide – full-screen photo viewer
     images/<store>/thumbs/<n>.webp   720 px wide – cards and gallery tiles
-    images/<store>/mini/<n>.webp     240 px wide – round shortcut icons
+    images/<store>/small/<n>.webp    480 px wide – the same cards on phones (picked by the browser via srcset)
+    images/<store>/mini/<n>.webp     240 px wide – round shortcut icons, small photo tiles
+    images/<store>/icon/<n>.webp     120 px wide – the tiny round shortcut icons at the top
 The original .jpg files are kept as a fallback. Needs Pillow:  pip install pillow
 """
 import glob
@@ -17,7 +19,7 @@ import sys
 from PIL import Image, ImageOps
 
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SIZES = [('', 1400, 74), ('thumbs', 720, 70), ('mini', 240, 72)]   # (folder, max width, quality)
+SIZES = [('', 1400, 74), ('thumbs', 720, 70), ('small', 480, 70), ('mini', 240, 72), ('icon', 120, 72)]   # (folder, max width, quality)
 FORCE = '--force' in sys.argv
 
 

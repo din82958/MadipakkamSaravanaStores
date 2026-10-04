@@ -42,6 +42,7 @@ body {
 }
 html[lang="ta"] { --serif: "Anek Tamil", "Mukta Malar", "Cormorant Garamond", serif; --sans: "Mukta Malar", "Jost", system-ui, sans-serif; }
 img { max-width: 100%; display: block; }
+:where(img[width][height]) { height: auto; }   /* width/height in the HTML only reserve the shape while loading */
 a { color: inherit; }
 h1, h2, h3, h4 { margin: 0; line-height: 1.2; color: var(--ink); }
 p { margin: 0; }
@@ -408,7 +409,7 @@ html[lang="ta"] .float-card figcaption span { letter-spacing: 0; }
 .footer-brand .brand-top { color: #ff6b70; }
 .footer-brand .brand-main { font-size: 1.35rem; }
 .footer-brand p { margin-top: 16px; line-height: 1.6; font-size: .92rem; color: rgba(255,255,255,.6); }
-.site-footer h4 { color: #fff; font-family: var(--serif); font-weight: 600; font-size: 1.4rem; margin-bottom: 10px; }
+.site-footer h3 { color: #fff; font-family: var(--serif); font-weight: 600; font-size: 1.4rem; margin-bottom: 10px; }
 .site-footer a { display: block; text-decoration: none; padding: 4px 0; color: rgba(255,255,255,.8); }
 .site-footer a:hover { color: #fff; }
 .copy { margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(255,255,255,.1); text-align: center; font-size: .82rem; color: rgba(255,255,255,.45); }
@@ -599,7 +600,7 @@ html[lang="ta"] .about-copy p { font-size: .92rem; }
 html[lang="ta"] .ticks li { font-size: .9rem; }
 html[lang="ta"] .since-seal span, html[lang="ta"] .about-collage figcaption { font-size: .7rem; letter-spacing: 0; }
 html[lang="ta"] .areas li { font-size: .86rem; }
-html[lang="ta"] .site-footer h4 { font-size: 1.05rem; }
+html[lang="ta"] .site-footer h3 { font-size: 1.05rem; }
 html[lang="ta"] .sheet-title { font-size: 1.15rem; }
 html[lang="ta"] .carousel-dot { font-size: .72rem; }
 html[lang="ta"] .tab { font-size: .85rem; }

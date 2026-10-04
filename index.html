@@ -3,14 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18484151582"></script>
+  <!-- Google tag (gtag.js). The tag itself loads just after the page has finished loading, so it doesn't
+       slow down the first view; anything sent before that waits in dataLayer and is delivered then. -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'AW-18484151582');
+  (function () {
+    function loadTag() {
+      var s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=AW-18484151582';
+      document.head.appendChild(s);
+    }
+    if (document.readyState === 'complete') setTimeout(loadTag, 300);
+    else addEventListener('load', function () { setTimeout(loadTag, 300); });
+  })();
 </script>
   <title>Madipakkam Saravana Stores | Vessel Shop, Madipakkam &amp; Medavakkam</title>
   <meta name="description" content="Vessel shop in Madipakkam &amp; Medavakkam, Chennai, since 1980: steel &amp; brass vessels, cookware, plastics, pooja items. Free same-day delivery, bulk orders in 1 day.">
@@ -53,17 +63,12 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="images/madipakkam/thumbs/1.webp" type="image/webp" media="(max-width: 760px)">
-  <link rel="preload" as="image" href="images/madipakkam/1.webp" type="image/webp" media="(min-width: 761px)">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/v2.css">
-  <link rel="stylesheet" href="css/v3.css">
-  <link rel="stylesheet" href="css/animations.css">
-  <link rel="stylesheet" href="css/premium.css">
-  <link rel="stylesheet" href="css/texture.css">
-  <link rel="stylesheet" href="css/catalogue.css">
-  <link rel="stylesheet" href="css/mobile.css">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Jost:wght@400;500;600;700&family=Anek+Tamil:wght@500;600;700&family=Mukta+Malar:wght@400;500;600;700&display=swap"></noscript>
+  <link rel="preload" as="image" href="images/madipakkam/thumbs/1.webp" type="image/webp" media="(max-width: 760px)" fetchpriority="high">
+  <link rel="preload" as="image" href="images/madipakkam/1.webp" type="image/webp" media="(min-width: 761px)" fetchpriority="high">
+  <!-- All of css/*.css in one file – built by tools/build_pages.py (edit the separate files, then run it) -->
+  <link rel="stylesheet" href="css/site.min.css">
   <script>
     (function () {
       var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
@@ -1035,10 +1040,10 @@
       <div class="nav-extra">
         <p class="nav-title" data-ta="பொருட்கள் வாரியாக">Shop by category</p>
         <div class="nav-cats">
-          <a href="#cat-steel"><img src="images/medavakkam/mini/10.webp" alt="" loading="lazy"><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
-          <a href="#cat-cookware"><img src="images/madipakkam/mini/4.webp" alt="" loading="lazy"><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
-          <a href="#cat-plastics"><img src="images/madipakkam/mini/13.webp" alt="" loading="lazy"><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
-          <a href="#cat-pooja"><img src="images/medavakkam/mini/3.webp" alt="" loading="lazy"><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
+          <a href="#cat-steel"><img width="240" height="179" src="images/medavakkam/mini/10.webp" alt="" loading="lazy"><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
+          <a href="#cat-cookware"><img width="240" height="179" src="images/madipakkam/mini/4.webp" alt="" loading="lazy"><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
+          <a href="#cat-plastics"><img width="240" height="133" src="images/madipakkam/mini/13.webp" alt="" loading="lazy"><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
+          <a href="#cat-pooja"><img width="240" height="179" src="images/medavakkam/mini/3.webp" alt="" loading="lazy"><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
         </div>
         <div class="nav-tools">
           <a class="btn btn-outline" href="catalogue.html"><svg class="ico"><use href="#i-search"/></svg><span data-ta="பொருட்களைத் தேடுங்கள்">Search our items</span></a>
@@ -1076,21 +1081,21 @@
       <div class="quick-group">
         <p class="quick-label" data-ta="பொருட்கள்">Categories</p>
         <div class="quick-list quick-cats">
-          <a class="quick-item" href="#cat-steel"><span class="quick-img"><img src="images/medavakkam/mini/10.webp" alt="" loading="eager"></span><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
-          <a class="quick-item" href="#cat-cookware"><span class="quick-img"><img src="images/madipakkam/mini/4.webp" alt=""></span><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
-          <a class="quick-item" href="#cat-plastics"><span class="quick-img"><img src="images/madipakkam/mini/13.webp" alt=""></span><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
-          <a class="quick-item" href="#cat-pooja"><span class="quick-img"><img src="images/medavakkam/mini/3.webp" alt=""></span><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
+          <a class="quick-item" href="#cat-steel"><span class="quick-img"><img width="240" height="179" src="images/medavakkam/mini/10.webp" srcset="images/medavakkam/icon/10.webp 120w, images/medavakkam/mini/10.webp 240w" sizes="66px" alt="" loading="eager"></span><span data-ta="எவர்சில்வர் & பித்தளை">Steel &amp; brass</span></a>
+          <a class="quick-item" href="#cat-cookware"><span class="quick-img"><img width="240" height="179" src="images/madipakkam/mini/4.webp" srcset="images/madipakkam/icon/4.webp 120w, images/madipakkam/mini/4.webp 240w" sizes="66px" alt=""></span><span data-ta="சமையல் & மின்சாதனங்கள்">Cookware &amp; appliances</span></a>
+          <a class="quick-item" href="#cat-plastics"><span class="quick-img"><img width="240" height="133" src="images/madipakkam/mini/13.webp" srcset="images/madipakkam/icon/13.webp 120w, images/madipakkam/mini/13.webp 240w" sizes="66px" alt=""></span><span data-ta="பிளாஸ்டிக் & வீட்டுப் பொருட்கள்">Plastics &amp; household</span></a>
+          <a class="quick-item" href="#cat-pooja"><span class="quick-img"><img width="240" height="179" src="images/medavakkam/mini/3.webp" srcset="images/medavakkam/icon/3.webp 120w, images/medavakkam/mini/3.webp 240w" sizes="66px" alt=""></span><span data-ta="பூஜை & விசேஷங்கள்">Pooja &amp; occasions</span></a>
         </div>
       </div>
       <div class="quick-group">
         <p class="quick-label" data-ta="விசேஷங்கள்">Occasions</p>
         <div class="quick-list quick-occ">
-          <a class="quick-item" href="#occ-weddings"><span class="quick-img"><img src="images/medavakkam/mini/12.webp" alt=""></span><span data-ta="திருமணம்">Weddings</span></a>
-          <a class="quick-item" href="#occ-seer"><span class="quick-img"><img src="images/medavakkam/mini/9.webp" alt=""></span><span data-ta="சீர் வரிசை">Seer varisai</span></a>
-          <a class="quick-item" href="#occ-housewarming"><span class="quick-img"><img src="images/medavakkam/mini/7.webp" alt=""></span><span data-ta="கிரகப்பிரவேசம்">Housewarming</span></a>
-          <a class="quick-item" href="#occ-gifts"><span class="quick-img"><img src="images/medavakkam/mini/5.webp" alt=""></span><span data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</span></a>
-          <a class="quick-item" href="#occ-festivals"><span class="quick-img"><img src="images/madipakkam/mini/6.webp" alt=""></span><span data-ta="பண்டிகை & பூஜை">Festivals &amp; pooja</span></a>
-          <a class="quick-item" href="#occ-kitchen"><span class="quick-img"><img src="images/madipakkam/mini/8.webp" alt=""></span><span data-ta="புதிய வீட்டு சமையலறை">New home kitchen</span></a>
+          <a class="quick-item" href="#occ-weddings"><span class="quick-img"><img width="240" height="179" src="images/medavakkam/mini/12.webp" srcset="images/medavakkam/icon/12.webp 120w, images/medavakkam/mini/12.webp 240w" sizes="34px" alt=""></span><span data-ta="திருமணம்">Weddings</span></a>
+          <a class="quick-item" href="#occ-seer"><span class="quick-img"><img width="240" height="179" src="images/medavakkam/mini/9.webp" srcset="images/medavakkam/icon/9.webp 120w, images/medavakkam/mini/9.webp 240w" sizes="34px" alt=""></span><span data-ta="சீர் வரிசை">Seer varisai</span></a>
+          <a class="quick-item" href="#occ-housewarming"><span class="quick-img"><img width="240" height="179" src="images/medavakkam/mini/7.webp" srcset="images/medavakkam/icon/7.webp 120w, images/medavakkam/mini/7.webp 240w" sizes="34px" alt=""></span><span data-ta="கிரகப்பிரவேசம்">Housewarming</span></a>
+          <a class="quick-item" href="#occ-gifts"><span class="quick-img"><img width="240" height="179" src="images/medavakkam/mini/5.webp" srcset="images/medavakkam/icon/5.webp 120w, images/medavakkam/mini/5.webp 240w" sizes="34px" alt=""></span><span data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</span></a>
+          <a class="quick-item" href="#occ-festivals"><span class="quick-img"><img width="240" height="320" src="images/madipakkam/mini/6.webp" srcset="images/madipakkam/icon/6.webp 120w, images/madipakkam/mini/6.webp 240w" sizes="34px" alt=""></span><span data-ta="பண்டிகை & பூஜை">Festivals &amp; pooja</span></a>
+          <a class="quick-item" href="#occ-kitchen"><span class="quick-img"><img width="240" height="133" src="images/madipakkam/mini/8.webp" srcset="images/madipakkam/icon/8.webp 120w, images/madipakkam/mini/8.webp 240w" sizes="34px" alt=""></span><span data-ta="புதிய வீட்டு சமையலறை">New home kitchen</span></a>
         </div>
       </div>
     </div>
@@ -1106,7 +1111,7 @@
           <source media="(max-width: 760px)" type="image/webp" srcset="images/madipakkam/thumbs/1.webp">
           <source media="(max-width: 760px)" srcset="images/madipakkam/thumbs/1.jpg">
           <source type="image/webp" srcset="images/madipakkam/1.webp">
-          <img src="images/madipakkam/1.jpg" alt="Madipakkam Saravana Stores, Madipakkam store front" fetchpriority="high" width="1600" height="678">
+          <img width="1600" height="678" src="images/madipakkam/1.jpg" alt="Madipakkam Saravana Stores, Madipakkam store front" fetchpriority="high">
         </picture>
         <div class="container slide-inner">
           <p class="eyebrow"><span data-ta="மடிப்பாக்கம்">Madipakkam</span><span class="dot"></span><span data-ta="1980 முதல்">Since 1980</span></p>
@@ -1125,7 +1130,7 @@
           <source media="(max-width: 760px)" type="image/webp" srcset="images/medavakkam/thumbs/1.webp">
           <source media="(max-width: 760px)" srcset="images/medavakkam/thumbs/1.jpg">
           <source type="image/webp" srcset="images/medavakkam/1.webp">
-          <img src="images/medavakkam/1.jpg" alt="Madipakkam Saravana Stores, Medavakkam store front" loading="lazy" width="1500" height="1437">
+          <img width="1600" height="1533" src="images/medavakkam/1.jpg" alt="Madipakkam Saravana Stores, Medavakkam store front" loading="lazy">
         </picture>
         <div class="container slide-inner">
           <p class="eyebrow"><span data-ta="மேடவாக்கம்">Medavakkam</span><span class="dot"></span><span data-ta="புதிய கடை – 2023">New store – 2023</span></p>
@@ -1173,9 +1178,9 @@
 
         <article class="cat-card reveal" id="cat-steel">
           <div class="cat-media">
-            <img class="cat-main" src="images/medavakkam/thumbs/10.webp" alt="Stainless steel vessels on display" loading="lazy">
-            <img src="images/medavakkam/thumbs/13.webp" alt="Steel plates and bowls" loading="lazy">
-            <img src="images/medavakkam/thumbs/12.webp" alt="Kudam and anda" loading="lazy">
+            <img width="720" height="537" class="cat-main" src="images/medavakkam/thumbs/10.webp" srcset="images/medavakkam/small/10.webp 480w, images/medavakkam/thumbs/10.webp 720w" sizes="(max-width: 559px) 270px, 420px" alt="Stainless steel vessels on display" loading="lazy">
+            <img width="720" height="537" src="images/medavakkam/thumbs/13.webp" srcset="images/medavakkam/mini/13.webp 240w, images/medavakkam/small/13.webp 480w, images/medavakkam/thumbs/13.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Steel plates and bowls" loading="lazy">
+            <img width="720" height="537" src="images/medavakkam/thumbs/12.webp" srcset="images/medavakkam/mini/12.webp 240w, images/medavakkam/small/12.webp 480w, images/medavakkam/thumbs/12.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Kudam and anda" loading="lazy">
             <span class="cat-num">01</span>
           </div>
           <div class="cat-body">
@@ -1195,9 +1200,9 @@
 
         <article class="cat-card reveal" id="cat-cookware">
           <div class="cat-media">
-            <img class="cat-main" src="images/madipakkam/thumbs/4.webp" alt="Cookware and appliance display" loading="lazy">
-            <img src="images/madipakkam/thumbs/2.webp" alt="Mixer grinders" loading="lazy">
-            <img src="images/medavakkam/thumbs/9.webp" alt="Pressure cookers" loading="lazy">
+            <img width="720" height="537" class="cat-main" src="images/madipakkam/thumbs/4.webp" srcset="images/madipakkam/small/4.webp 480w, images/madipakkam/thumbs/4.webp 720w" sizes="(max-width: 559px) 270px, 420px" alt="Cookware and appliance display" loading="lazy">
+            <img width="720" height="537" src="images/madipakkam/thumbs/2.webp" srcset="images/madipakkam/mini/2.webp 240w, images/madipakkam/small/2.webp 480w, images/madipakkam/thumbs/2.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Mixer grinders" loading="lazy">
+            <img width="720" height="537" src="images/medavakkam/thumbs/9.webp" srcset="images/medavakkam/mini/9.webp 240w, images/medavakkam/small/9.webp 480w, images/medavakkam/thumbs/9.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Pressure cookers" loading="lazy">
             <span class="cat-num">02</span>
           </div>
           <div class="cat-body">
@@ -1217,9 +1222,9 @@
 
         <article class="cat-card reveal" id="cat-plastics">
           <div class="cat-media">
-            <img class="cat-main" src="images/madipakkam/thumbs/13.webp" alt="Plastic buckets, tubs and baskets" loading="lazy">
-            <img src="images/madipakkam/thumbs/14.webp" alt="Plastic baskets and crates" loading="lazy">
-            <img src="images/madipakkam/thumbs/15.webp" alt="Plastic chairs and stools" loading="lazy">
+            <img width="720" height="399" class="cat-main" src="images/madipakkam/thumbs/13.webp" srcset="images/madipakkam/small/13.webp 480w, images/madipakkam/thumbs/13.webp 720w" sizes="(max-width: 559px) 270px, 420px" alt="Plastic buckets, tubs and baskets" loading="lazy">
+            <img width="720" height="403" src="images/madipakkam/thumbs/14.webp" srcset="images/madipakkam/mini/14.webp 240w, images/madipakkam/small/14.webp 480w, images/madipakkam/thumbs/14.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Plastic baskets and crates" loading="lazy">
+            <img width="720" height="403" src="images/madipakkam/thumbs/15.webp" srcset="images/madipakkam/mini/15.webp 240w, images/madipakkam/small/15.webp 480w, images/madipakkam/thumbs/15.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Plastic chairs and stools" loading="lazy">
             <span class="cat-num">03</span>
           </div>
           <div class="cat-body">
@@ -1239,9 +1244,9 @@
 
         <article class="cat-card reveal" id="cat-pooja">
           <div class="cat-media">
-            <img class="cat-main" src="images/medavakkam/thumbs/3.webp" alt="Brass vilakku and pooja items" loading="lazy">
-            <img src="images/medavakkam/thumbs/7.webp" alt="Brass lamps" loading="lazy">
-            <img src="images/madipakkam/thumbs/6.webp" alt="Pooja and brass aisle" loading="lazy">
+            <img width="720" height="537" class="cat-main" src="images/medavakkam/thumbs/3.webp" srcset="images/medavakkam/small/3.webp 480w, images/medavakkam/thumbs/3.webp 720w" sizes="(max-width: 559px) 270px, 420px" alt="Brass vilakku and pooja items" loading="lazy">
+            <img width="720" height="537" src="images/medavakkam/thumbs/7.webp" srcset="images/medavakkam/mini/7.webp 240w, images/medavakkam/small/7.webp 480w, images/medavakkam/thumbs/7.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Brass lamps" loading="lazy">
+            <img width="720" height="961" src="images/madipakkam/thumbs/6.webp" srcset="images/madipakkam/mini/6.webp 240w, images/madipakkam/small/6.webp 480w, images/madipakkam/thumbs/6.webp 720w" sizes="(max-width: 559px) 135px, 210px" alt="Pooja and brass aisle" loading="lazy">
             <span class="cat-num">04</span>
           </div>
           <div class="cat-body">
@@ -1328,14 +1333,14 @@
   <section class="section section-mist" id="occasions">
     <div class="container">
       <div class="section-head reveal">
-        <img class="head-emblem" src="brand/kalash.svg" alt="" aria-hidden="true" loading="lazy">
+        <img width="220" height="260" class="head-emblem" src="brand/kalash.svg" alt="" aria-hidden="true" loading="lazy">
         <p class="kicker" data-ta="விசேஷங்களுக்கு">Shop by occasion</p>
         <h2 data-ta="ஒவ்வொரு விசேஷத்திற்கும், சரியான பாத்திரங்கள்">The right vessels for every occasion</h2>
         <p class="section-sub" data-ta="சொல்லுங்கள் – பட்டியல் தயார் செய்து, விலை சொல்லி, எந்த அளவையும் ஒரே நாளில் இலவசமாக டெலிவரி செய்கிறோம்.">Tell us the occasion – we'll help with the list, quote a price and deliver any quantity free, in one day.</p>
       </div>
       <div class="occ-highlights">
         <div class="occ-feature reveal">
-          <img class="occ-feature-bg" src="images/medavakkam/thumbs/9.webp" alt="" loading="lazy">
+          <img width="720" height="537" class="occ-feature-bg" src="images/medavakkam/thumbs/9.webp" srcset="images/medavakkam/small/9.webp 480w, images/medavakkam/thumbs/9.webp 720w" sizes="(max-width: 759px) 280px, 560px" alt="" loading="lazy">
           <div class="occ-feature-body">
             <span class="occ-feature-tag" data-ta="அதிகம் கேட்கப்படுவது">Most asked</span>
             <h3 data-ta="பட்ஜெட்டுக்குள் முழு சீர் வரிசை செட்">Build a complete seer set within your budget</h3>
@@ -1346,7 +1351,7 @@
           </div>
         </div>
         <div class="occ-feature occ-feature-gold reveal">
-          <img class="occ-feature-bg" src="images/medavakkam/thumbs/7.webp" alt="" loading="lazy">
+          <img width="720" height="537" class="occ-feature-bg" src="images/medavakkam/thumbs/7.webp" srcset="images/medavakkam/small/7.webp 480w, images/medavakkam/thumbs/7.webp 720w" sizes="(max-width: 759px) 280px, 560px" alt="" loading="lazy">
           <div class="occ-feature-body">
             <span class="occ-feature-tag" data-ta="புதிய வீடு">New home</span>
             <h3 data-ta="பட்ஜெட்டுக்குள் புதிய வீட்டுக்குத் தேவையானவை">Everything for your new home, under a budget</h3>
@@ -1359,7 +1364,7 @@
       </div>
       <div class="occasion-grid occ-v2">
         <article class="occasion reveal" id="occ-weddings">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/12.webp" alt="Aluminium and steel cooking vessels for weddings" loading="lazy"><span class="occ-tag" data-ta="மொத்த ஆர்டர்">Bulk ready</span></div>
+          <div class="occasion-media"><img width="720" height="537" src="images/medavakkam/thumbs/12.webp" srcset="images/medavakkam/small/12.webp 480w, images/medavakkam/thumbs/12.webp 720w" sizes="(max-width: 559px) 260px, 365px" alt="Aluminium and steel cooking vessels for weddings" loading="lazy"><span class="occ-tag" data-ta="மொத்த ஆர்டர்">Bulk ready</span></div>
           <div class="occasion-body">
             <h3 data-ta="திருமணம்">Weddings</h3>
             <p data-ta="திருமண சமையலுக்கும் புதிய வீட்டுக்கும் சமையல் பாத்திரங்கள், டின்னர் செட் மற்றும் பரிமாறும் பாத்திரங்கள்.">Cooking vessels, dinner sets and serving ware for the wedding kitchen and the new home.</p>
@@ -1367,7 +1372,7 @@
           </div>
         </article>
         <article class="occasion reveal" id="occ-seer">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/9.webp" alt="Pressure cookers and vessels for seer varisai" loading="lazy"><span class="occ-tag" data-ta="முழு செட்">Full sets</span></div>
+          <div class="occasion-media"><img width="720" height="537" src="images/medavakkam/thumbs/9.webp" srcset="images/medavakkam/small/9.webp 480w, images/medavakkam/thumbs/9.webp 720w" sizes="(max-width: 559px) 260px, 365px" alt="Pressure cookers and vessels for seer varisai" loading="lazy"><span class="occ-tag" data-ta="முழு செட்">Full sets</span></div>
           <div class="occasion-body">
             <h3 data-ta="சீர் வரிசை">Seer varisai</h3>
             <p data-ta="குடம், அண்டா, குத்து விளக்கு மற்றும் முழு சீர் செட் – தயார் செய்து, பேக் செய்து டெலிவரி.">Kudam, anda, kuthu vilakku and full seer sets – prepared, packed and delivered.</p>
@@ -1375,7 +1380,7 @@
           </div>
         </article>
         <article class="occasion reveal" id="occ-housewarming">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/7.webp" alt="Brass vilakku and pooja items for housewarming" loading="lazy"><span class="occ-tag" data-ta="பித்தளை & பூஜை">Brass &amp; pooja</span></div>
+          <div class="occasion-media"><img width="720" height="537" src="images/medavakkam/thumbs/7.webp" srcset="images/medavakkam/small/7.webp 480w, images/medavakkam/thumbs/7.webp 720w" sizes="(max-width: 559px) 260px, 365px" alt="Brass vilakku and pooja items for housewarming" loading="lazy"><span class="occ-tag" data-ta="பித்தளை & பூஜை">Brass &amp; pooja</span></div>
           <div class="occasion-body">
             <h3 data-ta="கிரகப்பிரவேசம்">Housewarming</h3>
             <p data-ta="பித்தளை விளக்கு, பூஜை செட், புதிய பானைகள் மற்றும் முழு சமையலறை செட்.">Brass vilakku, pooja sets, new pots and a complete starter kitchen.</p>
@@ -1383,7 +1388,7 @@
           </div>
         </article>
         <article class="occasion reveal" id="occ-gifts">
-          <div class="occasion-media"><img src="images/medavakkam/thumbs/5.webp" alt="Flasks and tiffin boxes for return gifts" loading="lazy"><span class="occ-tag" data-ta="எந்த அளவும்">Any quantity</span></div>
+          <div class="occasion-media"><img width="720" height="537" src="images/medavakkam/thumbs/5.webp" srcset="images/medavakkam/small/5.webp 480w, images/medavakkam/thumbs/5.webp 720w" sizes="(max-width: 559px) 260px, 365px" alt="Flasks and tiffin boxes for return gifts" loading="lazy"><span class="occ-tag" data-ta="எந்த அளவும்">Any quantity</span></div>
           <div class="occasion-body">
             <h3 data-ta="ரிட்டர்ன் கிஃப்ட்">Return gifts</h3>
             <p data-ta="டிபன் பாக்ஸ், ஃபிளாஸ்க், எவர்சில்வர் தட்டு மற்றும் கிண்ணங்கள் – எந்த அளவிலும், ஒரே நாளில் தயார்.">Tiffin boxes, flasks, steel plates and bowls – any quantity, ready in one day.</p>
@@ -1391,7 +1396,7 @@
           </div>
         </article>
         <article class="occasion reveal" id="occ-festivals">
-          <div class="occasion-media"><img src="images/madipakkam/thumbs/6.webp" alt="Brass lamps and festival vessels" loading="lazy"><span class="occ-tag" data-ta="பண்டிகை">Festive</span></div>
+          <div class="occasion-media"><img width="720" height="961" src="images/madipakkam/thumbs/6.webp" srcset="images/madipakkam/small/6.webp 480w, images/madipakkam/thumbs/6.webp 720w" sizes="(max-width: 559px) 260px, 365px" alt="Brass lamps and festival vessels" loading="lazy"><span class="occ-tag" data-ta="பண்டிகை">Festive</span></div>
           <div class="occasion-body">
             <h3 data-ta="பண்டிகை & பூஜை">Festivals &amp; pooja</h3>
             <p data-ta="தீபாவளி, கார்த்திகை தீபம், பொங்கல் மற்றும் அனைத்து பூஜைகளுக்கும் – விளக்குகள், தட்டுகள் மற்றும் பண்டிகை பாத்திரங்கள்.">Deepavali, Karthigai Deepam, Pongal and every pooja – lamps, plates and festival vessels.</p>
@@ -1399,7 +1404,7 @@
           </div>
         </article>
         <article class="occasion reveal" id="occ-kitchen">
-          <div class="occasion-media"><img src="images/madipakkam/thumbs/8.webp" alt="Wet grinders, mixies and stoves for a new kitchen" loading="lazy"><span class="occ-tag" data-ta="ஒரே இடத்தில்">One visit</span></div>
+          <div class="occasion-media"><img width="720" height="398" src="images/madipakkam/thumbs/8.webp" srcset="images/madipakkam/small/8.webp 480w, images/madipakkam/thumbs/8.webp 720w" sizes="(max-width: 559px) 260px, 365px" alt="Wet grinders, mixies and stoves for a new kitchen" loading="lazy"><span class="occ-tag" data-ta="ஒரே இடத்தில்">One visit</span></div>
           <div class="occasion-body">
             <h3 data-ta="புதிய வீட்டு சமையலறை">New home kitchen</h3>
             <p data-ta="புதிதாக சமையலறை அமைக்கிறீர்களா? குக்கர், அடுப்பு, மிக்ஸி மற்றும் அனைத்து பாத்திரங்களும் ஒரே இடத்தில்.">Setting up a kitchen from scratch? Cookers, stoves, mixies and every utensil in one visit.</p>
@@ -1451,11 +1456,11 @@
       <div class="about">
         <div class="about-collage reveal">
           <figure class="collage-main">
-            <img src="images/madipakkam/thumbs/1.webp" alt="Madipakkam store front" loading="lazy" width="800" height="448">
+            <img width="760" height="322" src="images/madipakkam/thumbs/1.webp" alt="Madipakkam store front" loading="lazy">
             <figcaption><strong data-ta="மடிப்பாக்கம்">Madipakkam</strong><span>1980</span></figcaption>
           </figure>
           <figure class="collage-side">
-            <img src="images/medavakkam/thumbs/1.webp" alt="Medavakkam store front" loading="lazy" width="800" height="600">
+            <img width="760" height="728" src="images/medavakkam/thumbs/1.webp" alt="Medavakkam store front" loading="lazy">
             <figcaption><strong data-ta="மேடவாக்கம்">Medavakkam</strong><span>2023</span></figcaption>
           </figure>
           <div class="since-seal" aria-label="Since 1980">
@@ -1556,9 +1561,9 @@
 
   <!-- QUOTE BAND -->
   <section class="quote-band" id="quote">
-    <img class="quote-bg" src="images/madipakkam/5.webp" alt="Stainless steel vessel aisle at Madipakkam Saravana Stores" loading="lazy" width="1600" height="905">
-    <img class="quote-lamp quote-lamp-l" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
-    <img class="quote-lamp quote-lamp-r" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
+    <img width="1400" height="792" class="quote-bg" src="images/madipakkam/5.webp" alt="Stainless steel vessel aisle at Madipakkam Saravana Stores" loading="lazy">
+    <img width="200" height="470" class="quote-lamp quote-lamp-l" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
+    <img width="200" height="470" class="quote-lamp quote-lamp-r" src="brand/vilakku.svg" alt="" aria-hidden="true" loading="lazy">
     <div class="container quote-inner reveal">
       <span class="quote-mark" aria-hidden="true">&ldquo;</span>
       <p class="kicker" data-ta="அனைத்து சமையலறை பாத்திரங்களும்">Every kitchen utensil</p>
@@ -1591,7 +1596,7 @@
 
         <article class="store reveal" id="madipakkam">
           <div class="store-media">
-            <img src="images/madipakkam/thumbs/1.webp" alt="Madipakkam store front" loading="lazy" width="800" height="448">
+            <img width="760" height="322" src="images/madipakkam/thumbs/1.webp" alt="Madipakkam store front" loading="lazy">
             <span class="badge" data-ta="1980 முதல்">Since 1980</span>
           </div>
           <div class="store-body">
@@ -1614,7 +1619,7 @@
 
         <article class="store reveal" id="medavakkam">
           <div class="store-media">
-            <img src="images/medavakkam/thumbs/1.webp" alt="Medavakkam store front" loading="lazy" width="800" height="600">
+            <img width="760" height="728" src="images/medavakkam/thumbs/1.webp" alt="Medavakkam store front" loading="lazy">
             <span class="badge badge-new" data-ta="புதிய கிளை – 2023">New store – 2023</span>
           </div>
           <div class="store-body">
@@ -1731,20 +1736,20 @@
       </ul>
     </div>
     <div>
-      <h4 data-ta="மடிப்பாக்கம்">Madipakkam</h4>
+      <h3 data-ta="மடிப்பாக்கம்">Madipakkam</h3>
       <address data-ta="கடை எண் 2, மேடவாக்கம் மெயின் ரோடு, பாதாள விநாயகர் கோவில் அருகில், மடிப்பாக்கம், சென்னை – 600091">Shop No. 2, Medavakkam Main Road, near Pathala Vinayagar Kovil, Madipakkam, Chennai – 600091</address>
       <a href="tel:+919698471616">96984 71616</a>
       <a href="https://maps.app.goo.gl/Lc5Mn1nZLhLbLNLt5" target="_blank" rel="noopener" data-ta="வழி காட்டு →">Get directions →</a>
     </div>
     <div>
-      <h4 data-ta="மேடவாக்கம்">Medavakkam</h4>
+      <h3 data-ta="மேடவாக்கம்">Medavakkam</h3>
       <address data-ta="2/2H, மேடவாக்கம் மெயின் ரோடு, ஆஞ்சநேயர் கோவில் அருகில், யுனைடெட் காலனி, பெல் நகர், மேடவாக்கம், சென்னை – 600100">2/2H, Medavakkam Main Road, near Anjaneyar Kovil, United Colony, BHEL Nagar, Medavakkam, Chennai – 600100</address>
       <a href="tel:+919444577336">94445 77336</a>
       <a href="https://maps.app.goo.gl/SWVrHgRHAYiuGCfy9" target="_blank" rel="noopener" data-ta="வழி காட்டு →">Get directions →</a>
     </div>
   </div>
   <nav class="container footer-cats" aria-label="Shop by category">
-    <h4 data-ta="வகைகள் – விலையுடன்">Shop by category – with prices</h4>
+    <h3 data-ta="வகைகள் – விலையுடன்">Shop by category – with prices</h3>
     <ul>
       <li><a href="stainless-steel-vessels.html" data-ta="எவர்சில்வர் பாத்திரங்கள்">Stainless steel vessels</a></li>
       <li><a href="cookware.html" data-ta="சமையல் பாத்திரங்கள்">Cookware</a></li>

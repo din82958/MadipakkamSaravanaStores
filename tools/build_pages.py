@@ -7,10 +7,11 @@ Writes:
   <category>.html                    – one page per category (CATEGORIES below) listing every item with
                                        its price, so Google can find them (the catalogue itself is built in the browser)
   sitemap.xml                        – every page, for Google Search Console
+  css/site.min.css                   – all of CSS_FILES in one small file (one download instead of eight)
 
 The header, menu, footer, phone action bar and dialogs come from index.html, so they only
-need editing in one place. Run this again after changing any of those files or after
-tools/build_catalogue.py (which runs it for you).
+need editing in one place. Run this again after changing any of those files, any file in css/,
+or after tools/build_catalogue.py (which runs it for you).
 """
 import html
 import json
@@ -22,6 +23,9 @@ from urllib.parse import quote_plus
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOMAIN = 'https://madipakkamsaravanastores.in'   # same as the CNAME file
 BRAND = 'Madipakkam Saravana Stores'
+
+# Stylesheets combined into css/site.min.css, in this order (later files override earlier ones)
+CSS_FILES = ['style.css', 'v2.css', 'v3.css', 'animations.css', 'premium.css', 'texture.css', 'catalogue.css', 'mobile.css']
 
 PAGES = {
     'catalogue': {
@@ -126,6 +130,22 @@ CATEGORIES = [
 
 PRICE_NOTE = ('<p class="price-notice"><svg class="ico"><use href="#i-tag"/></svg><span data-ta="விலைகள் மாறலாம். குறிப்பிட்ட விலைகள் தோராயமானவை – '
               'சரியான விலைக்கு கடையைத் தொடர்பு கொள்ளுங்கள்.">Prices may vary. Mentioned prices are approximate – contact the store for exact prices.</span></p>')
+
+
+# ---------- one stylesheet ----------
+def build_css():
+    """Join CSS_FILES and strip comments and spare spaces (text inside quotes is left exactly as it is)."""
+    css = '\n'.join(open(os.path.join(SITE, 'css', f), encoding='utf-8').read() for f in CSS_FILES)
+    css = re.sub(r'/\*.*?\*/', '', css, flags=re.S)
+    parts = re.split(r'''("(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*')''', css)   # odd items are quoted strings
+    for i in range(0, len(parts), 2):
+        t = re.sub(r'\s+', ' ', parts[i])
+        t = re.sub(r' ?([{};,>]) ?', r'\1', t)
+        parts[i] = t.replace(';}', '}')
+    out = ''.join(parts).strip() + '\n'
+    header = f'/* Built by tools/build_pages.py from css/{", css/".join(CSS_FILES)} – edit those, not this file. */\n'
+    open(os.path.join(SITE, 'css', 'site.min.css'), 'w', encoding='utf-8').write(header + out)
+    print(f'Wrote css/site.min.css ({len(out) // 1024} KB from {len(css) // 1024} KB)')
 
 
 # ---------- helpers ----------
@@ -357,6 +377,7 @@ def write_sitemap(built, by_cat):
 
 def main():
     index = open(os.path.join(SITE, 'index.html'), encoding='utf-8').read()
+    build_css()
     built, by_cat = load_catalogue()
 
     for name, meta in PAGES.items():
