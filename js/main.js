@@ -63,13 +63,15 @@ hero.style.setProperty('--slide-ms', SLIDE_MS + 'ms');
 
 function goToSlide(i) {
   slideIndex = (i + slides.length) % slides.length;
-  slides.forEach((s, k) => { s.classList.toggle('is-active', k === slideIndex); s.setAttribute('aria-hidden', k !== slideIndex); });
+  // inert: the hidden slide's buttons can't be reached with Tab either
+  slides.forEach((s, k) => { s.classList.toggle('is-active', k === slideIndex); s.setAttribute('aria-hidden', k !== slideIndex); s.inert = k !== slideIndex; });
   dots.forEach((d, k) => {
     d.classList.remove('is-active');
     d.setAttribute('aria-selected', k === slideIndex);
   });
-  void hero.offsetWidth;                       // restart the progress-bar animation
-  dots[slideIndex].classList.add('is-active');
+  // restart the progress-bar animation on the next frame (reading offsetWidth here forced a full layout during page load)
+  const dot = dots[slideIndex];
+  requestAnimationFrame(() => requestAnimationFrame(() => { if (dots[slideIndex] === dot) dot.classList.add('is-active'); }));
   restartTimer();
 }
 function restartTimer() {
@@ -414,7 +416,7 @@ function goSeason(i) {
   const cards = seasonCards();
   if (!cards.length) return;
   seasonCur = (i + cards.length) % cards.length;
-  cards.forEach((c, k) => { c.classList.toggle('is-active', k === seasonCur); c.setAttribute('aria-hidden', k !== seasonCur); });
+  cards.forEach((c, k) => { c.classList.toggle('is-active', k === seasonCur); c.setAttribute('aria-hidden', k !== seasonCur); c.inert = k !== seasonCur; });
   $$('.season-dot', seasonDots).forEach((d, k) => d.classList.toggle('is-active', k === seasonCur));
 }
 function startSeasonAuto() {
@@ -713,7 +715,8 @@ if (isBack && savedY !== null) {
 } else if (!location.hash) { toTop(); window.addEventListener('load', toTop); }
 
 // ===== Splash screen =====
-// Plays its intro for at least ~2.3s, then lifts once the page has loaded (never waits more than 5s).
+// Plays a short intro and lifts ~1.3s after the page starts loading. It doesn't wait for photos or the
+// Google tag to finish – the page underneath is already drawn, and a longer wait hurt the PageSpeed score.
 (function () {
   // Played once per visit (see the script in <head>): remembered for the rest of the browsing session
   try { sessionStorage.setItem('splashSeen', '1'); } catch (e) {}
@@ -723,19 +726,11 @@ if (isBack && savedY !== null) {
   if (isBack || document.documentElement.classList.contains('is-back')) {
     splash.remove(); document.documentElement.classList.remove('is-loading'); return;
   }
-  const MIN_MS = reduceMotion ? 600 : 2300;   // measured from the start of the page load
-  let done = false;
-  function finish() {
-    if (done) return;
-    done = true;
-    const wait = Math.max(0, MIN_MS - performance.now());
-    setTimeout(() => {
-      splash.classList.add('is-done');
-      document.documentElement.classList.remove('is-loading');
-      setTimeout(() => splash.remove(), 1400);
-    }, wait);
-  }
-  if (document.readyState === 'complete') finish();
-  else window.addEventListener('load', finish);
-  setTimeout(finish, 5000);
+  const MIN_MS = reduceMotion ? 600 : 1300;   // measured from the start of the page load
+  const wait = Math.max(0, MIN_MS - performance.now());
+  setTimeout(() => {
+    splash.classList.add('is-done');
+    document.documentElement.classList.remove('is-loading');
+    setTimeout(() => splash.remove(), 1150);
+  }, wait);
 })();
