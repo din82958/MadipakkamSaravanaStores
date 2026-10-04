@@ -235,7 +235,8 @@ def write_page(name, title, description, content, index, extra_head='', main_cla
 
 
 # ---------- shared blocks ----------
-def category_links(by_cat, current=None):
+def category_links(by_cat, current=None, featured=False):
+    """Cards linking to the category pages. featured=True: the highlighted band at the top of the catalogue."""
     cards = []
     for c in CATEGORIES:
         if c['key'] == current or not by_cat.get(c['key']):
@@ -249,6 +250,18 @@ def category_links(by_cat, current=None):
           <small>{len(items)} items · from {rupees(lo)}</small></span>
           <svg class="ico seo-cat-arrow"><use href="#i-arrow"/></svg>
         </a>''')
+    if featured:
+        total = sum(len(by_cat.get(c['key']) or []) for c in CATEGORIES)
+        return f'''      <nav class="seo-cats seo-cats-top" aria-label="Categories">
+        <div class="seo-top-head">
+          <p class="seo-top-kicker" data-ta="வகை வாரியாக">Shop by category</p>
+          <h2 class="seo-h2" data-ta="வகை வாரியாகப் பாருங்கள் – விலையுடன்">Browse by category – with prices</h2>
+          <p class="seo-top-sub" data-ta="ஒவ்வொரு வகைக்கும் தனிப் பக்கம் – அனைத்துப் பொருட்களும் விலையுடன்.">{total:,} items, one page per category – every item with its price.</p>
+        </div>
+        <div class="seo-cat-grid">
+{chr(10).join(cards)}
+        </div>
+      </nav>'''
     heading = ('<h2 class="seo-h2" data-ta="மற்ற வகைகள்">More categories</h2>' if current
                else '<h2 class="seo-h2" data-ta="வகை வாரியாகப் பாருங்கள் – விலையுடன்">Browse by category – with prices</h2>')
     return f'''      <nav class="seo-cats reveal" aria-label="Categories">
@@ -383,7 +396,7 @@ def main():
     for name, meta in PAGES.items():
         content = open(os.path.join(SITE, 'pages', name + '.html'), encoding='utf-8').read()
         content = re.sub(r'^<!--.*?-->\n', '', content, count=1, flags=re.S)   # drop the editing note
-        content = content.replace('      <!-- CATEGORY LINKS: filled in by tools/build_pages.py -->', category_links(by_cat))
+        content = content.replace('      <!-- CATEGORY LINKS: filled in by tools/build_pages.py -->', category_links(by_cat, featured=True))
         ld = {'@context': 'https://schema.org', '@graph': [
             crumbs_ld([('Home', ''), (meta['crumb'], f'{name}.html')]),
             {'@type': 'CollectionPage' if name == 'catalogue' else 'WebPage', '@id': f'{DOMAIN}/{name}.html',

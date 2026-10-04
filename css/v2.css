@@ -277,8 +277,8 @@ html[lang="ta"] .legacy-stats strong { font-size: 1.6rem; }
 @media (min-width: 861px) { .season-card { grid-template-columns: 1.1fr 1fr; } }
 
 /* =========================================================
-   Splash screen – red panel, white wordmark, motion-graphic intro.
-   Only shown when JS runs (html.js); js/main.js lifts it after load.
+   Splash screen – red panel, white wordmark, motion-graphic intro (~1.2s).
+   Only shown when JS runs (html.js); js/main.js lifts it ~1.3s after the page starts.
    ========================================================= */
 .splash { display: none; }
 .js .splash { display: block; position: fixed; inset: 0; z-index: 9999; pointer-events: none; }
@@ -297,7 +297,7 @@ html[lang="ta"] .legacy-stats strong { font-size: 1.6rem; }
   position: absolute; right: -4%; top: 50%; transform: translateY(-50%) scale(1.2); transform-origin: right center;
   font-family: "Cormorant Garamond", Georgia, serif; font-weight: 600; font-size: clamp(11rem, 44vw, 32rem); line-height: 1;
   color: transparent; -webkit-text-stroke: 1.5px rgba(255,255,255,.14); opacity: 0; user-select: none;
-  animation: spBg 2.6s var(--ease) forwards;
+  animation: spBg 1.6s var(--ease) forwards;
 }
 /* Wordmark set exactly like the header logo: small spaced top line, bold uppercase name, left aligned */
 .splash-content {
@@ -307,22 +307,22 @@ html[lang="ta"] .legacy-stats strong { font-size: 1.6rem; }
   transition: transform .7s var(--ease), opacity .5s;
 }
 .splash-top { display: flex; margin: 0; font-size: calc(var(--logo) * .5); font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
-.splash-top span { display: inline-block; opacity: 0; transform: translateY(14px); animation: spUp .55s var(--ease) forwards; animation-delay: calc(120ms + var(--i) * 45ms); }
+.splash-top span { display: inline-block; opacity: 0; transform: translateY(14px); animation: spUp .45s var(--ease) forwards; animation-delay: calc(60ms + var(--i) * 30ms); }
 .splash-main { margin: calc(var(--logo) * .12) 0 0; font-size: var(--logo); font-weight: 800; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; line-height: 1.05; }
 .splash-main .sw { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: .06em; }
 .splash-main .sw > span {
   display: inline-block; transform: translateY(110%);
   background: linear-gradient(110deg, #fff 42%, #ffd2d4 50%, #fff 58%); background-size: 260% 100%; background-position: 100% 0;
   -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: spRise .8s cubic-bezier(.2,.8,.2,1) forwards, spShine 1.1s ease-in-out 1.35s forwards;
+  animation: spRise .6s cubic-bezier(.2,.8,.2,1) forwards, spShine .7s ease-in-out .75s forwards;
 }
-.splash-main .sw:nth-child(1) > span { animation-delay: .45s, 1.35s; }
-.splash-main .sw:nth-child(2) > span { animation-delay: .6s, 1.45s; }
-.splash-line { display: block; width: min(320px, 55vw); height: 2px; margin: calc(var(--logo) * .4) 0 calc(var(--logo) * .3); background: #fff; transform: scaleX(0); transform-origin: left; animation: spLine .7s cubic-bezier(.7,0,.2,1) 1s forwards; }
+.splash-main .sw:nth-child(1) > span { animation-delay: .25s, .75s; }
+.splash-main .sw:nth-child(2) > span { animation-delay: .35s, .82s; }
+.splash-line { display: block; width: min(320px, 55vw); height: 2px; margin: calc(var(--logo) * .4) 0 calc(var(--logo) * .3); background: #fff; transform: scaleX(0); transform-origin: left; animation: spLine .5s cubic-bezier(.7,0,.2,1) .55s forwards; }
 .splash-since {
   margin: 0; display: flex; align-items: center; gap: 12px;
   font-family: "Jost", "Mukta Malar", system-ui, sans-serif; font-size: clamp(.72rem, 2.6vw, .9rem); font-weight: 500; letter-spacing: .28em;
-  opacity: 0; animation: spSince .8s var(--ease) 1.25s forwards;
+  opacity: 0; animation: spSince .5s var(--ease) .7s forwards;
 }
 .splash-since i { width: 5px; height: 5px; border-radius: 50%; background: #fff; }
 .splash-bar { position: absolute; left: max(20px, calc((100% - 1180px) / 2 + 20px)); bottom: calc(48px + env(safe-area-inset-bottom)); width: 120px; height: 2px; background: rgba(255,255,255,.25); overflow: hidden; }
